@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chuanxz.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="ArrayList 和 LinkedList 区别List 是 Java 的一个接口，常见的实现类有**ArrayList**和**LinkedList**。  底层：前者的底层数据结构是数组，后者是链表 添加删除：ArrayList插入删除受元素位置影响，LinkedList是链表不受影响。 查找：ArrayList支持高效随机访问，LinkedList不支持。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java集合">
+<meta property="og:url" content="http://chuanxz.com/2022/05/12/code/Java/Java%E9%9B%86%E5%90%88/index.html">
+<meta property="og:site_name" content="山止川行">
+<meta property="og:description" content="ArrayList 和 LinkedList 区别List 是 Java 的一个接口，常见的实现类有**ArrayList**和**LinkedList**。  底层：前者的底层数据结构是数组，后者是链表 添加删除：ArrayList插入删除受元素位置影响，LinkedList是链表不受影响。 查找：ArrayList支持高效随机访问，LinkedList不支持。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-05-11T23:57:31.000Z">
+<meta property="article:modified_time" content="2022-06-02T14:50:21.792Z">
+<meta property="article:author" content="川行子">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://chuanxz.com/2022/05/12/code/Java/Java%E9%9B%86%E5%90%88/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java集合 | 山止川行</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">山止川行</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">川のBlog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-link">
+
+    <a href="/link/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+	  <a target="_blank" rel="noopener" href="https://github.com/chuanxz" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://chuanxz.com/2022/05/12/code/Java/Java%E9%9B%86%E5%90%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpg">
+      <meta itemprop="name" content="川行子">
+      <meta itemprop="description" content="一生想做浪漫极客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="山止川行">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java集合
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-05-12 07:57:31" itemprop="dateCreated datePublished" datetime="2022-05-12T07:57:31+08:00">2022-05-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-06-02 22:50:21" itemprop="dateModified" datetime="2022-06-02T22:50:21+08:00">2022-06-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">编程学习</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java%E6%A0%B8%E5%BF%83/" itemprop="url" rel="index"><span itemprop="name">Java核心</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="ArrayList-和-LinkedList-区别"><a href="#ArrayList-和-LinkedList-区别" class="headerlink" title="ArrayList 和 LinkedList 区别"></a>ArrayList 和 LinkedList 区别</h2><p>List 是 Java 的一个接口，常见的实现类有<code>**ArrayList**</code>和<code>**LinkedList**</code>。</p>
+<ul>
+<li><strong>底层：</strong>前者的底层数据结构是<strong>数组</strong>，后者是<strong>链表</strong></li>
+<li><strong>添加删除：</strong><code>ArrayList</code>插入删除受元素位置影响，<code>LinkedList</code>是链表不受影响。</li>
+<li><strong>查找：</strong><code>ArrayList</code>支持高效随机访问，<code>LinkedList</code>不支持。</li>
+</ul>
+<h2 id="ArrayList-动态扩容"><a href="#ArrayList-动态扩容" class="headerlink" title="ArrayList 动态扩容*"></a>ArrayList 动态扩容*</h2><p><code>ArrayList</code>相比 List 的优点在于<strong>动态扩容</strong>。在源码中，有一个<code>grow</code>方法，每一次扩容原来的 1.5 倍，扩容完后调用<code>arraycopy</code>对数组进行拷贝。<br><code>ArrayList</code>增删底层调用的<code>copyOf()</code>被优化过，现代 CPU 对内存可以块操作，增删一点不比<code>LinkedList</code>慢。</p>
+<h2 id="ArrayList-与-Vector-区别，前者为什么取代后者？"><a href="#ArrayList-与-Vector-区别，前者为什么取代后者？" class="headerlink" title="ArrayList 与 Vector 区别，前者为什么取代后者？"></a>ArrayList 与 Vector 区别，前者为什么取代后者？</h2><ol>
+<li><strong>线程安全</strong>：<code>Vector</code>底层使用<code>Synchronized</code>实现线程同步，相比于<code>ArrayList</code>是线程安全的。</li>
+<li><strong>性能</strong>：但也因此<code>Vector</code>在性能上不如<code>ArrayList</code>。</li>
+<li><strong>扩容</strong>：<code>Vector</code>扩容为原来的 2 倍，而<code>ArrayList</code>只有 1.5 倍。</li>
+</ol>
+<p>所以，在不需要线程安全的情况下优先使用<code>ArrayList</code>。</p>
+<h2 id="CopyOnWriteArrayList"><a href="#CopyOnWriteArrayList" class="headerlink" title="CopyOnWriteArrayList*"></a>CopyOnWriteArrayList*</h2><p>线程安全：<strong>CopyOnWriteArrayList</strong>。（在并发环境下需要使用线程安全的<code>ArrayList</code>进行修改操作，官方不推荐使用<code>Vector</code>）<br><code>CopyOnWriteArrayList</code>源码解析：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44840161/article/details/100177165?spm=1001.2101.3001.6650.4&utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-4.pc_relevant_antiscan&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-4.pc_relevant_antiscan&utm_relevant_index=8">外链</a></p>
+<h2 id="HashMap，HashTable-区别"><a href="#HashMap，HashTable-区别" class="headerlink" title="HashMap，HashTable 区别"></a>HashMap，HashTable 区别</h2><ul>
+<li>线程安全：<code>HashMap</code>非线程安全，<code>HashTable</code>线程安全，内部方法经过<code>synchronized</code>，但！<code>HashTable</code>基本被淘汰，要保证线程安全请使用<code>ConcurrentHashMap</code>。</li>
+<li>效率：因为线程安全问题，<code>HashMap</code>效率比<code>HashTable</code>高</li>
+<li>底层：JDK1.8 后优化了<code>HashMap</code>解决哈希冲突，链表大于阈值 8 时（数组小于 64 先进行数组扩容），链表转为红黑树，增加搜索效率，<code>Hashtable</code>没有这个机制</li>
+</ul>
+<h2 id="HashSet-如何检查重复"><a href="#HashSet-如何检查重复" class="headerlink" title="HashSet 如何检查重复*"></a>HashSet 如何检查重复*</h2><p>摘自《Head first java》第二版：</p>
+<blockquote>
+<p>当你把对象加入 HashSet 时，HashSet 会先计算对象的 hashcode 值来判断对象加入的位置，同时也会与其他加入的对象的 hashcode 值作比较，如果没有相符的 hashcode，HashSet 会假设对象没有重复出现。但是如果发现有相同 hashcode 值的对象，这时会调用 equals()方法来检查 hashcode 相等的对象是否真的相同。如果两者相同，HashSet 就不会让加入操作成功。</p>
+</blockquote>
+<h2 id="重写-equals-方法为什么要重写-hashCode"><a href="#重写-equals-方法为什么要重写-hashCode" class="headerlink" title="重写 equals 方法为什么要重写 hashCode"></a>重写 equals 方法为什么要重写 hashCode</h2><p><code>**hashcode()**</code><strong>与</strong><code>**equals()**</code><strong>的相关规定：</strong></p>
+<ol>
+<li>如果两个对象相等，则<code>hashcode</code> 一定也是相同的</li>
+<li>两个对象相等，对两个<code>equals()</code> 方法返回 true</li>
+<li>两个对象有相同的<code>hashcode</code>值，它们也不一定是相等的</li>
+</ol>
+<p>如果没有重写<code>hashCode()</code>，即使<code>equals()</code>判断为相同的两个对象，在加入<code>HashSet</code>时也不会被认为是重复对象。</p>
+<h2 id="Map-的几种实现类"><a href="#Map-的几种实现类" class="headerlink" title="Map 的几种实现类"></a>Map 的几种实现类</h2><p>Map 是 Java 的一个接口，常见的实现类<code>HashMap</code>、<code>LinkedHashMap</code>，<code>TreeMap</code>、<code>ConcurrentHashMap</code>。</p>
+<table>
+<thead>
+<tr>
+<th>HashMap</th>
+<th>数组+链表&#x2F;红黑树</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LinkedHashMap</td>
+<td>数组+链表+双向链表</td>
+</tr>
+<tr>
+<td>TreeMap</td>
+<td>红黑树</td>
+</tr>
+<tr>
+<td>ConcurrentHashMap</td>
+<td>数组+链表&#x2F;红黑树</td>
+</tr>
+</tbody></table>
+<h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><p><code>**HashMap**</code>有几个构造方法，最主要的是指定初始值以及负载因子的大小，默认大小为 16，负载因子为 0.75，大小只能是 2 次幂的。<br>负载因子决定哈希表的扩容和哈希冲突。负载因子太高意味着哈希冲突概率增高，更耗时。<br>数组大于 64 且链表大于 8 时，链表改为红黑树，当红黑树大小为 6 时退化为链表。链表查询时间复杂度 O(N)，插入 O(1)。红黑树查询插入 O(logN)。</p>
+<h2 id="HashMap-长度为什么必须是-2-的幂次方"><a href="#HashMap-长度为什么必须是-2-的幂次方" class="headerlink" title="HashMap 长度为什么必须是 2 的幂次方"></a>HashMap 长度为什么必须是 2 的幂次方</h2><p>首先查看<code>HashMap</code>源码中的<code>putVal</code>方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> V <span class="title function_">putVal</span><span class="params">(<span class="type">int</span> hash, K key, V value, <span class="type">boolean</span> onlyIfAbsent,</span></span><br><span class="line"><span class="params">                      <span class="type">boolean</span> evict)</span> &#123;</span><br><span class="line">           Node&lt;K,V&gt;[] tab;</span><br><span class="line">           Node&lt;K,V&gt; p;</span><br><span class="line">           <span class="type">int</span> n, i;</span><br><span class="line">           <span class="keyword">if</span> ((tab = table) == <span class="literal">null</span> || (n = tab.length) == <span class="number">0</span>)</span><br><span class="line">               n = (tab = resize()).length;</span><br><span class="line">           <span class="keyword">if</span> ((p = tab[i = (n - <span class="number">1</span>) &amp; hash]) == <span class="literal">null</span>)</span><br><span class="line">               tab[i] = newNode(hash, key, value, <span class="literal">null</span>);</span><br><span class="line">           <span class="keyword">else</span> &#123;</span><br><span class="line">               ...<span class="comment">//次处省略大量代码</span></span><br><span class="line">           &#125;</span><br><span class="line">           ++modCount;</span><br><span class="line">           <span class="keyword">if</span> (++size &gt; threshold)</span><br><span class="line">               resize();</span><br><span class="line">           afterNodeInsertion(evict);</span><br><span class="line">           <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意这个<code>(n - 1) &amp; hash</code>的作用：在<code>HashMap</code>中，为了存取高效，需要尽量<strong>减少碰撞</strong>，即将数据<strong>均匀分配</strong>在数组中。但是<code>Hash</code>值的范围有 40 亿映射空间（-2147483648<del>2147483647），无法直接存储，需要进行取模计算下标，因此有了<code>(n - 1) &amp; hash</code>这个计算方法，因为采用了二进制操作符&amp;，显而易见 HashMap 的长度必须是 2 的幂次方了</del></p>
+<h2 id="ConcurrentHashMap-和-HashTable-区别"><a href="#ConcurrentHashMap-和-HashTable-区别" class="headerlink" title="ConcurrentHashMap 和 HashTable 区别"></a><strong>ConcurrentHashMap 和 HashTable 区别</strong></h2><p>上面说<code>HashTable</code>基本上被淘汰了，要保证线程安全请使用<code>ConcurrentHashMap</code>，显然在功能上已然取代了前者，两者的区别主要体现在<strong>实现线程安全的方式</strong>不同</p>
+<ul>
+<li>底层数据结构：<ul>
+<li><code>ConcurrentHashMap</code>在 JDK1.7 中采用<strong>分段数组+链表</strong>的实现，JDK1.8 采用<strong>数组+链表&#x2F;红黑二叉树</strong></li>
+<li><code>HashTable</code>仅采用<strong>数组+链表</strong>的形式</li>
+</ul>
+</li>
+<li>实现线程安全方式：<ul>
+<li><code>ConcurrentHashMap</code>在 JDK1.8 使用<code>Node</code>数组+链表+红黑树的数据结构，并发控制使用 synchronized 和 CAS 来操作。</li>
+<li>使用<code>synchronized</code>保证线程安全，效率低下</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/11/interview/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E7%AE%80%E5%8E%86/" rel="prev" title="如何写好简历">
+      <i class="fa fa-chevron-left"></i> 如何写好简历
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/05/12/code/Java/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="next" title="Java多线程">
+      Java多线程 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ArrayList-%E5%92%8C-LinkedList-%E5%8C%BA%E5%88%AB"><span class="nav-number">1.</span> <span class="nav-text">ArrayList 和 LinkedList 区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ArrayList-%E5%8A%A8%E6%80%81%E6%89%A9%E5%AE%B9"><span class="nav-number">2.</span> <span class="nav-text">ArrayList 动态扩容*</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ArrayList-%E4%B8%8E-Vector-%E5%8C%BA%E5%88%AB%EF%BC%8C%E5%89%8D%E8%80%85%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%96%E4%BB%A3%E5%90%8E%E8%80%85%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">ArrayList 与 Vector 区别，前者为什么取代后者？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CopyOnWriteArrayList"><span class="nav-number">4.</span> <span class="nav-text">CopyOnWriteArrayList*</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap%EF%BC%8CHashTable-%E5%8C%BA%E5%88%AB"><span class="nav-number">5.</span> <span class="nav-text">HashMap，HashTable 区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashSet-%E5%A6%82%E4%BD%95%E6%A3%80%E6%9F%A5%E9%87%8D%E5%A4%8D"><span class="nav-number">6.</span> <span class="nav-text">HashSet 如何检查重复*</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E5%86%99-equals-%E6%96%B9%E6%B3%95%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%87%8D%E5%86%99-hashCode"><span class="nav-number">7.</span> <span class="nav-text">重写 equals 方法为什么要重写 hashCode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Map-%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E7%B1%BB"><span class="nav-number">8.</span> <span class="nav-text">Map 的几种实现类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap"><span class="nav-number">9.</span> <span class="nav-text">HashMap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap-%E9%95%BF%E5%BA%A6%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%85%E9%A1%BB%E6%98%AF-2-%E7%9A%84%E5%B9%82%E6%AC%A1%E6%96%B9"><span class="nav-number">10.</span> <span class="nav-text">HashMap 长度为什么必须是 2 的幂次方</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConcurrentHashMap-%E5%92%8C-HashTable-%E5%8C%BA%E5%88%AB"><span class="nav-number">11.</span> <span class="nav-text">ConcurrentHashMap 和 HashTable 区别</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="川行子"
+      src="/images/me.jpg">
+  <p class="site-author-name" itemprop="name">川行子</p>
+  <div class="site-description" itemprop="description">一生想做浪漫极客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chuanxz" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chuanxz" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">川行子</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
