@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chuanxz.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="通过 hm-dianping 项目复习一下开发过程中常用的一些注解。  基础⭐ 自动装配">
+<meta property="og:type" content="article">
+<meta property="og:title" content="注解复习">
+<meta property="og:url" content="http://chuanxz.com/2022/05/07/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Spring/%E6%B3%A8%E8%A7%A3%E5%A4%8D%E4%B9%A0/index.html">
+<meta property="og:site_name" content="山止川行">
+<meta property="og:description" content="通过 hm-dianping 项目复习一下开发过程中常用的一些注解。  基础⭐ 自动装配">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1653566490531-2b645f94-84a0-442a-9ae4-b890cb39f1b6.png#clientId=u99531a57-24bc-4&crop=0&crop=0&crop=1&crop=1&from=drop&height=162&id=ufba17256&margin=%5Bobject%20Object%5D&name=2021090920055022.png&originHeight=203&originWidth=436&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=18295&status=done&style=none&taskId=u36d4e6e7-a1f9-401f-90bd-9ee3a5e3a18&title=&width=348">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1653566501508-15d72c83-f873-4acc-b43c-043e25265bc1.png#clientId=u99531a57-24bc-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=173&id=ufa01f640&margin=%5Bobject%20Object%5D&name=image.png&originHeight=265&originWidth=907&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=38293&status=done&style=none&taskId=ubcba6d6b-cd4e-4907-bd2a-718788b1af7&title=&width=593">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1653566515423-2cf11d8c-a4ab-45ff-a3a7-fc861e044b0b.png#clientId=u99531a57-24bc-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=167&id=u8695f1ff&margin=%5Bobject%20Object%5D&name=image.png&originHeight=219&originWidth=778&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=41622&status=done&style=none&taskId=u82233b7f-3c39-44b8-a389-92888940c33&title=&width=594">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1653566591611-c4f231fe-47a5-46b1-8e7c-479746f91929.png#clientId=u99531a57-24bc-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=166&id=uf71a7c46&margin=%5Bobject%20Object%5D&name=image.png&originHeight=231&originWidth=826&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=38097&status=done&style=none&taskId=uafdedecd-2a92-4a86-9ad6-26985e7cdd9&title=&width=592">
+<meta property="article:published_time" content="2022-05-07T01:46:54.000Z">
+<meta property="article:modified_time" content="2022-06-02T15:24:15.291Z">
+<meta property="article:author" content="川行子">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1653566490531-2b645f94-84a0-442a-9ae4-b890cb39f1b6.png#clientId=u99531a57-24bc-4&crop=0&crop=0&crop=1&crop=1&from=drop&height=162&id=ufba17256&margin=%5Bobject%20Object%5D&name=2021090920055022.png&originHeight=203&originWidth=436&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=18295&status=done&style=none&taskId=u36d4e6e7-a1f9-401f-90bd-9ee3a5e3a18&title=&width=348">
+
+<link rel="canonical" href="http://chuanxz.com/2022/05/07/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Spring/%E6%B3%A8%E8%A7%A3%E5%A4%8D%E4%B9%A0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>注解复习 | 山止川行</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">山止川行</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">川のBlog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-link">
+
+    <a href="/link/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+	  <a target="_blank" rel="noopener" href="https://github.com/chuanxz" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://chuanxz.com/2022/05/07/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Spring/%E6%B3%A8%E8%A7%A3%E5%A4%8D%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpg">
+      <meta itemprop="name" content="川行子">
+      <meta itemprop="description" content="一生想做浪漫极客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="山止川行">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          注解复习
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-05-07 09:46:54" itemprop="dateCreated datePublished" datetime="2022-05-07T09:46:54+08:00">2022-05-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-06-02 23:24:15" itemprop="dateModified" datetime="2022-06-02T23:24:15+08:00">2022-06-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">编程学习</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Spring%E6%A1%86%E6%9E%B6/" itemprop="url" rel="index"><span itemprop="name">Spring框架</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>通过 hm-dianping 项目复习一下开发过程中常用的一些注解。</p>
+</blockquote>
+<h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><h3 id="⭐-自动装配"><a href="#⭐-自动装配" class="headerlink" title="⭐ 自动装配"></a>⭐ 自动装配</h3><p>什么是自动装配？使用 SpringBoot 时，会自动将 Bean 装配到容器中（依赖注入）。<br><strong>友情链接：</strong><a target="_blank" rel="noopener" href="https://baijiahao.baidu.com/s?id=1725265949551075777%ED%94%B4=spider&for=pc">SpringBoot 自动装配原理及分析</a></p>
+<h4 id="SpringBootApplication"><a href="#SpringBootApplication" class="headerlink" title="@SpringBootApplication"></a>@SpringBootApplication</h4><p><code>@SpringBootApplication</code>注解包括以下三个注解：</p>
+<ul>
+<li><code>@ComponentScan</code>：扫描<strong>本包</strong>下的所有路径，读取<code>@Service</code>等注解标识的类到 Spring 容器。</li>
+<li><code>@Configuration</code>：在 IoC 中讲过用法，可以通过<code>@Bean</code>注解往 Spring 容器中配置类。</li>
+<li><code>@EnableAutoConfiguration</code>：自动读取通过<code>@Bean</code>注解配置好的类，并且到<code>classpath</code>指定的路径读取配资好的类，将控制权教给 Spring 容器</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringBootApp</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(SpringBootApp.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Bean-和-Component"><a href="#Bean-和-Component" class="headerlink" title="@Bean 和 @Component"></a>@Bean 和 @Component</h4><p>@Bean 注解作用于方法，产生一个 Bean 对象，交给 Spring 管理。<br>@Componet 注解作用于类</p>
+<p>@Bean 主要用在@Configuration 和@Commponent 注解的类里。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MybatisConfig</span> &#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> MybatisPlusInterceptor <span class="title function_">mybatisPlusInterceptor</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">MybatisPlusInterceptor</span> <span class="variable">interceptor</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MybatisPlusInterceptor</span>();</span><br><span class="line">        interceptor.addInnerInterceptor(<span class="keyword">new</span> <span class="title class_">PaginationInnerInterceptor</span>(DbType.MYSQL));</span><br><span class="line">        <span class="keyword">return</span> interceptor;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RedissonConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> RedissonClient <span class="title function_">redissonClient</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">// 配置</span></span><br><span class="line">        <span class="type">Config</span> <span class="variable">config</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Config</span>();</span><br><span class="line">        config.useSingleServer().setAddress(<span class="string">&quot;redis://localhost:6379&quot;</span>);</span><br><span class="line">        <span class="comment">// 创建RedissonClient对象</span></span><br><span class="line">        <span class="keyword">return</span> Redisson.create(config);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Autowired"><a href="#Autowired" class="headerlink" title="@Autowired"></a>@Autowired</h4><p>默认按类型自动装配，相同类型有多个 bean（一个接口有多个实现类）会报错<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1123881/1653566490531-2b645f94-84a0-442a-9ae4-b890cb39f1b6.png#clientId=u99531a57-24bc-4&crop=0&crop=0&crop=1&crop=1&from=drop&height=162&id=ufba17256&margin=%5Bobject%20Object%5D&name=2021090920055022.png&originHeight=203&originWidth=436&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=18295&status=done&style=none&taskId=u36d4e6e7-a1f9-401f-90bd-9ee3a5e3a18&title=&width=348" alt="2021090920055022.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/1123881/1653566501508-15d72c83-f873-4acc-b43c-043e25265bc1.png#clientId=u99531a57-24bc-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=173&id=ufa01f640&margin=%5Bobject%20Object%5D&name=image.png&originHeight=265&originWidth=907&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=38293&status=done&style=none&taskId=ubcba6d6b-cd4e-4907-bd2a-718788b1af7&title=&width=593" alt="image.png"><br>加上@Qualifier 可以根据 byName 方式自动装配。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1123881/1653566515423-2cf11d8c-a4ab-45ff-a3a7-fc861e044b0b.png#clientId=u99531a57-24bc-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=167&id=u8695f1ff&margin=%5Bobject%20Object%5D&name=image.png&originHeight=219&originWidth=778&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=41622&status=done&style=none&taskId=u82233b7f-3c39-44b8-a389-92888940c33&title=&width=594" alt="image.png"></p>
+<h4 id="Resource"><a href="#Resource" class="headerlink" title="@Resource"></a>@Resource</h4><p>默认按名称自动装配，比@Autowired 好用！不需要额外操作。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1123881/1653566591611-c4f231fe-47a5-46b1-8e7c-479746f91929.png#clientId=u99531a57-24bc-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=166&id=uf71a7c46&margin=%5Bobject%20Object%5D&name=image.png&originHeight=231&originWidth=826&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=38097&status=done&style=none&taskId=uafdedecd-2a92-4a86-9ad6-26985e7cdd9&title=&width=592" alt="image.png"><br>⭐<strong>友情链接：</strong><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40301026/article/details/93647875">对@Resource 和@Service 使用的理解和总结</a></p>
+<h2 id="流程相关"><a href="#流程相关" class="headerlink" title="流程相关"></a>流程相关</h2><h3 id="Config"><a href="#Config" class="headerlink" title="Config"></a>Config</h3><p>配置类中用到的注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MvcConfig</span> <span class="keyword">implements</span> <span class="title class_">WebMvcConfigurer</span> &#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> StringRedisTemplate stringRedisTemplate;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> &#123;</span><br><span class="line">        <span class="comment">// 登录拦截器</span></span><br><span class="line">        registry.addInterceptor(<span class="keyword">new</span> <span class="title class_">LoginInterceptor</span>())</span><br><span class="line">                .excludePathPatterns(</span><br><span class="line">                        <span class="string">&quot;/shop/**&quot;</span>,</span><br><span class="line">                        <span class="string">&quot;/voucher/**&quot;</span>,</span><br><span class="line">                        <span class="string">&quot;/shop-type/**&quot;</span>,</span><br><span class="line">                        <span class="string">&quot;/upload/**&quot;</span>,</span><br><span class="line">                        <span class="string">&quot;/blog/hot&quot;</span>,</span><br><span class="line">                        <span class="string">&quot;/user/code&quot;</span>,</span><br><span class="line">                        <span class="string">&quot;/user/login&quot;</span></span><br><span class="line">                ).order(<span class="number">1</span>);</span><br><span class="line">        <span class="comment">// token刷新的拦截器</span></span><br><span class="line">        registry.addInterceptor(<span class="keyword">new</span> <span class="title class_">RefreshTokenInterceptor</span>(stringRedisTemplate)).addPathPatterns(<span class="string">&quot;/**&quot;</span>).order(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Configuration"><a href="#Configuration" class="headerlink" title="@Configuration"></a>@Configuration</h4><p>用于定义配置类，可替换 XML 配置文件。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@RestControllerAdvice</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WebExceptionAdvice</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ExceptionHandler(RuntimeException.class)</span></span><br><span class="line">    <span class="keyword">public</span> Result <span class="title function_">handleRuntimeException</span><span class="params">(RuntimeException e)</span> &#123;</span><br><span class="line">        log.error(e.toString(), e);</span><br><span class="line">        <span class="keyword">return</span> Result.fail(<span class="string">&quot;服务器异常&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/follow&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FollowController</span> &#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> IFollowService followService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PutMapping(&quot;/&#123;id&#125;/&#123;isFollow&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> Result <span class="title function_">follow</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> Long followUserId, <span class="meta">@PathVariable(&quot;isFollow&quot;)</span> Boolean isFollow)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> followService.follow(followUserId, isFollow);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@GetMapping(&quot;/or/not/&#123;id&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> Result <span class="title function_">isFollow</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> Long followUserId)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> followService.isFollow(followUserId);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/common/&#123;id&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> Result <span class="title function_">followCommons</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span>Long id)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> followService.followCommons(id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="RestController"><a href="#RestController" class="headerlink" title="@RestController"></a>@RestController</h4><p>相当于@Controller+@ResponseBody<br>@Controller：单独使用，一般用于返回视图情况，属于比较传统的 Spring MVC 应用，前后端不分离。<br>@ResponseBody：方法返回值以指定格式写入 HTTP response body，而不是解析为跳转路径。</p>
+<h4 id="PostMapping"><a href="#PostMapping" class="headerlink" title="@PostMapping"></a>@PostMapping</h4><p>映射 HTTP POST 请求，一般是对服务器做改变，常用来数据的提交、新增</p>
+<h4 id="GetMapping"><a href="#GetMapping" class="headerlink" title="@GetMapping"></a>@GetMapping</h4><p>映射 HTTP GET 请求，获取数据，只查询</p>
+<h4 id="PutMapping"><a href="#PutMapping" class="headerlink" title="@PutMapping"></a>@PutMapping</h4><p>映射 HTTP PUT 请求，和 POST 请求一样都会改变服务器数据，但 PUT 侧重对数据的修改</p>
+<h4 id="DeleteMapping"><a href="#DeleteMapping" class="headerlink" title="@DeleteMapping"></a>@DeleteMapping</h4><p>映射 HTTP DELETE 请求，删除服务器资源</p>
+<h4 id="RequestMapping"><a href="#RequestMapping" class="headerlink" title="@RequestMapping"></a>@RequestMapping</h4><p>映射请求，可直接替代上面几个，但不便于他人对代码的阅读和理解，建议区分开来，养成好的代码习惯。</p>
+<h3 id="Entity-x2F-DTO"><a href="#Entity-x2F-DTO" class="headerlink" title="Entity&#x2F;DTO"></a>Entity&#x2F;DTO</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Result</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Boolean success;</span><br><span class="line">    <span class="keyword">private</span> String errorMsg;</span><br><span class="line">    <span class="keyword">private</span> Object data;</span><br><span class="line">    <span class="keyword">private</span> Long total;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Result <span class="title function_">ok</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Result</span>(<span class="literal">true</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Result <span class="title function_">ok</span><span class="params">(Object data)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Result</span>(<span class="literal">true</span>, <span class="literal">null</span>, data, <span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Result <span class="title function_">ok</span><span class="params">(List&lt;?&gt; data, Long total)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Result</span>(<span class="literal">true</span>, <span class="literal">null</span>, data, total);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Result <span class="title function_">fail</span><span class="params">(String errorMsg)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Result</span>(<span class="literal">false</span>, errorMsg, <span class="literal">null</span>, <span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>以下三个是 lombok 的注解</p>
+</blockquote>
+<h4 id="Data"><a href="#Data" class="headerlink" title="@Data"></a>@Data</h4><p>用在实体 bean 上，不需要写 set 和 get<br>&#x3D; @Getter @Setter @RequiredArgsConstructor @ToString @EqualsAndHashCode</p>
+<h4 id="NoArgsConstructor"><a href="#NoArgsConstructor" class="headerlink" title="@NoArgsConstructor"></a>@NoArgsConstructor</h4><p>无参构造函数</p>
+<h4 id="AllArgsConstructor"><a href="#AllArgsConstructor" class="headerlink" title="@AllArgsConstructor"></a>@AllArgsConstructor</h4><p>全参构造函数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@EqualsAndHashCode(callSuper = false)</span></span><br><span class="line"><span class="meta">@Accessors(chain = true)</span></span><br><span class="line"><span class="meta">@TableName(&quot;tb_follow&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Follow</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span> <span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 主键</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@TableId(value = &quot;id&quot;, type = IdType.AUTO)</span></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户id</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Long userId;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 关联的用户id</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Long followUserId;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建时间</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> LocalDateTime createTime;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">@<span class="built_in">EqualsAndHashCode</span>(callSuper = <span class="literal">false</span>)</span><br><span class="line">@<span class="built_in">Accessors</span>(chain = <span class="literal">true</span>)</span><br><span class="line">@<span class="built_in">TableName</span>(<span class="string">&quot;tb_follow&quot;</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Follow</span> implements Serializable &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">static</span> <span class="keyword">final</span> <span class="type">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 主键</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    @<span class="built_in">TableId</span>(value = <span class="string">&quot;id&quot;</span>, type = IdType.AUTO)</span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户id</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Long userId;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 关联的用户id</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Long followUserId;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建时间</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> LocalDateTime createTime;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="EqualAndHashCode"><a href="#EqualAndHashCode" class="headerlink" title="@EqualAndHashCode"></a>@EqualAndHashCode</h4><p>引申问题：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1jb4y1r7yd?spm_id_from=333.337.search-card.all.click">重写 equals 为什么要重写 hashcode？</a><br>生成 equals()和 hashCode()<br><code>@EqualsAndHashCode(callSuper = false)</code>：不会比较其继承的父类的属性（<strong>只对比子类附加的属性</strong>）可能会导致错误判断；<br><code>@EqualsAndHashCode(callSuper = true)</code>：会比较其继承的父类的属性；</p>
+<h4 id="Accessors"><a href="#Accessors" class="headerlink" title="@Accessors"></a>@Accessors</h4><p><code>@Accessors(chain=true)</code>：开启链式访问</p>
+<h4 id="TableName"><a href="#TableName" class="headerlink" title="@TableName"></a>@TableName</h4><p>mybatis-plus 中的注解，主要是实现实体类型和数据库中的表实现映射</p>
+<h3 id="Impl"><a href="#Impl" class="headerlink" title="Impl"></a>Impl</h3><h4 id="Service"><a href="#Service" class="headerlink" title="@Service"></a>@Service</h4><p>标记当前类是一个 service 类，自动注入到 spring 容器</p>
+<h2 id="事务注解"><a href="#事务注解" class="headerlink" title="事务注解"></a>事务注解</h2><h4 id="Transaction"><a href="#Transaction" class="headerlink" title="@Transaction"></a>@Transaction</h4><p>友情链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u013929527/article/details/102596243">@Transactional 的使用</a></p>
+<h2 id="AoP-注解"><a href="#AoP-注解" class="headerlink" title="AoP 注解"></a>AoP 注解</h2><p>友情链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/a13253516370/article/details/109860507">注解方式使用 AOP</a></p>
+<h3 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h3><ul>
+<li>Aspect（切面）</li>
+<li>Joinpoint（连接点）</li>
+<li>Pointcut（切入点）</li>
+<li>Advice（通知&#x2F;增强）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>术语</strong></th>
+<th><strong>注解</strong></th>
+<th><strong>执行时间点</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>前置通知</td>
+<td>@Before</td>
+<td>在方法之前执行</td>
+</tr>
+<tr>
+<td>后置通知</td>
+<td>@After</td>
+<td>在方法之后执行</td>
+</tr>
+<tr>
+<td>异常通知</td>
+<td>@AfterThrowing</td>
+<td>方法出现异常时执行</td>
+</tr>
+<tr>
+<td>最终通知</td>
+<td>@AfterReturning</td>
+<td>方法返回后执行</td>
+</tr>
+<tr>
+<td>环绕通知</td>
+<td>@Around</td>
+<td>方法之前和之后执行</td>
+</tr>
+</tbody></table>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>自定义切面注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Documented</span><span class="comment">//说明该注解将被包含在javadoc中</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span><span class="comment">// 注解会在class字节码文件中存在，在运行时可以通过反射获取到</span></span><br><span class="line"><span class="meta">@Target(&#123;ElementType.METHOD, ElementType.PARAMETER&#125;)</span><span class="comment">//@Target：定义注解的作用目标，方法和方法参数</span></span><br><span class="line"><span class="meta">@Inherited</span><span class="comment">//说明子类可以继承父类中的该注解</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SysLog &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>自定义切面</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LogAspect</span> &#123;</span><br><span class="line">    <span class="meta">@Pointcut(&quot;@annotation(com.yyhd.javap.aop.SysLog)&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sysLog</span><span class="params">()</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before(&quot;sysLog()&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span>  <span class="title function_">logAspect</span><span class="params">(JoinPoint joinPoint)</span> &#123;</span><br><span class="line">        System.out.println(joinPoint.getSignature().getName() + <span class="string">&quot;收到的参数为&quot;</span> + Arrays.toString(joinPoint.getArgs()));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在切入点加上注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CommodityAopController</span> &#123;</span><br><span class="line">    <span class="meta">@SysLog</span></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/commodity/counts&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getCommodityCounts</span><span class="params">(String commodityName)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;100&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/commodity/counts2&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getCommodityCounts</span> <span class="params">(String commodityName, String abc)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/a13253516370/article/details/109860507">
+</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/03/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java/JVM%E7%BA%BF%E4%B8%8A%E6%95%85%E9%9A%9C/" rel="prev" title="JVM线上故障">
+      <i class="fa fa-chevron-left"></i> JVM线上故障
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/05/10/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/408/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" rel="next" title="组成原理">
+      组成原理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%AD%90-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D"><span class="nav-number">1.1.</span> <span class="nav-text">⭐ 自动装配</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SpringBootApplication"><span class="nav-number">1.1.1.</span> <span class="nav-text">@SpringBootApplication</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Bean-%E5%92%8C-Component"><span class="nav-number">1.1.2.</span> <span class="nav-text">@Bean 和 @Component</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Autowired"><span class="nav-number">1.1.3.</span> <span class="nav-text">@Autowired</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Resource"><span class="nav-number">1.1.4.</span> <span class="nav-text">@Resource</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E7%9B%B8%E5%85%B3"><span class="nav-number">2.</span> <span class="nav-text">流程相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Config"><span class="nav-number">2.1.</span> <span class="nav-text">Config</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Configuration"><span class="nav-number">2.1.1.</span> <span class="nav-text">@Configuration</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Controller"><span class="nav-number">2.2.</span> <span class="nav-text">Controller</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RestController"><span class="nav-number">2.2.1.</span> <span class="nav-text">@RestController</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PostMapping"><span class="nav-number">2.2.2.</span> <span class="nav-text">@PostMapping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GetMapping"><span class="nav-number">2.2.3.</span> <span class="nav-text">@GetMapping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PutMapping"><span class="nav-number">2.2.4.</span> <span class="nav-text">@PutMapping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DeleteMapping"><span class="nav-number">2.2.5.</span> <span class="nav-text">@DeleteMapping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RequestMapping"><span class="nav-number">2.2.6.</span> <span class="nav-text">@RequestMapping</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Entity-x2F-DTO"><span class="nav-number">2.3.</span> <span class="nav-text">Entity&#x2F;DTO</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Data"><span class="nav-number">2.3.1.</span> <span class="nav-text">@Data</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NoArgsConstructor"><span class="nav-number">2.3.2.</span> <span class="nav-text">@NoArgsConstructor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AllArgsConstructor"><span class="nav-number">2.3.3.</span> <span class="nav-text">@AllArgsConstructor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EqualAndHashCode"><span class="nav-number">2.3.4.</span> <span class="nav-text">@EqualAndHashCode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Accessors"><span class="nav-number">2.3.5.</span> <span class="nav-text">@Accessors</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TableName"><span class="nav-number">2.3.6.</span> <span class="nav-text">@TableName</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Impl"><span class="nav-number">2.4.</span> <span class="nav-text">Impl</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Service"><span class="nav-number">2.4.1.</span> <span class="nav-text">@Service</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E6%B3%A8%E8%A7%A3"><span class="nav-number">3.</span> <span class="nav-text">事务注解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Transaction"><span class="nav-number">3.0.1.</span> <span class="nav-text">@Transaction</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AoP-%E6%B3%A8%E8%A7%A3"><span class="nav-number">4.</span> <span class="nav-text">AoP 注解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AF%E8%AF%AD"><span class="nav-number">4.1.</span> <span class="nav-text">术语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">4.2.</span> <span class="nav-text">实例</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="川行子"
+      src="/images/me.jpg">
+  <p class="site-author-name" itemprop="name">川行子</p>
+  <div class="site-description" itemprop="description">一生想做浪漫极客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chuanxz" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chuanxz" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">川行子</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
