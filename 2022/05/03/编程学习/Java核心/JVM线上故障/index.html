@@ -17,13 +17,13 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"chuanxz.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"chuanxz.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="内存泄漏 &amp; 溢出概念内存泄漏：被分配的内存无法回收，指无法再提供内存资源。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM线上故障">
-<meta property="og:url" content="http://chuanxz.com/2022/05/03/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java%E6%A0%B8%E5%BF%83/JVM%E7%BA%BF%E4%B8%8A%E6%95%85%E9%9A%9C/index.html">
+<meta property="og:url" content="http://chuanxz.github.io/2022/05/03/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java%E6%A0%B8%E5%BF%83/JVM%E7%BA%BF%E4%B8%8A%E6%95%85%E9%9A%9C/index.html">
 <meta property="og:site_name" content="山止川行">
 <meta property="og:description" content="内存泄漏 &amp; 溢出概念内存泄漏：被分配的内存无法回收，指无法再提供内存资源。">
 <meta property="og:locale" content="zh_CN">
@@ -35,7 +35,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1653878930194-88dc6265-b5ff-4930-8b6b-48fe6e16e580.png">
 
-<link rel="canonical" href="http://chuanxz.com/2022/05/03/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java%E6%A0%B8%E5%BF%83/JVM%E7%BA%BF%E4%B8%8A%E6%95%85%E9%9A%9C/">
+<link rel="canonical" href="http://chuanxz.github.io/2022/05/03/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java%E6%A0%B8%E5%BF%83/JVM%E7%BA%BF%E4%B8%8A%E6%95%85%E9%9A%9C/">
 
 
 <script id="page-configurations">
@@ -175,7 +175,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://chuanxz.com/2022/05/03/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java%E6%A0%B8%E5%BF%83/JVM%E7%BA%BF%E4%B8%8A%E6%95%85%E9%9A%9C/">
+    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2022/05/03/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java%E6%A0%B8%E5%BF%83/JVM%E7%BA%BF%E4%B8%8A%E6%95%85%E9%9A%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/me.jpg">

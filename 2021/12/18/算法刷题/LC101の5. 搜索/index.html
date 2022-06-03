@@ -17,13 +17,13 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"chuanxz.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"chuanxz.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="深度优先搜索深度优先搜索（depth-first seach，DFS）在搜索到一个新的节点时，立即对该新节点进行遍历；因此遍历需要用先入后出的栈来实现，也可以通过与栈等价的递归来实现。对于树结构而言，由于总是对新节点调用遍历，因此看起来是向着“深”的方向前进。 深度优先搜索也可以用来检测环路，有时我们可能会需要对已经搜索过的节点进行标记，以防止在遍历时重复搜索某个节点，这 种做法叫做状态记录或记忆">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LC101の5. 搜索">
-<meta property="og:url" content="http://chuanxz.com/2021/12/18/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/LC101%E3%81%AE5.%20%E6%90%9C%E7%B4%A2/index.html">
+<meta property="og:url" content="http://chuanxz.github.io/2021/12/18/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/LC101%E3%81%AE5.%20%E6%90%9C%E7%B4%A2/index.html">
 <meta property="og:site_name" content="山止川行">
 <meta property="og:description" content="深度优先搜索深度优先搜索（depth-first seach，DFS）在搜索到一个新的节点时，立即对该新节点进行遍历；因此遍历需要用先入后出的栈来实现，也可以通过与栈等价的递归来实现。对于树结构而言，由于总是对新节点调用遍历，因此看起来是向着“深”的方向前进。 深度优先搜索也可以用来检测环路，有时我们可能会需要对已经搜索过的节点进行标记，以防止在遍历时重复搜索某个节点，这 种做法叫做状态记录或记忆">
 <meta property="og:locale" content="zh_CN">
@@ -34,7 +34,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1639979307409-c69a8cac-6578-48a1-8351-291b7939fd58.jpeg">
 
-<link rel="canonical" href="http://chuanxz.com/2021/12/18/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/LC101%E3%81%AE5.%20%E6%90%9C%E7%B4%A2/">
+<link rel="canonical" href="http://chuanxz.github.io/2021/12/18/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/LC101%E3%81%AE5.%20%E6%90%9C%E7%B4%A2/">
 
 
 <script id="page-configurations">
@@ -174,7 +174,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://chuanxz.com/2021/12/18/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/LC101%E3%81%AE5.%20%E6%90%9C%E7%B4%A2/">
+    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2021/12/18/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/LC101%E3%81%AE5.%20%E6%90%9C%E7%B4%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/me.jpg">
