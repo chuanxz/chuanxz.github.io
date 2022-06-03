@@ -20,17 +20,23 @@
     var CONFIG = {"hostname":"chuanxz.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="一生想做浪漫极客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="山止川行">
-<meta property="og:url" content="http://chuanxz.github.io/categories/%E9%9D%A2%E8%AF%95/index.html">
+  <meta name="description" content="环境版本 git 2.35.1.windows.2jdk 1.8mysql 8Redis-x64-5.0.14.1Maven 3.6.3node v16.13.2Nacos 2.0  官方文档">
+<meta property="og:type" content="article">
+<meta property="og:title" content="若依の环境部署(本地).md">
+<meta property="og:url" content="http://chuanxz.github.io/2022/03/03/%E9%A1%B9%E7%9B%AE/%E8%8B%A5%E4%BE%9D%E3%81%AE%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2(%E6%9C%AC%E5%9C%B0)/index.html">
 <meta property="og:site_name" content="山止川行">
-<meta property="og:description" content="一生想做浪漫极客">
+<meta property="og:description" content="环境版本 git 2.35.1.windows.2jdk 1.8mysql 8Redis-x64-5.0.14.1Maven 3.6.3node v16.13.2Nacos 2.0  官方文档">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1646292432599-d3f43cc2-0441-421e-94b9-6c4894dffb49.png">
+<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1646292437674-df469fef-fe74-4368-8d36-7f2ff096199a.png">
+<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1646292682889-ebe16913-872b-43aa-af04-30052a7fe4a1.png">
+<meta property="article:published_time" content="2022-03-03T07:18:23.000Z">
+<meta property="article:modified_time" content="2022-06-03T07:30:54.592Z">
 <meta property="article:author" content="川行子">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1646292432599-d3f43cc2-0441-421e-94b9-6c4894dffb49.png">
 
-<link rel="canonical" href="http://chuanxz.github.io/categories/%E9%9D%A2%E8%AF%95/">
+<link rel="canonical" href="http://chuanxz.github.io/2022/03/03/%E9%A1%B9%E7%9B%AE/%E8%8B%A5%E4%BE%9D%E3%81%AE%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2(%E6%9C%AC%E5%9C%B0)/">
 
 
 <script id="page-configurations">
@@ -38,12 +44,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>分类: 面试 | 山止川行</title>
+  <title>若依の环境部署(本地).md | 山止川行</title>
   
 
 
@@ -168,111 +174,128 @@
         <div class="content-wrap">
           
 
-          <div class="content category">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">面试
-          <small>分类</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2022/03/03/%E9%A1%B9%E7%9B%AE/%E8%8B%A5%E4%BE%9D%E3%81%AE%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2(%E6%9C%AC%E5%9C%B0)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpg">
+      <meta itemprop="name" content="川行子">
+      <meta itemprop="description" content="一生想做浪漫极客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="山止川行">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          若依の环境部署(本地).md
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-03-03 15:18:23" itemprop="dateCreated datePublished" datetime="2022-03-03T15:18:23+08:00">2022-03-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-06-03 15:30:54" itemprop="dateModified" datetime="2022-06-03T15:30:54+08:00">2022-06-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index"><span itemprop="name">项目</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2022</span>
-    </div>
+        <h2 id="环境版本"><a href="#环境版本" class="headerlink" title="环境版本"></a>环境版本</h2><blockquote>
+<p>git 2.35.1.windows.2<br>jdk 1.8<br>mysql 8<br>Redis-x64-5.0.14.1<br>Maven 3.6.3<br>node v16.13.2<br>Nacos 2.0</p>
+</blockquote>
+<h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2><p><a target="_blank" rel="noopener" href="http://doc.ruoyi.vip/ruoyi-cloud/document/hjbs.html">http://doc.ruoyi.vip/ruoyi-cloud/document/hjbs.html</a></p>
+<p>因为官方文档中的步骤已经足够详尽，这里只标注几点在部署过程中遇到的问题。</p>
+<h2 id="报错"><a href="#报错" class="headerlink" title="报错"></a>报错</h2><p>两个问题都是在启动 ruoyi-system 中遇到<br>Q1：报错语句 ↓</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=java&spm=1001.2101.3001.7020">java</a>.sql.SQLException: Access denied for user ‘root’@‘localhost’ (using password: YES)</p>
+</blockquote>
+<p>A1：在 nacos 中修改 mysql 配置</p>
+<ol>
+<li>打开 ruoyi-system-dev.yml</li>
+</ol>
+<img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1646292432599-d3f43cc2-0441-421e-94b9-6c4894dffb49.png" alt="image.png" style="zoom: 33%;" />
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<ol start="2">
+<li>修改 password，注意添加双引号</li>
+</ol>
+<img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1646292437674-df469fef-fe74-4368-8d36-7f2ff096199a.png" alt="image.png" style="zoom: 33%;" />
+参照：[https://blog.csdn.net/newbie_R/article/details/115920761](https://blog.csdn.net/newbie_R/article/details/115920761)
+Q2：报错语句 ↓
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-05-18T15:57:53+08:00"
-              content="2022-05-18">
-          05-18
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/05/18/%E9%9D%A2%E8%AF%95%E9%80%A0%E7%81%AB%E7%AE%AD/%E5%A6%82%E4%BD%95%E6%89%BE%E5%B7%A5%E4%BD%9C/" itemprop="url">
-            <span itemprop="name">如何找工作</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-05-18T12:58:34+08:00"
-              content="2022-05-18">
-          05-18
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/05/18/%E9%9D%A2%E8%AF%95%E9%80%A0%E7%81%AB%E7%AE%AD/%E6%83%B3%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%E4%BA%8B/" itemprop="url">
-            <span itemprop="name">想要知道的事</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-05-15T18:54:23+08:00"
-              content="2022-05-15">
-          05-15
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/05/15/%E9%9D%A2%E8%AF%95%E9%80%A0%E7%81%AB%E7%AE%AD/%E8%AE%BE%E8%AE%A1%E9%A2%98/" itemprop="url">
-            <span itemprop="name">设计题</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-05-11T09:41:59+08:00"
-              content="2022-05-11">
-          05-11
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/05/11/%E9%9D%A2%E8%AF%95%E9%80%A0%E7%81%AB%E7%AE%AD/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E7%AE%80%E5%8E%86/" itemprop="url">
-            <span itemprop="name">如何写好简历</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
+<blockquote>
+<p>Error creating bean with name ‘sysConfigController’…</p>
+</blockquote>
+<p>A2：Redis 服务未启动，启动即可。<br>参照：<a target="_blank" rel="noopener" href="https://gitee.com/y_project/RuoYi-Cloud/issues/I39FGP">https://gitee.com/y_project&#x2F;RuoYi-Cloud&#x2F;issues&#x2F;I39FGP</a></p>
+<h2 id="预览"><a href="#预览" class="headerlink" title="预览"></a>预览</h2><p>成功访问：<a target="_blank" rel="noopener" href="http://localhost/index">http://localhost/index</a><br><img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1646292682889-ebe16913-872b-43aa-af04-30052a7fe4a1.png" alt="image.png" style="zoom: 33%;" /></p>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/03/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java%E6%A0%B8%E5%BF%83/JVM/" rel="prev" title="JVM">
+      <i class="fa fa-chevron-left"></i> JVM
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/03/13/%E9%A1%B9%E7%9B%AE/%E8%8B%A5%E4%BE%9D%E3%81%AE%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2%EF%BC%88%E4%BA%91%EF%BC%89/" rel="next" title="环境部署（云）">
+      环境部署（云） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
@@ -325,6 +348,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E7%89%88%E6%9C%AC"><span class="nav-number">1.</span> <span class="nav-text">环境版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3"><span class="nav-number">2.</span> <span class="nav-text">官方文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%A5%E9%94%99"><span class="nav-number">3.</span> <span class="nav-text">报错</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E8%A7%88"><span class="nav-number">4.</span> <span class="nav-text">预览</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -340,14 +364,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">

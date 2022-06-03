@@ -20,19 +20,33 @@
     var CONFIG = {"hostname":"chuanxz.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="硬件：控制器、运算器、存储器、输入、输出软件：系统软件、应用软件存储系统：主存、辅存、高速缓存（cache）硬件连接方式：总线进制转换：非十进制转十进制：按权相加十进制转非十进制：除基取余，从下往上。乘基取整，从上往下符号数表示：0 正 1 负原码：最高位是符号，取余二进制真值补码：正一样，负取反加一反码：原码符号不变，其他按位取反">
+  <meta name="description" content="RuoYi-cloud 官方文档：http:&#x2F;&#x2F;doc.ruoyi.vip&#x2F;ruoyi-cloud&#x2F; 一 目录结构学习 ruoyi-api：远程统一的服务接口 domain factory model 远端文件系统 RemoteFileService 远端文件服务 RemoteLogService 远端日志服务 RemoteUserService 远端用户服务   ruoyi-auth：权限认证">
 <meta property="og:type" content="article">
-<meta property="og:title" content="组成原理">
-<meta property="og:url" content="http://chuanxz.github.io/2022/05/10/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/408/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:title" content="若依の项目学习">
+<meta property="og:url" content="http://chuanxz.github.io/2022/03/29/%E9%A1%B9%E7%9B%AE/%E8%8B%A5%E4%BE%9D%E3%81%AE%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/index.html">
 <meta property="og:site_name" content="山止川行">
-<meta property="og:description" content="硬件：控制器、运算器、存储器、输入、输出软件：系统软件、应用软件存储系统：主存、辅存、高速缓存（cache）硬件连接方式：总线进制转换：非十进制转十进制：按权相加十进制转非十进制：除基取余，从下往上。乘基取整，从上往下符号数表示：0 正 1 负原码：最高位是符号，取余二进制真值补码：正一样，负取反加一反码：原码符号不变，其他按位取反">
+<meta property="og:description" content="RuoYi-cloud 官方文档：http:&#x2F;&#x2F;doc.ruoyi.vip&#x2F;ruoyi-cloud&#x2F; 一 目录结构学习 ruoyi-api：远程统一的服务接口 domain factory model 远端文件系统 RemoteFileService 远端文件服务 RemoteLogService 远端日志服务 RemoteUserService 远端用户服务   ruoyi-auth：权限认证">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-05-10T07:15:27.000Z">
-<meta property="article:modified_time" content="2022-06-02T14:53:55.796Z">
+<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1649599447762-f5a42e2a-f0cf-4d8a-9df2-56485f78c3a3.png">
+<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1649599407297-1b277c78-118f-4e3a-93da-fbcba7e33493.png">
+<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1649599749297-eab2f64b-36d6-457c-897b-e0bdeadea64d.png">
+<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1649600021116-670fde8f-003d-44d4-aad0-185ef611249a.png">
+<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1649600138645-ce663645-39d5-4142-9aad-337895942fc7.png">
+<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1649601715511-ad72f75e-6b78-43ea-8329-0a8a026ca341.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1649602634099-a7c202ad-95f5-4da7-91d0-e2b9dce7fd67.png">
+<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1649665068985-d00de2ea-765e-41d1-8ebb-17b2ec62f782.png">
+<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1649665137819-27d49b44-3021-4902-9e0a-713ea7f921bb.png">
+<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1649665313964-b03d5fce-7092-4a0b-b56f-919a62c17d81.png">
+<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1649665740366-e460cdf5-9297-4bd8-8f86-93526d3825e2.png">
+<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1649666021560-9a283211-c816-45df-a886-152d47d65d70.png">
+<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1649667201367-34d70cab-f98c-4d1a-8601-42bec64f0082.png">
+<meta property="article:published_time" content="2022-03-29T01:34:01.000Z">
+<meta property="article:modified_time" content="2022-06-03T07:36:40.393Z">
 <meta property="article:author" content="川行子">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1649599447762-f5a42e2a-f0cf-4d8a-9df2-56485f78c3a3.png">
 
-<link rel="canonical" href="http://chuanxz.github.io/2022/05/10/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/408/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">
+<link rel="canonical" href="http://chuanxz.github.io/2022/03/29/%E9%A1%B9%E7%9B%AE/%E8%8B%A5%E4%BE%9D%E3%81%AE%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/">
 
 
 <script id="page-configurations">
@@ -45,7 +59,7 @@
   };
 </script>
 
-  <title>组成原理 | 山止川行</title>
+  <title>若依の项目学习 | 山止川行</title>
   
 
 
@@ -177,7 +191,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2022/05/10/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/408/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">
+    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2022/03/29/%E9%A1%B9%E7%9B%AE/%E8%8B%A5%E4%BE%9D%E3%81%AE%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/me.jpg">
@@ -190,7 +204,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          组成原理
+          若依の项目学习
         </h1>
 
         <div class="post-meta">
@@ -200,14 +214,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-05-10 15:15:27" itemprop="dateCreated datePublished" datetime="2022-05-10T15:15:27+08:00">2022-05-10</time>
+              <time title="创建时间：2022-03-29 09:34:01" itemprop="dateCreated datePublished" datetime="2022-03-29T09:34:01+08:00">2022-03-29</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-02 22:53:55" itemprop="dateModified" datetime="2022-06-02T22:53:55+08:00">2022-06-02</time>
+                <time title="修改时间：2022-06-03 15:36:40" itemprop="dateModified" datetime="2022-06-03T15:36:40+08:00">2022-06-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -215,11 +229,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">编程学习</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">计算机基础</span></a>
+                  <a href="/categories/%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index"><span itemprop="name">项目</span></a>
                 </span>
             </span>
 
@@ -241,7 +251,60 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>硬件：控制器、运算器、存储器、输入、输出<br>软件：系统软件、应用软件<br>存储系统：主存、辅存、高速缓存（cache）<br>硬件连接方式：总线<br>进制转换：<br>非十进制转十进制：按权相加<br>十进制转非十进制：除基取余，从下往上。乘基取整，从上往下<br>符号数表示：0 正 1 负<br>原码：最高位是符号，取余二进制真值<br>补码：正一样，负取反加一<br>反码：原码符号不变，其他按位取反</p>
+        <p>RuoYi-cloud 官方文档：<br><a target="_blank" rel="noopener" href="http://doc.ruoyi.vip/ruoyi-cloud/">http://doc.ruoyi.vip/ruoyi-cloud/</a></p>
+<h2 id="一-目录结构学习"><a href="#一-目录结构学习" class="headerlink" title="一 目录结构学习"></a>一 目录结构学习</h2><ul>
+<li><strong>ruoyi-api：远程统一的服务接口</strong><ul>
+<li>domain</li>
+<li>factory</li>
+<li>model 远端文件系统</li>
+<li>RemoteFileService 远端文件服务</li>
+<li>RemoteLogService 远端日志服务</li>
+<li>RemoteUserService 远端用户服务</li>
+</ul>
+</li>
+<li><strong>ruoyi-auth：权限认证</strong><ul>
+<li>controller</li>
+<li>form</li>
+<li>service</li>
+<li>RuoYiAuthApplication</li>
+</ul>
+</li>
+<li><strong>ruoyi-common：公用工具类汇总，可以拿到其他项目中用</strong><ul>
+<li>ruoyi-common-core：核心</li>
+<li>ruoyi-common-datascope：数据权限</li>
+<li>ruoyi-common-datasource：数据源</li>
+<li>ruoyi-common-log：日志</li>
+<li>ruoyi-common-security：手撸了一套权限</li>
+<li>ruoyi-common-swagger：API 文档</li>
+</ul>
+</li>
+<li>ruoyi-gateway：网关</li>
+<li>ruoyi-modules</li>
+<li>rouyi-ui</li>
+<li>ruoyi-visual</li>
+</ul>
+<h2 id="二-网关鉴权"><a href="#二-网关鉴权" class="headerlink" title="二 网关鉴权"></a>二 网关鉴权</h2><h3 id="验证码"><a href="#验证码" class="headerlink" title="验证码"></a>验证码</h3><p><img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1649599447762-f5a42e2a-f0cf-4d8a-9df2-56485f78c3a3.png" alt="image.png" style="zoom: 67%;" />在 ruoyi-gateway 中寻找&#x2F;code 入口<br><img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1649599407297-1b277c78-118f-4e3a-93da-fbcba7e33493.png" alt="image.png" style="zoom:50%;" /><br>一步步推进：RouterFunctionConfiguration-&gt;validateCodeHandler-&gt;validateCodeServiceImpl<br>找到验证码相关逻辑代码<br><img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1649599749297-eab2f64b-36d6-457c-897b-e0bdeadea64d.png" alt="image.png" style="zoom:50%;" /></p>
+<h3 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h3><img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1649600021116-670fde8f-003d-44d4-aad0-185ef611249a.png" alt="image.png" style="zoom:67%;" />
+
+<img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1649600138645-ce663645-39d5-4142-9aad-337895942fc7.png" alt="image.png" style="zoom:50%;" />
+找到登录相关的逻辑代码
+TokenController->sysLoginService->tokenService
+在 refreshToken 中，根据 uuid 将 loginUser 缓存
+<img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1649601715511-ad72f75e-6b78-43ea-8329-0a8a026ca341.png" alt="image.png" style="zoom:67%;" />
+
+<h2 id="三-路由拉取和用户信息"><a href="#三-路由拉取和用户信息" class="headerlink" title="三 路由拉取和用户信息"></a>三 路由拉取和用户信息</h2><p>getRouters&amp;getInfo</p>
+<p>层层找到 vue 中的 permission.js，路由守卫（类似过滤器）<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1123881/1649602634099-a7c202ad-95f5-4da7-91d0-e2b9dce7fd67.png" alt="image.png" style="zoom:50%;" /></p>
+<h2 id="四-认证和登出"><a href="#四-认证和登出" class="headerlink" title="四 认证和登出"></a>四 认证和登出</h2><h3 id="认证"><a href="#认证" class="headerlink" title="认证"></a>认证</h3><p>ruoyi-ui&#x2F;src&#x2F;utils&#x2F;request.js，研究前端向后端发起请求<br><img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1649665068985-d00de2ea-765e-41d1-8ebb-17b2ec62f782.png" alt="image.png" style="zoom:50%;" /><br>在 Request 拦截器中找到前端带有认证的部分<br><img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1649665137819-27d49b44-3021-4902-9e0a-713ea7f921bb.png" alt="image.png" style="zoom:67%;" /></p>
+<p>在后端中找认证的过滤器<br><img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1649665313964-b03d5fce-7092-4a0b-b56f-919a62c17d81.png" alt="image.png" style="zoom:67%;" /></p>
+<img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1649665740366-e460cdf5-9297-4bd8-8f86-93526d3825e2.png" alt="image.png" style="zoom:67%;" />
+
+<h3 id="登出"><a href="#登出" class="headerlink" title="登出"></a>登出</h3><img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1649666021560-9a283211-c816-45df-a886-152d47d65d70.png" alt="image.png" style="zoom: 67%;" />
+删除用户缓存
+记录用户退出日志
+
+<h2 id="五-前端和后端鉴权"><a href="#五-前端和后端鉴权" class="headerlink" title="五 前端和后端鉴权"></a>五 前端和后端鉴权</h2><p>前端：directive&#x2F;permission&#x2F;<strong>hasPermitions,hasRoles</strong></p>
+<p>后端：权限注解</p>
+<h2 id="六-文件和日志"><a href="#六-文件和日志" class="headerlink" title="六 文件和日志"></a>六 文件和日志</h2><p><img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1649667201367-34d70cab-f98c-4d1a-8601-42bec64f0082.png" alt="image.png"></p>
 
     </div>
 
@@ -257,12 +320,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/05/07/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Spring/%E6%B3%A8%E8%A7%A3%E5%A4%8D%E4%B9%A0/" rel="prev" title="注解复习">
-      <i class="fa fa-chevron-left"></i> 注解复习
+    <a href="/2022/03/27/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E6%95%B0%E6%8D%AE%E5%BA%93/SQL%20%E5%88%B7%E9%A2%98/" rel="prev" title="SQL 刷题">
+      <i class="fa fa-chevron-left"></i> SQL 刷题
     </a></div>
       <div class="post-nav-item">
-    <a href="/2022/05/11/%E9%9D%A2%E8%AF%95%E9%80%A0%E7%81%AB%E7%AE%AD/%E5%A6%82%E4%BD%95%E5%86%99%E5%A5%BD%E7%AE%80%E5%8E%86/" rel="next" title="如何写好简历">
-      如何写好简历 <i class="fa fa-chevron-right"></i>
+    <a href="/2022/04/12/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/LC101%E3%81%AE6.%20DP/" rel="next" title="LC101の6. DP">
+      LC101の6. DP <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -322,7 +385,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.</span> <span class="nav-text">一 目录结构学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E7%BD%91%E5%85%B3%E9%89%B4%E6%9D%83"><span class="nav-number">2.</span> <span class="nav-text">二 网关鉴权</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E7%A0%81"><span class="nav-number">2.1.</span> <span class="nav-text">验证码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BB%E5%BD%95"><span class="nav-number">2.2.</span> <span class="nav-text">登录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-%E8%B7%AF%E7%94%B1%E6%8B%89%E5%8F%96%E5%92%8C%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF"><span class="nav-number">3.</span> <span class="nav-text">三 路由拉取和用户信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B-%E8%AE%A4%E8%AF%81%E5%92%8C%E7%99%BB%E5%87%BA"><span class="nav-number">4.</span> <span class="nav-text">四 认证和登出</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A4%E8%AF%81"><span class="nav-number">4.1.</span> <span class="nav-text">认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BB%E5%87%BA"><span class="nav-number">4.2.</span> <span class="nav-text">登出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94-%E5%89%8D%E7%AB%AF%E5%92%8C%E5%90%8E%E7%AB%AF%E9%89%B4%E6%9D%83"><span class="nav-number">5.</span> <span class="nav-text">五 前端和后端鉴权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD-%E6%96%87%E4%BB%B6%E5%92%8C%E6%97%A5%E5%BF%97"><span class="nav-number">6.</span> <span class="nav-text">六 文件和日志</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -338,14 +401,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
