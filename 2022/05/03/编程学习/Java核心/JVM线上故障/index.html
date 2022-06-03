@@ -20,21 +20,22 @@
     var CONFIG = {"hostname":"chuanxz.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="介绍下 Java 内存区域（运行时数据区）  堆">
+  <meta name="description" content="内存泄漏 &amp; 溢出概念内存泄漏：被分配的内存无法回收，指无法再提供内存资源。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JVM">
-<meta property="og:url" content="http://chuanxz.com/2022/03/03/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java/JVM/index.html">
+<meta property="og:title" content="JVM线上故障">
+<meta property="og:url" content="http://chuanxz.com/2022/05/03/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java%E6%A0%B8%E5%BF%83/JVM%E7%BA%BF%E4%B8%8A%E6%95%85%E9%9A%9C/index.html">
 <meta property="og:site_name" content="山止川行">
-<meta property="og:description" content="介绍下 Java 内存区域（运行时数据区）  堆">
+<meta property="og:description" content="内存泄漏 &amp; 溢出概念内存泄漏：被分配的内存无法回收，指无法再提供内存资源。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1652771387549-1e5ae7d0-bc2a-4550-a3fd-6f7d464f7979.png">
-<meta property="article:published_time" content="2022-03-03T01:29:39.000Z">
-<meta property="article:modified_time" content="2022-06-02T14:50:24.742Z">
+<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1653878930194-88dc6265-b5ff-4930-8b6b-48fe6e16e580.png">
+<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1653821530257-28223e68-81bc-4adf-9697-9e6aaa6ce816.jpeg">
+<meta property="article:published_time" content="2022-05-03T01:29:39.000Z">
+<meta property="article:modified_time" content="2022-06-02T15:28:31.317Z">
 <meta property="article:author" content="川行子">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1652771387549-1e5ae7d0-bc2a-4550-a3fd-6f7d464f7979.png">
+<meta name="twitter:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1653878930194-88dc6265-b5ff-4930-8b6b-48fe6e16e580.png">
 
-<link rel="canonical" href="http://chuanxz.com/2022/03/03/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java/JVM/">
+<link rel="canonical" href="http://chuanxz.com/2022/05/03/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java%E6%A0%B8%E5%BF%83/JVM%E7%BA%BF%E4%B8%8A%E6%95%85%E9%9A%9C/">
 
 
 <script id="page-configurations">
@@ -47,7 +48,7 @@
   };
 </script>
 
-  <title>JVM | 山止川行</title>
+  <title>JVM线上故障 | 山止川行</title>
   
 
 
@@ -174,7 +175,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://chuanxz.com/2022/03/03/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java/JVM/">
+    <link itemprop="mainEntityOfPage" href="http://chuanxz.com/2022/05/03/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java%E6%A0%B8%E5%BF%83/JVM%E7%BA%BF%E4%B8%8A%E6%95%85%E9%9A%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/me.jpg">
@@ -187,7 +188,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          JVM
+          JVM线上故障
         </h1>
 
         <div class="post-meta">
@@ -197,14 +198,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-03-03 09:29:39" itemprop="dateCreated datePublished" datetime="2022-03-03T09:29:39+08:00">2022-03-03</time>
+              <time title="创建时间：2022-05-03 09:29:39" itemprop="dateCreated datePublished" datetime="2022-05-03T09:29:39+08:00">2022-05-03</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-02 22:50:24" itemprop="dateModified" datetime="2022-06-02T22:50:24+08:00">2022-06-02</time>
+                <time title="修改时间：2022-06-02 23:28:31" itemprop="dateModified" datetime="2022-06-02T23:28:31+08:00">2022-06-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -238,22 +239,112 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="介绍下-Java-内存区域（运行时数据区）"><a href="#介绍下-Java-内存区域（运行时数据区）" class="headerlink" title="介绍下 Java 内存区域（运行时数据区）"></a>介绍下 Java 内存区域（运行时数据区）</h2><img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1652771387549-1e5ae7d0-bc2a-4550-a3fd-6f7d464f7979.png" style="zoom:67%;" />
+        <p><img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1653878930194-88dc6265-b5ff-4930-8b6b-48fe6e16e580.png" alt="img"></p>
+<h2 id="内存泄漏-amp-溢出概念"><a href="#内存泄漏-amp-溢出概念" class="headerlink" title="内存泄漏 &amp; 溢出概念"></a>内存泄漏 &amp; 溢出概念</h2><p><strong>内存泄漏：</strong>被分配的内存无法回收，指无法再提供内存资源。</p>
+<p>可能产生情况：</p>
+<ul>
+<li><p>循环过多或死循环</p>
+</li>
+<li><p>静态集合类（Set、Vector、HashMap等）：当它们被定义成静态时，生命周期跟应用程序一样长，就可能发生内存泄漏</p>
+</li>
+<li><p>监听器：对某个空间添加单击监听器，释放对象的时候忘记删除，可能造成内存泄露</p>
+</li>
+<li><p>各种连接：包括数据库连接、网络连接和io连接，没有调用close()方法。一般try创建finally释放</p>
+</li>
+<li><p>外部模块引用</p>
+</li>
+<li><p>单例模式</p>
+</li>
+<li><p>定义新类没有重写equals()和hashCode()导致隐患</p>
+</li>
+<li><p>不当使用ThreadLocal，应该在不使用时remove()</p>
+</li>
+</ul>
+<p><strong>内存溢出（OOM）</strong>：程序要求的内存超出系统能分配的范围，指内存不够用。内存泄漏持续存在一定会导致内存溢出，两者是因果关系。</p>
+<p><strong>常见OOM分类：</strong></p>
+<ul>
+<li>java.lang.OutOfMemoryError: PermGen space（<strong>永生代溢出</strong>）</li>
+</ul>
+<p>一般出现于大量Class或者jsp页面，或者采用cglib等反射机制的情况，因为上述情况会产生大量的Class信息存储于方法区。此种情况可以通过更改方法区的大小来解决，使用类似-XX:PermSize&#x3D;64m XX:MaxPermSize&#x3D;256m的形式修改。另外，过多的常量尤其是字符串也会导致方法区溢出。</p>
+<p>Java8将永久代变为元空间，内存不足默认动态扩展</p>
+<ul>
+<li>java.lang.StackOverflowError（<strong>虚拟机栈溢出</strong>）</li>
+</ul>
+<p>一般死循环或深度递归造成，每当程序执行进入一个函数调用，栈就会加一层栈帧，每当函数返回，栈就会减一层栈帧。由于栈的大小不是无限的，所以，递归调用的次数过多，就会导致栈溢出。</p>
+<p>栈设置过小也会溢出，可以在日志中定位到。可以通过虚拟机参数-Xss设置栈大小</p>
+<ul>
+<li>java.lang.OutOfMemoryError: Java heap space（<strong>堆内存溢出</strong>）</li>
+</ul>
+<p>通过内存监控软件查找程序中的泄漏代码</p>
+<p>一般由于JVM堆内存设置不合理或内存泄漏</p>
+<p>可以通过工具查看泄露对象到GC Roots的引用链，掌握泄漏对象的类型信息和GC Roots引用信息，定位到泄漏代码的位置。如果不存在内存泄漏，就是内存中的对象确实还必须存活，则检查虚拟机堆参数查看是否可以调大。</p>
+<h2 id="出现场景（什么情况该排查内存问题）"><a href="#出现场景（什么情况该排查内存问题）" class="headerlink" title="出现场景（什么情况该排查内存问题）"></a>出现场景（什么情况该排查内存问题）</h2><ul>
+<li>服务请求很慢</li>
+<li>web端发送到服务的请求总是超时</li>
+<li>在日志里看到OOM或StackOverflowError</li>
+<li>程序运行时间过长大大超过预期</li>
+<li>程序运行时内存使用量和占用率居高不下</li>
+</ul>
+<h2 id="分析内存的方法"><a href="#分析内存的方法" class="headerlink" title="分析内存的方法"></a>分析内存的方法</h2><table>
+<thead>
+<tr>
+<th><strong>方法</strong></th>
+<th><strong>擅长点</strong></th>
+<th><strong>局限</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>JConsole</td>
+<td>能看到内存用量趋势，确定是否发生内存问题</td>
+<td>无法定位具体哪个方法哪个类发生内存问题，也没法看GC具体情况</td>
+</tr>
+<tr>
+<td>GC日志</td>
+<td>能查看年轻区和年老区等内存分配是否合理，也能看到GC时间点</td>
+<td>无法从代码角度排查问题</td>
+</tr>
+<tr>
+<td>打印内存使用量</td>
+<td>能查看每个方法和每个类内存使用量</td>
+<td>无法从堆结构层面查看是否配置是否合理</td>
+</tr>
+<tr>
+<td>分析Dump文件</td>
+<td>能针对性看到发生OOM时内存用量和线程情况</td>
+<td>无法定位哪个类哪个方法产生大规模对象</td>
+</tr>
+</tbody></table>
+<p>第一，通过JConsole确认发生内存问题，</p>
+<p>第二，在写代码时，在一些可能导致内存问题的方法里添加打印前当前内存使用量的语句，用这些打印信息和GC日志综合判断</p>
+<p>第三，通过Dump文件重现OOM时的内存镜像</p>
+<p>通过Dump文件能清晰看到究竟哪些对象哪些线程导致了OOM发生，随后结合内存打印信息来分析问题</p>
+<h2 id="堆空间OOM排查⭐"><a href="#堆空间OOM排查⭐" class="headerlink" title="堆空间OOM排查⭐"></a>堆空间OOM排查⭐</h2><ol>
+<li><p>jps列出当前系统的java进程，使用top命令找占用最高的Java进程，</p>
+</li>
+<li></li>
+<li><ol>
+<li>设置JVM参数 ，-XX:+HeapDumpOnOutOfMemoryError，当发生OOM时自动dump出堆信息</li>
+<li>用JDK自带 jmap查找内存占用率最高的进程号pid，然后 jmap -dump:format&#x3D;b,file&#x3D;{path}{pid}生成堆转储快照</li>
+</ol>
+</li>
+<li><p>visualVM&#x2F;MAT 举例分析 Dump 文件</p>
+</li>
+</ol>
+<p>看到占用内存最大的类和实例，</p>
+<h2 id="实际案例"><a href="#实际案例" class="headerlink" title="实际案例"></a>实际案例</h2><p>商业服务收到告警，服务进程占用容器的物理内存（16G）超过了80%的阈值，且还在不断上升</p>
+<p><strong>监控系统</strong>调出图表查看：</p>
+<img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1653821530257-28223e68-81bc-4adf-9697-9e6aaa6ce816.jpeg" alt="img" style="zoom: 67%;" />
 
-<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>内存中最大的一块，<strong>唯一目的</strong>存放对象实例。Java 堆是垃圾收集器管理的主要区域，因此也被称为<strong>GC 堆</strong>。</p>
-<h3 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h3><p>主要有两个作用：</p>
-<ol>
-<li>字节码解释器通过改变程序计数器来依次读取指令，实现代码的流程控制：顺序、选择、循环、异常。</li>
-<li>多线程情况下，程序计数器用于记录当前线程执行位置，当程序被切回来时知道上次运行到哪了。</li>
-</ol>
-<h3 id="虚拟机栈（线程栈）"><a href="#虚拟机栈（线程栈）" class="headerlink" title="虚拟机栈（线程栈）"></a>虚拟机栈（线程栈）</h3><p>Java 内存可以粗糙的分为堆内存和栈内存，栈说的就是虚拟机栈。用来存放局部变量表等。<br>Java 虚拟机栈会有两种错误：<code>StackOverFloError</code>和<code>OutOfMemoryError</code>。</p>
-<h3 id="本地方法区（栈）"><a href="#本地方法区（栈）" class="headerlink" title="本地方法区（栈）"></a>本地方法区（栈）</h3><p>和虚拟机栈类似。区别是：虚拟机栈为虚拟机执行 Java 方法服务，而本地方法区为虚拟机使用的 Native 方法服务。在 HotSpot 虚拟机中二者合一。</p>
-<h2 id="如何判断对象已经死亡"><a href="#如何判断对象已经死亡" class="headerlink" title="如何判断对象已经死亡"></a>如何判断对象已经死亡</h2><ol>
-<li>引用计数法</li>
-<li>可达性分析法</li>
-</ol>
-<p>跳转：<a target="_blank" rel="noopener" href="https://www.yuque.com/chuanxz/ad610s/ar1n0v#wy76n">https://www.yuque.com/chuanxz/ad610s/ar1n0v#wy76n</a></p>
-<h2 id="如何判断常量是废弃常量，类是无用类"><a href="#如何判断常量是废弃常量，类是无用类" class="headerlink" title="如何判断常量是废弃常量，类是无用类"></a>如何判断常量是废弃常量，类是无用类</h2><p>参考：<a target="_blank" rel="noopener" href="https://www.shangmayuan.com/a/3ce8aa1fdaa149938a465f27.html">https://www.shangmayuan.com/a/3ce8aa1fdaa149938a465f27.html</a></p>
+<p>像是Java进程发生内存泄漏，但堆内存限制4G，所以判断应该是堆外内存泄漏</p>
+<p>确认服务进程的启动配置</p>
+<p> **-**Xms4g **-**Xmx4g **-**Xmn2g **-**Xss1024K **-<strong>XX</strong>:<strong>PermSize</strong>&#x3D;**256m **-<strong>XX</strong>:<strong>MaxPermSize</strong>&#x3D;**512m **-<strong>XX</strong>:<strong>ParallelGCThreads</strong>&#x3D;**20 **-<strong>XX</strong>:+**UseConcMarkSweepGC **-<strong>XX</strong>:+**UseParNewGC **-<strong>XX</strong>:+**UseCMSCompactAtFullCollection **-<strong>XX</strong>:<strong>CMSInitiatingOccupancyFraction</strong>&#x3D;**80</p>
+<p>虽然当天没有上线新代码，但是<strong>「当天上午我们正在使用消息队列推送历史数据的修复脚本，该任务会大量调用我们服务其中的某一个接口」</strong>，所以初步怀疑和该接口有关。</p>
+<p>调用接口当天的访问变化，比平常多很多，暂停该消息发送，恢复正常。开始排查</p>
+<p>虽然一开始基本确认与堆内存无关，但保险起见查一下堆内存有什么线索</p>
+<p>在事故现场<strong>dump一份JVM堆内存日志</strong></p>
+<p>jmap **-<strong>dump</strong>:<strong>live</strong>,<strong>format</strong>&#x3D;<strong>b</strong>,<strong>file</strong>&#x3D;<strong>xxxx</strong>.**hprof pid</p>
+<p>导出后，将Dump文件下回本地，利用JDK自带的<strong>visualVM</strong>打开日志文件</p>
+<p>….后面看不懂了</p>
 
     </div>
 
@@ -269,12 +360,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/03/03/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java/Java%E5%9F%BA%E7%A1%80/" rel="prev" title="Java基础">
-      <i class="fa fa-chevron-left"></i> Java基础
+    <a href="/2022/04/13/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/408/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="prev" title="计算机网络">
+      <i class="fa fa-chevron-left"></i> 计算机网络
     </a></div>
       <div class="post-nav-item">
-    <a href="/2022/03/03/%E9%A1%B9%E7%9B%AE/%E8%8B%A5%E4%BE%9D/" rel="next" title="若依">
-      若依 <i class="fa fa-chevron-right"></i>
+    <a href="/2022/05/07/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Spring/%E6%B3%A8%E8%A7%A3%E5%A4%8D%E4%B9%A0/" rel="next" title="注解复习">
+      注解复习 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -334,7 +425,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D%E4%B8%8B-Java-%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%EF%BC%88%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">介绍下 Java 内存区域（运行时数据区）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86"><span class="nav-number">1.1.</span> <span class="nav-text">堆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">程序计数器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88%EF%BC%88%E7%BA%BF%E7%A8%8B%E6%A0%88%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">虚拟机栈（线程栈）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E5%8C%BA%EF%BC%88%E6%A0%88%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">本地方法区（栈）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E5%B7%B2%E7%BB%8F%E6%AD%BB%E4%BA%A1"><span class="nav-number">2.</span> <span class="nav-text">如何判断对象已经死亡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%B8%B8%E9%87%8F%E6%98%AF%E5%BA%9F%E5%BC%83%E5%B8%B8%E9%87%8F%EF%BC%8C%E7%B1%BB%E6%98%AF%E6%97%A0%E7%94%A8%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">如何判断常量是废弃常量，类是无用类</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F-amp-%E6%BA%A2%E5%87%BA%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">内存泄漏 &amp; 溢出概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BA%E7%8E%B0%E5%9C%BA%E6%99%AF%EF%BC%88%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E8%AF%A5%E6%8E%92%E6%9F%A5%E5%86%85%E5%AD%98%E9%97%AE%E9%A2%98%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">出现场景（什么情况该排查内存问题）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E5%86%85%E5%AD%98%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">分析内存的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86%E7%A9%BA%E9%97%B4OOM%E6%8E%92%E6%9F%A5%E2%AD%90"><span class="nav-number">4.</span> <span class="nav-text">堆空间OOM排查⭐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B"><span class="nav-number">5.</span> <span class="nav-text">实际案例</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

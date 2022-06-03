@@ -22,8 +22,8 @@
 
   <meta name="description" content="教程https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;52884590 算法解释">
 <meta property="og:type" content="article">
-<meta property="og:title" content="5 千奇百怪的排序算法">
-<meta property="og:url" content="http://chuanxz.com/2021/10/08/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/5%20%E5%8D%83%E5%A5%87%E7%99%BE%E6%80%AA%E7%9A%84%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:title" content="LC101の4. 排序">
+<meta property="og:url" content="http://chuanxz.com/2021/10/08/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/LC101%E3%81%AE4.%20%E6%8E%92%E5%BA%8F/index.html">
 <meta property="og:site_name" content="山止川行">
 <meta property="og:description" content="教程https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;52884590 算法解释">
 <meta property="og:locale" content="zh_CN">
@@ -31,12 +31,12 @@
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/gif/1123881/1639641988489-fffbc6e6-6107-426b-a30c-311f70df569a.gif#clientId=u1e6bb3dd-0012-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ud6054aa8&margin=%5Bobject%20Object%5D&originHeight=180&originWidth=300&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=u6264194c-1295-4c12-addf-4260618b15e&title=">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/1123881/1639650071320-b0f7087d-00a2-44eb-a2aa-4fc58d94ec4a.png#clientId=u3d0c7131-6a77-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u388e407b&margin=%5Bobject%20Object%5D&originHeight=335&originWidth=555&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=u53dc1fcc-8c62-46b2-9770-5b9dca8544b&title=">
 <meta property="article:published_time" content="2021-10-08T06:46:14.000Z">
-<meta property="article:modified_time" content="2022-06-02T14:26:11.380Z">
+<meta property="article:modified_time" content="2022-06-03T06:18:10.846Z">
 <meta property="article:author" content="川行子">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2021/jpeg/1123881/1636074126724-ee64904a-48cb-4598-a72a-783b6a920a72.jpeg#clientId=u37141146-cbc1-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=515&id=ucb59adae&margin=%5Bobject%20Object%5D&originHeight=1199&originWidth=1040&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&taskId=ua757d0ab-034f-49a3-a4e9-1db5bf54ce7&title=&width=447">
 
-<link rel="canonical" href="http://chuanxz.com/2021/10/08/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/5%20%E5%8D%83%E5%A5%87%E7%99%BE%E6%80%AA%E7%9A%84%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
+<link rel="canonical" href="http://chuanxz.com/2021/10/08/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/LC101%E3%81%AE4.%20%E6%8E%92%E5%BA%8F/">
 
 
 <script id="page-configurations">
@@ -49,7 +49,7 @@
   };
 </script>
 
-  <title>5 千奇百怪的排序算法 | 山止川行</title>
+  <title>LC101の4. 排序 | 山止川行</title>
   
 
 
@@ -176,7 +176,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://chuanxz.com/2021/10/08/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/5%20%E5%8D%83%E5%A5%87%E7%99%BE%E6%80%AA%E7%9A%84%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="http://chuanxz.com/2021/10/08/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/LC101%E3%81%AE4.%20%E6%8E%92%E5%BA%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/me.jpg">
@@ -189,7 +189,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          5 千奇百怪的排序算法
+          LC101の4. 排序
         </h1>
 
         <div class="post-meta">
@@ -206,7 +206,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-02 22:26:11" itemprop="dateModified" datetime="2022-06-02T22:26:11+08:00">2022-06-02</time>
+                <time title="修改时间：2022-06-03 14:18:10" itemprop="dateModified" datetime="2022-06-03T14:18:10+08:00">2022-06-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -277,8 +277,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/05/24/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/4%20%E5%B1%85%E5%90%88%E6%96%A9%EF%BC%81%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="prev" title="4 居合斩！二分查找">
-      <i class="fa fa-chevron-left"></i> 4 居合斩！二分查找
+    <a href="/2021/05/24/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/LC101%E3%81%AE3.%20%E4%BA%8C%E5%88%86/" rel="prev" title="LC101の3. 二分">
+      <i class="fa fa-chevron-left"></i> LC101の3. 二分
     </a></div>
       <div class="post-nav-item">
     <a href="/2021/11/18/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="next" title="数据库">
