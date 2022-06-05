@@ -20,22 +20,22 @@
     var CONFIG = {"hostname":"chuanxz.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="异步秒杀思路 基于 Redis 完成秒杀资格判断">
+  <meta name="description" content="异步秒杀思路">
 <meta property="og:type" content="article">
 <meta property="og:title" content="黑马Redisの05. 秒杀优化">
 <meta property="og:url" content="http://chuanxz.github.io/2022/04/27/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E3%81%AE05.%20%E7%A7%92%E6%9D%80%E4%BC%98%E5%8C%96/index.html">
 <meta property="og:site_name" content="山止川行">
-<meta property="og:description" content="异步秒杀思路 基于 Redis 完成秒杀资格判断">
+<meta property="og:description" content="异步秒杀思路">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651067195346-27c27f2d-9a3d-4486-b26d-944bb5729707.png#clientId=u3244fbfc-11c7-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=358&id=ua4bc985c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1086&originWidth=2335&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=497503&status=done&style=none&taskId=ua855fb12-b843-4635-9138-4743376b1f2&title=&width=770">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651067678523-cfb371aa-db5d-421c-8812-6a28ea2b72eb.png#clientId=u3244fbfc-11c7-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=579&id=u99064d6f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1157&originWidth=2412&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=524492&status=done&style=none&taskId=ua04a5442-bf1d-481f-95be-d08cadbc4f8&title=&width=1206">
+<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1651067195346-27c27f2d-9a3d-4486-b26d-944bb5729707.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651067678523-cfb371aa-db5d-421c-8812-6a28ea2b72eb.png">
 <meta property="article:published_time" content="2022-04-27T06:46:21.000Z">
-<meta property="article:modified_time" content="2022-06-05T04:30:41.926Z">
+<meta property="article:modified_time" content="2022-06-05T04:55:37.009Z">
 <meta property="article:author" content="川行子">
 <meta property="article:tag" content="黑马">
 <meta property="article:tag" content="Redis">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651067195346-27c27f2d-9a3d-4486-b26d-944bb5729707.png#clientId=u3244fbfc-11c7-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=358&id=ua4bc985c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1086&originWidth=2335&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=497503&status=done&style=none&taskId=ua855fb12-b843-4635-9138-4743376b1f2&title=&width=770">
+<meta name="twitter:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1651067195346-27c27f2d-9a3d-4486-b26d-944bb5729707.png">
 
 <link rel="canonical" href="http://chuanxz.github.io/2022/04/27/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E3%81%AE05.%20%E7%A7%92%E6%9D%80%E4%BC%98%E5%8C%96/">
 
@@ -212,7 +212,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-05 12:30:41" itemprop="dateModified" datetime="2022-06-05T12:30:41+08:00">2022-06-05</time>
+                <time title="修改时间：2022-06-05 12:55:37" itemprop="dateModified" datetime="2022-06-05T12:55:37+08:00">2022-06-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -242,7 +242,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="异步秒杀思路"><a href="#异步秒杀思路" class="headerlink" title="异步秒杀思路"></a>异步秒杀思路</h2><p><img src="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651067195346-27c27f2d-9a3d-4486-b26d-944bb5729707.png#clientId=u3244fbfc-11c7-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=358&id=ua4bc985c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1086&originWidth=2335&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=497503&status=done&style=none&taskId=ua855fb12-b843-4635-9138-4743376b1f2&title=&width=770" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651067678523-cfb371aa-db5d-421c-8812-6a28ea2b72eb.png#clientId=u3244fbfc-11c7-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=579&id=u99064d6f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1157&originWidth=2412&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=524492&status=done&style=none&taskId=ua04a5442-bf1d-481f-95be-d08cadbc4f8&title=&width=1206" alt="image.png"></p>
+        <h2 id="异步秒杀思路"><a href="#异步秒杀思路" class="headerlink" title="异步秒杀思路"></a>异步秒杀思路</h2><img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1651067195346-27c27f2d-9a3d-4486-b26d-944bb5729707.png" alt="image.png" style="zoom: 33%;" />
+<img src="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651067678523-cfb371aa-db5d-421c-8812-6a28ea2b72eb.png" alt="image.png" style="zoom: 33%;" />
+
 <h2 id="基于-Redis-完成秒杀资格判断"><a href="#基于-Redis-完成秒杀资格判断" class="headerlink" title="基于 Redis 完成秒杀资格判断"></a>基于 Redis 完成秒杀资格判断</h2><p>改进秒杀业务，需求：</p>
 <ol>
 <li>新增秒杀优惠券同时，将优惠券信息保存到 Redis 中</li>
