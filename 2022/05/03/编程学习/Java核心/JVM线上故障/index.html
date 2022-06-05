@@ -28,9 +28,8 @@
 <meta property="og:description" content="内存泄漏 &amp; 溢出概念内存泄漏：被分配的内存无法回收，指无法再提供内存资源。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1653878930194-88dc6265-b5ff-4930-8b6b-48fe6e16e580.png">
-<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1653821530257-28223e68-81bc-4adf-9697-9e6aaa6ce816.jpeg">
 <meta property="article:published_time" content="2022-05-03T01:29:39.000Z">
-<meta property="article:modified_time" content="2022-06-02T15:28:31.317Z">
+<meta property="article:modified_time" content="2022-06-05T03:01:48.944Z">
 <meta property="article:author" content="川行子">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1653878930194-88dc6265-b5ff-4930-8b6b-48fe6e16e580.png">
@@ -210,7 +209,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-02 23:28:31" itemprop="dateModified" datetime="2022-06-02T23:28:31+08:00">2022-06-02</time>
+                <time title="修改时间：2022-06-05 11:01:48" itemprop="dateModified" datetime="2022-06-05T11:01:48+08:00">2022-06-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -336,20 +335,7 @@
 </li>
 </ol>
 <p>看到占用内存最大的类和实例，</p>
-<h2 id="实际案例"><a href="#实际案例" class="headerlink" title="实际案例"></a>实际案例</h2><p>商业服务收到告警，服务进程占用容器的物理内存（16G）超过了80%的阈值，且还在不断上升</p>
-<p><strong>监控系统</strong>调出图表查看：</p>
-<img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1653821530257-28223e68-81bc-4adf-9697-9e6aaa6ce816.jpeg" alt="img" style="zoom: 67%;" />
-
-<p>像是Java进程发生内存泄漏，但堆内存限制4G，所以判断应该是堆外内存泄漏</p>
-<p>确认服务进程的启动配置</p>
-<p> **-**Xms4g **-**Xmx4g **-**Xmn2g **-**Xss1024K **-<strong>XX</strong>:<strong>PermSize</strong>&#x3D;**256m **-<strong>XX</strong>:<strong>MaxPermSize</strong>&#x3D;**512m **-<strong>XX</strong>:<strong>ParallelGCThreads</strong>&#x3D;**20 **-<strong>XX</strong>:+**UseConcMarkSweepGC **-<strong>XX</strong>:+**UseParNewGC **-<strong>XX</strong>:+**UseCMSCompactAtFullCollection **-<strong>XX</strong>:<strong>CMSInitiatingOccupancyFraction</strong>&#x3D;**80</p>
-<p>虽然当天没有上线新代码，但是<strong>「当天上午我们正在使用消息队列推送历史数据的修复脚本，该任务会大量调用我们服务其中的某一个接口」</strong>，所以初步怀疑和该接口有关。</p>
-<p>调用接口当天的访问变化，比平常多很多，暂停该消息发送，恢复正常。开始排查</p>
-<p>虽然一开始基本确认与堆内存无关，但保险起见查一下堆内存有什么线索</p>
-<p>在事故现场<strong>dump一份JVM堆内存日志</strong></p>
-<p>jmap **-<strong>dump</strong>:<strong>live</strong>,<strong>format</strong>&#x3D;<strong>b</strong>,<strong>file</strong>&#x3D;<strong>xxxx</strong>.**hprof pid</p>
-<p>导出后，将Dump文件下回本地，利用JDK自带的<strong>visualVM</strong>打开日志文件</p>
-<p>….后面看不懂了</p>
+<h2 id="实际案例"><a href="#实际案例" class="headerlink" title="实际案例"></a>实际案例</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_28461661/article/details/119574905?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-1-119574905-blog-110926723.pc_relevant_antiscanv4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-1-119574905-blog-110926723.pc_relevant_antiscanv4&utm_relevant_index=2">1.线上OOM（内存溢出）问题排查——亲测_Jerry_carry的博客-CSDN博客</a></p>
 
     </div>
 
@@ -365,12 +351,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/04/13/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/CS%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="prev" title="计算机网络">
-      <i class="fa fa-chevron-left"></i> 计算机网络
+    <a href="/2022/05/02/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E3%81%AE07.%20%E8%BE%BE%E4%BA%BA%E6%8E%A2%E5%BA%97/" rel="prev" title="黑马Redisの07. 达人探店">
+      <i class="fa fa-chevron-left"></i> 黑马Redisの07. 达人探店
     </a></div>
       <div class="post-nav-item">
-    <a href="/2022/05/07/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Spring/%E6%B3%A8%E8%A7%A3%E5%A4%8D%E4%B9%A0/" rel="next" title="注解复习">
-      注解复习 <i class="fa fa-chevron-right"></i>
+    <a href="/2022/05/04/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E3%81%AE08.%20%E5%A5%BD%E5%8F%8B%E5%85%B3%E6%B3%A8/" rel="next" title="黑马Redisの08. 好友关注">
+      黑马Redisの08. 好友关注 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -446,7 +432,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -459,7 +445,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

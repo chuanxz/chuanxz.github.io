@@ -174,7 +174,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2022/03/17/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/CS%E5%9F%BA%E7%A1%80/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2022/04/20/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E3%81%AE03.%20%E4%BC%98%E6%83%A0%E5%88%B8%E7%A7%92%E6%9D%80/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/me.jpg">
@@ -188,7 +188,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/03/17/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/CS%E5%9F%BA%E7%A1%80/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="post-title-link" itemprop="url">数据结构</a>
+            <a href="/2022/04/20/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E3%81%AE03.%20%E4%BC%98%E6%83%A0%E5%88%B8%E7%A7%92%E6%9D%80/" class="post-title-link" itemprop="url">黑马Redisの03. 优惠券秒杀</a>
         </h2>
 
         <div class="post-meta">
@@ -198,14 +198,194 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-03-17 09:05:48" itemprop="dateCreated datePublished" datetime="2022-03-17T09:05:48+08:00">2022-03-17</time>
+              <time title="创建时间：2022-04-20 12:34:51" itemprop="dateCreated datePublished" datetime="2022-04-20T12:34:51+08:00">2022-04-20</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-02 22:53:49" itemprop="dateModified" datetime="2022-06-02T22:53:49+08:00">2022-06-02</time>
+                <time title="修改时间：2022-06-05 12:29:39" itemprop="dateModified" datetime="2022-06-05T12:29:39+08:00">2022-06-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/" itemprop="url" rel="index"><span itemprop="name">项目实操</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li>全局唯一 ID</li>
+<li>实现优惠券秒杀下单</li>
+<li>超卖问题</li>
+<li>一人一单</li>
+<li>分布式锁</li>
+<li>Redis 优化秒杀</li>
+<li>Redis 消息队列实现异步秒杀</li>
+</ul>
+<h2 id="全局唯一-ID"><a href="#全局唯一-ID" class="headerlink" title="全局唯一 ID"></a>全局唯一 ID</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/04/20/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E3%81%AE03.%20%E4%BC%98%E6%83%A0%E5%88%B8%E7%A7%92%E6%9D%80/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2022/04/16/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E3%81%AE02.%20%E5%95%86%E6%88%B7%E6%9F%A5%E8%AF%A2%E7%BC%93%E5%AD%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpg">
+      <meta itemprop="name" content="川行子">
+      <meta itemprop="description" content="一生想做浪漫极客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="山止川行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/16/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E3%81%AE02.%20%E5%95%86%E6%88%B7%E6%9F%A5%E8%AF%A2%E7%BC%93%E5%AD%98/" class="post-title-link" itemprop="url">黑马Redisの02. 商户查询缓存</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-04-16 15:57:38" itemprop="dateCreated datePublished" datetime="2022-04-16T15:57:38+08:00">2022-04-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-06-05 12:40:01" itemprop="dateModified" datetime="2022-06-05T12:40:01+08:00">2022-06-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/" itemprop="url" rel="index"><span itemprop="name">项目实操</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li>什么是缓存</li>
+<li>添加 Redis 缓存</li>
+<li>缓存更新策略</li>
+<li>缓存穿透</li>
+<li>缓存雪崩</li>
+<li>缓存击穿</li>
+<li>缓存工具封装</li>
+</ul>
+<h2 id="什么是缓存"><a href="#什么是缓存" class="headerlink" title="什么是缓存"></a>什么是缓存</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/04/16/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E3%81%AE02.%20%E5%95%86%E6%88%B7%E6%9F%A5%E8%AF%A2%E7%BC%93%E5%AD%98/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2022/04/13/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/CS%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpg">
+      <meta itemprop="name" content="川行子">
+      <meta itemprop="description" content="一生想做浪漫极客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="山止川行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/13/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/CS%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="post-title-link" itemprop="url">计算机网络</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-04-13 10:10:07" itemprop="dateCreated datePublished" datetime="2022-04-13T10:10:07+08:00">2022-04-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-06-02 22:53:43" itemprop="dateModified" datetime="2022-06-02T22:53:43+08:00">2022-06-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -232,85 +412,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>…</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2022/03/13/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E8%8B%A5%E4%BE%9D%E3%81%AE%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2%EF%BC%88%E4%BA%91%EF%BC%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/me.jpg">
-      <meta itemprop="name" content="川行子">
-      <meta itemprop="description" content="一生想做浪漫极客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="山止川行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/03/13/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E8%8B%A5%E4%BE%9D%E3%81%AE%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2%EF%BC%88%E4%BA%91%EF%BC%89/" class="post-title-link" itemprop="url">环境部署（云）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-03-13 09:50:46" itemprop="dateCreated datePublished" datetime="2022-03-13T09:50:46+08:00">2022-03-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-04 16:26:34" itemprop="dateModified" datetime="2022-06-04T16:26:34+08:00">2022-06-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/" itemprop="url" rel="index"><span itemprop="name">项目实操</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>该篇文档记录<strong>微服务版</strong>的若依项目部署在<strong>腾讯云</strong>的步骤过程</p>
-<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3>
+          <h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p>OSI 七层：物理层、链路层、网络层、传输层、会话层、表示层、应用层<br>TCP&#x2F;IP 四层：网络接口层、网际层、运输层、应用层<br>五层协议：物理层、链路层、网络层、运输层、应用层<br>每层协议：</p>
+<ul>
+<li>物理层：RJ45、CLOCK、IEEE802.3（中继器、集线器、网关）</li>
+<li>链路层：PPP、FR、HDLC、VLAN、MAC（网桥、交换机）</li>
+<li>网络层：IP、ICMP、ARP、RARP、OSPF、IPX、RIP、IGRP（路由器）</li>
+<li>传输层：TCP、UDP、SPX</li>
+<li>表示层：JPEG、MPEG、ASII</li>
+<li>应用层：FTP、DNS、Telnet、SMTP、HTTP、WWW、NFS</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2022/03/13/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E8%8B%A5%E4%BE%9D%E3%81%AE%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2%EF%BC%88%E4%BA%91%EF%BC%89/#more" rel="contents">
+              <a class="btn" href="/2022/04/13/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/CS%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -334,7 +447,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2022/03/03/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E8%8B%A5%E4%BE%9D%E3%81%AE%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2(%E6%9C%AC%E5%9C%B0)/">
+    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2022/04/12/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/LC101%E3%81%AE6.%20DP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/me.jpg">
@@ -348,7 +461,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/03/03/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E8%8B%A5%E4%BE%9D%E3%81%AE%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2(%E6%9C%AC%E5%9C%B0)/" class="post-title-link" itemprop="url">若依の环境部署(本地).md</a>
+            <a href="/2022/04/12/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/LC101%E3%81%AE6.%20DP/" class="post-title-link" itemprop="url">LC101の6. DP</a>
         </h2>
 
         <div class="post-meta">
@@ -358,466 +471,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-03-03 15:18:23" itemprop="dateCreated datePublished" datetime="2022-03-03T15:18:23+08:00">2022-03-03</time>
+              <time title="创建时间：2022-04-12 19:50:06" itemprop="dateCreated datePublished" datetime="2022-04-12T19:50:06+08:00">2022-04-12</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-04 16:26:32" itemprop="dateModified" datetime="2022-06-04T16:26:32+08:00">2022-06-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/" itemprop="url" rel="index"><span itemprop="name">项目实操</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="环境版本"><a href="#环境版本" class="headerlink" title="环境版本"></a>环境版本</h2><blockquote>
-<p>git 2.35.1.windows.2<br>jdk 1.8<br>mysql 8<br>Redis-x64-5.0.14.1<br>Maven 3.6.3<br>node v16.13.2<br>Nacos 2.0</p>
-</blockquote>
-<h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/03/03/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E8%8B%A5%E4%BE%9D%E3%81%AE%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2(%E6%9C%AC%E5%9C%B0)/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2022/03/03/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java%E6%A0%B8%E5%BF%83/JVM/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/me.jpg">
-      <meta itemprop="name" content="川行子">
-      <meta itemprop="description" content="一生想做浪漫极客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="山止川行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/03/03/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java%E6%A0%B8%E5%BF%83/JVM/" class="post-title-link" itemprop="url">JVM</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-03-03 09:29:39" itemprop="dateCreated datePublished" datetime="2022-03-03T09:29:39+08:00">2022-03-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-02 22:50:24" itemprop="dateModified" datetime="2022-06-02T22:50:24+08:00">2022-06-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">编程学习</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java%E6%A0%B8%E5%BF%83/" itemprop="url" rel="index"><span itemprop="name">Java核心</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="介绍下-Java-内存区域（运行时数据区）"><a href="#介绍下-Java-内存区域（运行时数据区）" class="headerlink" title="介绍下 Java 内存区域（运行时数据区）"></a>介绍下 Java 内存区域（运行时数据区）</h2><img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1652771387549-1e5ae7d0-bc2a-4550-a3fd-6f7d464f7979.png" style="zoom:67%;">
-
-<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/03/03/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java%E6%A0%B8%E5%BF%83/JVM/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2022/03/03/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java%E6%A0%B8%E5%BF%83/Java%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/me.jpg">
-      <meta itemprop="name" content="川行子">
-      <meta itemprop="description" content="一生想做浪漫极客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="山止川行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/03/03/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java%E6%A0%B8%E5%BF%83/Java%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">Java基础</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-03-03 09:29:29" itemprop="dateCreated datePublished" datetime="2022-03-03T09:29:29+08:00">2022-03-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-02 22:50:18" itemprop="dateModified" datetime="2022-06-02T22:50:18+08:00">2022-06-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">编程学习</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java%E6%A0%B8%E5%BF%83/" itemprop="url" rel="index"><span itemprop="name">Java核心</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="接口-amp-抽象类"><a href="#接口-amp-抽象类" class="headerlink" title="接口&amp;抽象类"></a>接口&amp;抽象类</h2><h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><table>
-<thead>
-<tr>
-<th><strong>参数</strong></th>
-<th><strong>接口</strong></th>
-<th><strong>抽象类</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>实现</td>
-<td>子类使用 implements 实现</td>
-<td>子类使用 extends 继承</td>
-</tr>
-<tr>
-<td>构造器</td>
-<td>不能有构造器</td>
-<td>可以有构造器</td>
-</tr>
-<tr>
-<td>main 方法</td>
-<td>没有 main 方法</td>
-<td>有 main 方法可以运行</td>
-</tr>
-<tr>
-<td>修饰符</td>
-<td>默认 public，不能用其他</td>
-<td>可以有 public、protected、default</td>
-</tr>
-</tbody></table>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/03/03/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java%E6%A0%B8%E5%BF%83/Java%E5%9F%BA%E7%A1%80/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2022/02/15/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E6%95%A3%E8%AE%B0/%E5%AE%89%E8%A3%85MySQL&Navicat%E7%A0%B4%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/me.jpg">
-      <meta itemprop="name" content="川行子">
-      <meta itemprop="description" content="一生想做浪漫极客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="山止川行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/15/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E6%95%A3%E8%AE%B0/%E5%AE%89%E8%A3%85MySQL&Navicat%E7%A0%B4%E8%A7%A3/" class="post-title-link" itemprop="url">安装MySQL&Navicat破解</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-02-15 19:36:54" itemprop="dateCreated datePublished" datetime="2022-02-15T19:36:54+08:00">2022-02-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-02 22:49:39" itemprop="dateModified" datetime="2022-06-02T22:49:39+08:00">2022-06-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">编程学习</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E6%95%A3%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">散记</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="MySQL-环境搭建"><a href="#MySQL-环境搭建" class="headerlink" title="MySQL 环境搭建"></a>MySQL 环境搭建</h2><h3 id="下载-MySQL"><a href="#下载-MySQL" class="headerlink" title="下载 MySQL"></a>下载 MySQL</h3><p>MySQL 官网：<a target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/mysql/">https://dev.mysql.com/downloads/mysql/</a><br><img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1644392105554-9736e2a1-0606-415e-90a7-bda296a735d4.png" alt="image.png" style="zoom: 33%;"><br><img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1644392134092-367f8bde-4c1d-46b6-9991-692c32f2d297.png" alt="image.png" style="zoom: 33%;"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/02/15/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E6%95%A3%E8%AE%B0/%E5%AE%89%E8%A3%85MySQL&Navicat%E7%A0%B4%E8%A7%A3/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2022/02/04/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E5%89%8D%E5%90%8E%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/me.jpg">
-      <meta itemprop="name" content="川行子">
-      <meta itemprop="description" content="一生想做浪漫极客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="山止川行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/04/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E5%89%8D%E5%90%8E%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/" class="post-title-link" itemprop="url">前后端环境搭建教程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-02-04 16:36:12" itemprop="dateCreated datePublished" datetime="2022-02-04T16:36:12+08:00">2022-02-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-04 16:26:30" itemprop="dateModified" datetime="2022-06-04T16:26:30+08:00">2022-06-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/" itemprop="url" rel="index"><span itemprop="name">项目实操</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h2><h3 id="Vue-环境"><a href="#Vue-环境" class="headerlink" title="Vue 环境"></a>Vue 环境</h3><ol>
-<li>安装 Nodejs，官网：<a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/">https://nodejs.org/zh-cn/</a></li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/02/04/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E5%89%8D%E5%90%8E%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2021/12/18/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/LC101%E3%81%AE5.%20%E6%90%9C%E7%B4%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/me.jpg">
-      <meta itemprop="name" content="川行子">
-      <meta itemprop="description" content="一生想做浪漫极客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="山止川行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/18/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/LC101%E3%81%AE5.%20%E6%90%9C%E7%B4%A2/" class="post-title-link" itemprop="url">LC101の5. 搜索</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-12-18 09:18:33" itemprop="dateCreated datePublished" datetime="2021-12-18T09:18:33+08:00">2021-12-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-03 14:18:33" itemprop="dateModified" datetime="2022-06-03T14:18:33+08:00">2022-06-03</time>
+                <time title="修改时间：2022-06-04 16:46:12" itemprop="dateModified" datetime="2022-06-04T16:46:12+08:00">2022-06-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -840,11 +501,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="深度优先搜索"><a href="#深度优先搜索" class="headerlink" title="深度优先搜索"></a>深度优先搜索</h2><p>深度优先搜索（depth-first seach，DFS）在搜索到一个新的节点时，立即对该新节点进行遍<br>历；因此遍历需要用先入后出的栈来实现，也可以通过与栈等价的递归来实现。对于树结构而言，<br>由于总是对新节点调用遍历，因此看起来是向着“深”的方向前进。</p>
-<p>深度优先搜索也可以用来<strong>检测环路</strong>，有时我们可能会需要对已经搜索过的节点进行标记，以防止在遍历时重复搜索某个节点，这 种做法叫做状态记录或记忆化（memoization）。</p>
+          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>动态规划（DP）将问题拆分成多个子问题，保存子问题的解以避免重复计算。<br>解决 DP 问题的关键在于找到状态转移方程。<br>可以通过对动态规划进行空间压缩起到节省空间消耗的效果。</p>
+<h2 id="基本动态规划：一维"><a href="#基本动态规划：一维" class="headerlink" title="基本动态规划：一维"></a>基本动态规划：一维</h2>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/12/18/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/LC101%E3%81%AE5.%20%E6%90%9C%E7%B4%A2/#more" rel="contents">
+              <a class="btn" href="/2022/04/12/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/LC101%E3%81%AE6.%20DP/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -868,7 +529,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2021/12/09/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/HOT%20100%20&%20%E9%9B%B6%E7%A2%8E/">
+    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2022/04/11/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E3%81%AE01.%20%E7%9F%AD%E4%BF%A1%E7%99%BB%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/me.jpg">
@@ -882,7 +543,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/12/09/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/HOT%20100%20&%20%E9%9B%B6%E7%A2%8E/" class="post-title-link" itemprop="url">HOT 100 & 零碎</a>
+            <a href="/2022/04/11/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E3%81%AE01.%20%E7%9F%AD%E4%BF%A1%E7%99%BB%E5%BD%95/" class="post-title-link" itemprop="url">黑马Redisの01. 短信登录</a>
         </h2>
 
         <div class="post-meta">
@@ -892,14 +553,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-12-09 18:58:11" itemprop="dateCreated datePublished" datetime="2021-12-09T18:58:11+08:00">2021-12-09</time>
+              <time title="创建时间：2022-04-11 21:24:01" itemprop="dateCreated datePublished" datetime="2022-04-11T21:24:01+08:00">2022-04-11</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-02 23:16:19" itemprop="dateModified" datetime="2022-06-02T23:16:19+08:00">2022-06-02</time>
+                <time title="修改时间：2022-06-05 12:37:33" itemprop="dateModified" datetime="2022-06-05T12:37:33+08:00">2022-06-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -907,7 +568,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">算法刷题</span></a>
+                  <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/" itemprop="url" rel="index"><span itemprop="name">项目实操</span></a>
                 </span>
             </span>
 
@@ -922,10 +583,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="HOT-100"><a href="#HOT-100" class="headerlink" title="HOT 100"></a>HOT 100</h2><h4 id="2-两数相加"><a href="#2-两数相加" class="headerlink" title="2. 两数相加"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/add-two-numbers/">2. 两数相加</a></h4><p>题目大意：用链表表示两个数字，求和，返回链表<br>思路：暴力，注意最后一个进位</p>
+          <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li>导入黑马点评项目</li>
+<li>基于 session 实现登录</li>
+<li>集群的 session 共享问题</li>
+<li>基于 Redis 实现共享 session 登录</li>
+</ul>
+<h2 id="导入黑马点评项目"><a href="#导入黑马点评项目" class="headerlink" title="导入黑马点评项目"></a>导入黑马点评项目</h2>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/12/09/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/HOT%20100%20&%20%E9%9B%B6%E7%A2%8E/#more" rel="contents">
+              <a class="btn" href="/2022/04/11/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E3%81%AE01.%20%E7%9F%AD%E4%BF%A1%E7%99%BB%E5%BD%95/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -949,7 +616,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2021/11/18/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E4%B8%AD%E9%97%B4%E4%BB%B6/%E4%B8%BB%E6%B5%81%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%88%86%E7%B1%BB/">
+    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2022/04/11/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E5%AE%9E%E6%88%98%E7%AF%87/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/me.jpg">
@@ -963,7 +630,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/11/18/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E4%B8%AD%E9%97%B4%E4%BB%B6/%E4%B8%BB%E6%B5%81%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%88%86%E7%B1%BB/" class="post-title-link" itemprop="url">主流中间件分类</a>
+            <a href="/2022/04/11/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E5%AE%9E%E6%88%98%E7%AF%87/" class="post-title-link" itemprop="url">实战篇</a>
         </h2>
 
         <div class="post-meta">
@@ -973,14 +640,372 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-11-18 09:46:18" itemprop="dateCreated datePublished" datetime="2021-11-18T09:46:18+08:00">2021-11-18</time>
+              <time title="创建时间：2022-04-11 21:15:36" itemprop="dateCreated datePublished" datetime="2022-04-11T21:15:36+08:00">2022-04-11</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-02 23:32:52" itemprop="dateModified" datetime="2022-06-02T23:32:52+08:00">2022-06-02</time>
+                <time title="修改时间：2022-06-05 11:27:05" itemprop="dateModified" datetime="2022-06-05T11:27:05+08:00">2022-06-05</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="课程介绍"><a href="#课程介绍" class="headerlink" title="课程介绍"></a>课程介绍</h2><p><strong>黑马点评</strong></p>
+<ul>
+<li>短信登录：Redis 的 session 应用</li>
+<li>商户查询缓存：企业的缓存使用技巧，缓存雪崩、穿透等问题解决</li>
+<li>达人探店：基于 List 的点赞列表，基于 SortedSet 的点赞排行榜</li>
+<li>优惠券秒杀：Redis 的计数器，Lua 脚本 Redis，分布式锁，Redis 的三种消息队列</li>
+<li>好友关注：基于 Set 集合的关注、取关、共同关注、消息推送等功能</li>
+<li>附近的商户：Redis 的 GeoHash 的应用</li>
+<li>用户签到：Redis 的 BitMap 数据统计功能</li>
+<li>UV 统计：Redis 的 HyperLogLog 统计功能</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/04/11/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E5%AE%9E%E6%88%98%E7%AF%87/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2022/04/08/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E3%81%AE0.%20%E5%9F%BA%E7%A1%80%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpg">
+      <meta itemprop="name" content="川行子">
+      <meta itemprop="description" content="一生想做浪漫极客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="山止川行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/08/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E3%81%AE0.%20%E5%9F%BA%E7%A1%80%E7%AF%87/" class="post-title-link" itemprop="url">黑马Redisの基础篇</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-04-08 10:14:10" itemprop="dateCreated datePublished" datetime="2022-04-08T10:14:10+08:00">2022-04-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-06-05 12:08:07" itemprop="dateModified" datetime="2022-06-05T12:08:07+08:00">2022-06-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/" itemprop="url" rel="index"><span itemprop="name">项目实操</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="初识-Redis"><a href="#初识-Redis" class="headerlink" title="初识 Redis"></a>初识 Redis</h2><h3 id="认识-NoSQL"><a href="#认识-NoSQL" class="headerlink" title="认识 NoSQL"></a>认识 NoSQL</h3><p>SQL vs NoSQL</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/04/08/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E3%81%AE0.%20%E5%9F%BA%E7%A1%80%E7%AF%87/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2022/04/08/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E3%81%AE00.%20%E5%AE%9E%E6%88%98%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpg">
+      <meta itemprop="name" content="川行子">
+      <meta itemprop="description" content="一生想做浪漫极客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="山止川行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/08/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E3%81%AE00.%20%E5%AE%9E%E6%88%98%E7%AF%87/" class="post-title-link" itemprop="url">黑马Redisの实战篇</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-04-08 10:12:35" itemprop="dateCreated datePublished" datetime="2022-04-08T10:12:35+08:00">2022-04-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-06-05 12:08:13" itemprop="dateModified" datetime="2022-06-05T12:08:13+08:00">2022-06-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/" itemprop="url" rel="index"><span itemprop="name">项目实操</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Redis 实战课：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1cr4y1671t?spm_id_from=333.337.search-card.all.click">https://www.bilibili.com/video/BV1cr4y1671t?spm_id_from&#x3D;333.337.search-card.all.click</a></p>
+<p>网盘链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1189u6u4icQYHg_9_7ovWmA?pwd=eh11#list/path=%2F">https://pan.baidu.com/s/1189u6u4icQYHg_9_7ovWmA?pwd&#x3D;eh11#list&#x2F;path&#x3D;%2F</a><br>提取码：eh11</p>
+<p>课程大纲<br><img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1649385228889-5633a369-e572-4648-a3ec-973921dbdfbe.jpeg" alt="7026460184b83bee8636ed27092be1e.jpg" style="zoom:50%;"></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/04/08/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E3%81%AE00.%20%E5%AE%9E%E6%88%98%E7%AF%87/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2022/03/29/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E8%8B%A5%E4%BE%9D%E3%81%AE%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpg">
+      <meta itemprop="name" content="川行子">
+      <meta itemprop="description" content="一生想做浪漫极客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="山止川行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/29/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E8%8B%A5%E4%BE%9D%E3%81%AE%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">若依の项目学习</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-03-29 09:34:01" itemprop="dateCreated datePublished" datetime="2022-03-29T09:34:01+08:00">2022-03-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-06-04 16:26:37" itemprop="dateModified" datetime="2022-06-04T16:26:37+08:00">2022-06-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/" itemprop="url" rel="index"><span itemprop="name">项目实操</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>RuoYi-cloud 官方文档：<br><a target="_blank" rel="noopener" href="http://doc.ruoyi.vip/ruoyi-cloud/">http://doc.ruoyi.vip/ruoyi-cloud/</a></p>
+<h2 id="一-目录结构学习"><a href="#一-目录结构学习" class="headerlink" title="一 目录结构学习"></a>一 目录结构学习</h2><ul>
+<li><strong>ruoyi-api：远程统一的服务接口</strong><ul>
+<li>domain</li>
+<li>factory</li>
+<li>model 远端文件系统</li>
+<li>RemoteFileService 远端文件服务</li>
+<li>RemoteLogService 远端日志服务</li>
+<li>RemoteUserService 远端用户服务</li>
+</ul>
+</li>
+<li><strong>ruoyi-auth：权限认证</strong><ul>
+<li>controller</li>
+<li>form</li>
+<li>service</li>
+<li>RuoYiAuthApplication</li>
+</ul>
+</li>
+<li><strong>ruoyi-common：公用工具类汇总，可以拿到其他项目中用</strong><ul>
+<li>ruoyi-common-core：核心</li>
+<li>ruoyi-common-datascope：数据权限</li>
+<li>ruoyi-common-datasource：数据源</li>
+<li>ruoyi-common-log：日志</li>
+<li>ruoyi-common-security：手撸了一套权限</li>
+<li>ruoyi-common-swagger：API 文档</li>
+</ul>
+</li>
+<li>ruoyi-gateway：网关</li>
+<li>ruoyi-modules</li>
+<li>rouyi-ui</li>
+<li>ruoyi-visual</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/29/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E8%8B%A5%E4%BE%9D%E3%81%AE%E9%A1%B9%E7%9B%AE%E5%AD%A6%E4%B9%A0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2022/03/27/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E6%95%B0%E6%8D%AE%E5%BA%93/SQL%20%E5%88%B7%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpg">
+      <meta itemprop="name" content="川行子">
+      <meta itemprop="description" content="一生想做浪漫极客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="山止川行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/27/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E6%95%B0%E6%8D%AE%E5%BA%93/SQL%20%E5%88%B7%E9%A2%98/" class="post-title-link" itemprop="url">SQL 刷题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-03-27 21:06:12" itemprop="dateCreated datePublished" datetime="2022-03-27T21:06:12+08:00">2022-03-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-06-02 23:36:21" itemprop="dateModified" datetime="2022-06-02T23:36:21+08:00">2022-06-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -992,7 +1017,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E4%B8%AD%E9%97%B4%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">中间件</span></a>
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
                 </span>
             </span>
 
@@ -1007,11 +1032,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="中间件の分类"><a href="#中间件の分类" class="headerlink" title="中间件の分类"></a>中间件の分类</h2><p>中间件的<strong>概念</strong>是介于<strong>应用系统</strong>和<strong>系统软件</strong>之间的一类软件，提供一些基础服务，衔接不同的应用从而达到资源共享、功能共享等目的。</p>
-<p>因为其定义<strong>并不严格</strong>，所以关于中间件的分类也不像是设计模式四大类这样清晰明确，本文先泛泛的用之前听到的一个 IT 讲师所说的分类（甩锅），梳理一下当下主流的一些中间件。<br><strong>大致分类：</strong></p>
+          <h2 id="一些用法"><a href="#一些用法" class="headerlink" title="一些用法"></a>一些用法</h2><h3 id="时间日期相关"><a href="#时间日期相关" class="headerlink" title="时间日期相关"></a>时间日期相关</h3><h4 id="TIMESTAMPDIFF-i-a-b"><a href="#TIMESTAMPDIFF-i-a-b" class="headerlink" title="TIMESTAMPDIFF(i,a,b)"></a>TIMESTAMPDIFF(i,a,b)</h4>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/11/18/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E4%B8%AD%E9%97%B4%E4%BB%B6/%E4%B8%BB%E6%B5%81%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%88%86%E7%B1%BB/#more" rel="contents">
+              <a class="btn" href="/2022/03/27/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E6%95%B0%E6%8D%AE%E5%BA%93/SQL%20%E5%88%B7%E9%A2%98/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1034,7 +1058,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1102,7 +1126,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1115,7 +1139,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
