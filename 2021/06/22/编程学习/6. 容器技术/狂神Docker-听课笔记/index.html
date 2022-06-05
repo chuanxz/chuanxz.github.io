@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chuanxz.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Docker 概述 Docker 安装 Docker 命令 Docker 镜像 容器数据卷 DokcerFile Docker 网络原理 IDEA 整合 Docker Docker Compose Docker Swarm CI\CD jenkins  Docker 概述为什么出现？环境配置麻烦。在容器技术之前，使用虚拟机技术。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="狂神Docker-听课笔记">
+<meta property="og:url" content="http://chuanxz.github.io/2021/06/22/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/6.%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/%E7%8B%82%E7%A5%9EDocker-%E5%90%AC%E8%AF%BE%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="山止川行">
+<meta property="og:description" content="Docker 概述 Docker 安装 Docker 命令 Docker 镜像 容器数据卷 DokcerFile Docker 网络原理 IDEA 整合 Docker Docker Compose Docker Swarm CI\CD jenkins  Docker 概述为什么出现？环境配置麻烦。在容器技术之前，使用虚拟机技术。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/1123881/1624409739560-51376e06-cd54-491e-b86a-15a2cad70697.png#clientId=ua55ecde4-f6cc-4&from=paste&height=122&id=ube233ec5&margin=%5Bobject%20Object%5D&name=image.png&originHeight=223&originWidth=820&originalType=binary%E2%88%B6=2&size=49069&status=done&style=none&taskId=u207559a5-3f17-43bd-ac9b-b26111aa358&width=450">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/1123881/1624409627864-81014040-3e81-46e2-a3ed-30a5ef3ab79e.png#clientId=ua55ecde4-f6cc-4&from=paste&height=231&id=u37059177&margin=%5Bobject%20Object%5D&name=image.png&originHeight=371&originWidth=707&originalType=binary%E2%88%B6=2&size=61809&status=done&style=none&taskId=u695d2a67-6966-4ec0-b71b-19eff85b270&width=439.5">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/1123881/1624409556905-a149182b-9a1f-49bd-84a2-cde3574384e6.png#clientId=ua55ecde4-f6cc-4&from=paste&height=44&id=uaef07d27&margin=%5Bobject%20Object%5D&name=image.png&originHeight=55&originWidth=551&originalType=binary%E2%88%B6=2&size=12705&status=done&style=none&taskId=u5b44c44d-ed0d-40f6-90cc-bf4f510362f&width=440.5">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/1123881/1624843027318-0b76a050-a1eb-43ca-b475-4be6da741191.png#clientId=u316dc2e9-af88-4&from=paste&height=375&id=u1bd568d7&margin=%5Bobject%20Object%5D&name=image.png&originHeight=559&originWidth=815&originalType=binary%E2%88%B6=2&size=288079&status=done&style=none&taskId=u2280a396-538a-4a25-878a-9a66901944d&width=546.5">
+<meta property="article:published_time" content="2021-06-22T06:01:32.000Z">
+<meta property="article:modified_time" content="2022-06-05T03:27:05.705Z">
+<meta property="article:author" content="川行子">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2021/png/1123881/1624409739560-51376e06-cd54-491e-b86a-15a2cad70697.png#clientId=ua55ecde4-f6cc-4&from=paste&height=122&id=ube233ec5&margin=%5Bobject%20Object%5D&name=image.png&originHeight=223&originWidth=820&originalType=binary%E2%88%B6=2&size=49069&status=done&style=none&taskId=u207559a5-3f17-43bd-ac9b-b26111aa358&width=450">
+
+<link rel="canonical" href="http://chuanxz.github.io/2021/06/22/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/6.%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/%E7%8B%82%E7%A5%9EDocker-%E5%90%AC%E8%AF%BE%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>狂神Docker-听课笔记 | 山止川行</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">山止川行</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">川のBlog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-link">
+
+    <a href="/link/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+	  <a target="_blank" rel="noopener" href="https://github.com/chuanxz" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2021/06/22/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/6.%20%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/%E7%8B%82%E7%A5%9EDocker-%E5%90%AC%E8%AF%BE%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpg">
+      <meta itemprop="name" content="川行子">
+      <meta itemprop="description" content="一生想做浪漫极客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="山止川行">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          狂神Docker-听课笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-06-22 14:01:32" itemprop="dateCreated datePublished" datetime="2021-06-22T14:01:32+08:00">2021-06-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-06-05 11:27:05" itemprop="dateModified" datetime="2022-06-05T11:27:05+08:00">2022-06-05</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ul>
+<li>Docker 概述</li>
+<li>Docker 安装</li>
+<li>Docker 命令</li>
+<li>Docker 镜像</li>
+<li>容器数据卷</li>
+<li>DokcerFile</li>
+<li>Docker 网络原理</li>
+<li>IDEA 整合 Docker</li>
+<li>Docker Compose</li>
+<li>Docker Swarm</li>
+<li>CI\CD jenkins</li>
+</ul>
+<h2 id="Docker-概述"><a href="#Docker-概述" class="headerlink" title="Docker 概述"></a>Docker 概述</h2><p>为什么出现？环境配置麻烦。<br>在容器技术之前，使用虚拟机技术。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vm：linux centos原生镜像（一个电脑）隔离，需要开启多个虚拟机</span><br><span class="line">docker：隔离，镜像（最核心的环境4m+jdk+mysql）十分小巧，运行镜像即可</span><br></pre></td></tr></table></figure>
+
+<p>Docker 基于 Go 语言开发<br>官网：<a target="_blank" rel="noopener" href="https://www.docker.com/">https://www.docker.com/</a><br>文档：<a target="_blank" rel="noopener" href="https://docs.docker.com/">https://docs.docker.com/</a><br>仓库：<a target="_blank" rel="noopener" href="https://hub.docker.com/">https://hub.docker.com/</a></p>
+<p>虚拟技术缺点</p>
+<ol>
+<li>资源占用多</li>
+<li>冗余步骤多</li>
+<li>启动慢</li>
+</ol>
+<p>容器化技术<br>并非模拟完整的操作系统</p>
+<p>比较：</p>
+<ul>
+<li>传统虚拟机，虚拟硬件，运行完整的操作系统，然后安装运行软件</li>
+<li>容器的应用直接运行在宿主机的内核，没有虚拟硬件，轻便</li>
+<li>每个容器之间互相隔离，每个容器内都有一个属于自己的文件系统，互不影响</li>
+</ul>
+<blockquote>
+<p>DevOps（开发、运维）</p>
+</blockquote>
+<p><strong>快速交付部署</strong><br>传统：一堆帮助文档，安装程序<br>Docker：打包镜像发布测试，一键运行<br><strong>快捷升级扩容</strong><br><strong>更简单系统运维</strong><br>容器化后，开发、测试环境高度一致<br><strong>更高效的计算资源利用</strong><br>Docker 是内核级别的虚拟化，可以在一个物理机上运行很多的容器实例，将性能压缩到极致。</p>
+<h2 id="Docker-安装"><a href="#Docker-安装" class="headerlink" title="Docker 安装"></a>Docker 安装</h2><h4 id="基本组成"><a href="#基本组成" class="headerlink" title="基本组成"></a>基本组成</h4><p>镜像（image）：<br>好比一个模板，用来创建容器服务，通过镜像可以创建多个容器（最终服务&#x2F;项目运行在容器中）。</p>
+<p>容器（container）：<br>容器技术独立运行一个&#x2F;一组应用，通过镜像创建。<br>启动，停止，删除，基本命令！</p>
+<p>仓库（repository）：<br>仓库是存放镜像的地方。<br>分为公有仓库和私有仓库，类似 maven</p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><blockquote>
+<p>环境检查</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">ihan@ubuntu:~/Desktop$ cat /etc/os-release</span><br><span class="line">NAME=&quot;Ubuntu&quot;</span><br><span class="line">VERSION=&quot;20.04.2 LTS (Focal Fossa)&quot;</span><br><span class="line">ID=ubuntu</span><br><span class="line">ID_LIKE=debian</span><br><span class="line">PRETTY_NAME=&quot;Ubuntu 20.04.2 LTS&quot;</span><br><span class="line">VERSION_ID=&quot;20.04&quot;</span><br><span class="line">HOME_URL=&quot;https://www.ubuntu.com/&quot;</span><br><span class="line">SUPPORT_URL=&quot;https://help.ubuntu.com/&quot;</span><br><span class="line">BUG_REPORT_URL=&quot;https://bugs.launchpad.net/ubuntu/&quot;</span><br><span class="line">PRIVACY_POLICY_URL=&quot;https://www.ubuntu.com/legal/terms-and-policies/privacy-policy&quot;</span><br><span class="line">VERSION_CODENAME=focal</span><br><span class="line">UBUNTU_CODENAME=focal</span><br></pre></td></tr></table></figure>
+
+<p>本人在 Ubuntu20.04 环境下的 docker 安装步骤：</p>
+<ol>
+<li>更新软件包索引</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>导入源仓库的 GPG key</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>将 Docker APT 软件源添加到系统</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository &quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&quot;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>安装最新版 docker</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install docker-ce docker-ce-cli containerd.io</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>验证</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl status docker</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1123881/1624409739560-51376e06-cd54-491e-b86a-15a2cad70697.png#clientId=ua55ecde4-f6cc-4&from=paste&height=122&id=ube233ec5&margin=%5Bobject%20Object%5D&name=image.png&originHeight=223&originWidth=820&originalType=binary%E2%88%B6=2&size=49069&status=done&style=none&taskId=u207559a5-3f17-43bd-ac9b-b26111aa358&width=450" alt="image.png"></p>
+<ol start="6">
+<li>以非 Root 用户身份执行 Docker</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo usermod -aG docker $USER</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>运行 hello world</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container run hello-world</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1123881/1624409627864-81014040-3e81-46e2-a3ed-30a5ef3ab79e.png#clientId=ua55ecde4-f6cc-4&from=paste&height=231&id=u37059177&margin=%5Bobject%20Object%5D&name=image.png&originHeight=371&originWidth=707&originalType=binary%E2%88%B6=2&size=61809&status=done&style=none&taskId=u695d2a67-6966-4ec0-b71b-19eff85b270&width=439.5" alt="image.png"></p>
+<ol start="8">
+<li>查看镜像</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudoo docker images</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1123881/1624409556905-a149182b-9a1f-49bd-84a2-cde3574384e6.png#clientId=ua55ecde4-f6cc-4&from=paste&height=44&id=uaef07d27&margin=%5Bobject%20Object%5D&name=image.png&originHeight=55&originWidth=551&originalType=binary%E2%88%B6=2&size=12705&status=done&style=none&taskId=u5b44c44d-ed0d-40f6-90cc-bf4f510362f&width=440.5" alt="image.png"></p>
+<ol start="9">
+<li>卸载 docker</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker container stop $(docker container ls -aq)</span><br><span class="line">docker system prune -a --volumes</span><br><span class="line"></span><br><span class="line">sudo apt purge docker-ce</span><br><span class="line">sudo apt autoremove</span><br></pre></td></tr></table></figure>
+
+<h2 id="底层原理"><a href="#底层原理" class="headerlink" title="底层原理"></a>底层原理</h2><p><strong>Docker 如何工作？</strong><br>Docker 是 CS 结构的系统，Docker 守护进程运行在主机上，通过 Socket 从客户端访问。</p>
+<p><strong>效率</strong><br>新建一个容器，docker 不需要像虚拟机一样重新加载一个操作系统内核，避免引导。虚拟机加载 Guest OS，分钟级别，而 docker 利用宿主机的操作系统，省略复杂过程，秒级。</p>
+<h2 id="Docker-常用命令"><a href="#Docker-常用命令" class="headerlink" title="Docker 常用命令"></a>Docker 常用命令</h2><h4 id="帮助命令"><a href="#帮助命令" class="headerlink" title="帮助命令"></a>帮助命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker version # 显示docker版本信息</span><br><span class="line">docker info    # 显示docker系统信息，包括镜像和容器的数量</span><br><span class="line">docker --help  # 帮助命令</span><br></pre></td></tr></table></figure>
+
+<p>帮助文档地址：<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/cli/">https://docs.docker.com/engine/reference/commandline/cli/</a></p>
+<h4 id="镜像命令"><a href="#镜像命令" class="headerlink" title="镜像命令"></a>镜像命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker images   # 查看主机镜像</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">可选项</span></span><br><span class="line">-a		# 列出所有镜像</span><br><span class="line">-q		# 只显示镜像id</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker search mysql		# 搜索镜像</span><br><span class="line"></span><br><span class="line">-- 可选项，通过收藏过滤</span><br><span class="line">--filter=STARTS=3000</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql	# 下载镜像 [:tag]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker rmi -f idxxx</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">可根据<span class="built_in">id</span>、名字删除，空格删除多个镜像</span></span><br><span class="line"></span><br><span class="line">docker rmi -f $(docker images -aq) # 全部删除</span><br></pre></td></tr></table></figure>
+
+<h4 id="容器命令"><a href="#容器命令" class="headerlink" title="容器命令"></a>容器命令</h4><p>下载一个 centos 学习</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull centos</span><br></pre></td></tr></table></figure>
+
+<p>新建容器并启动</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">docker run [可选参数] image</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">参数说明</span></span><br><span class="line">--name =&quot;Name&quot;         容器名字</span><br><span class="line">-d 										 后台方式运行</span><br><span class="line">-it										使用交互方式运行</span><br><span class="line">-p										指定容器的端口</span><br><span class="line">	-p ip:主机端口：容器端口</span><br><span class="line">  -p 主机端口：容器端口（常用）</span><br><span class="line">  -p 容器端口</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"> # </span><span class="language-bash">测试</span></span><br><span class="line">C:\Users\iHan&gt;docker run -it centos /bin/bash</span><br><span class="line">[root@2713824e1dfa /]# ls</span><br><span class="line">bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var</span><br><span class="line">[root@2713824e1dfa /]# exit</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+<p>列出所有运行的容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">docker ps 	# 列出当前运行的容器</span><br><span class="line">	-a 				# 列出当前运行+历史运行过容器</span><br><span class="line">  -n=? 			# 最近创建的容器</span><br><span class="line">  -q 				# 只显示容器编号</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">C:\Users\iHan&gt;docker ps -a</span><br><span class="line">CONTAINER ID   IMAGE       COMMAND                  CREATED         STATUS                          PORTS                                                  NAMES</span><br><span class="line">2713824e1dfa   centos      &quot;/bin/bash&quot;              2 minutes ago   Exited (0) About a minute ago                                                          nice_ardinghelli</span><br><span class="line">13f1d9be2776   mysql:5.7   &quot;docker-entrypoint.s…&quot;   22 hours ago    Up 22 hours                     0.0.0.0:3306-&gt;3306/tcp,&lt;/div&gt;3306-&gt;3306/tcp, 33060/tcp   mysql-test</span><br><span class="line"></span><br><span class="line">C:\Users\iHan&gt;docker ps</span><br><span class="line">CONTAINER ID   IMAGE       COMMAND                  CREATED        STATUS        PORTS                                                  NAMES</span><br><span class="line">13f1d9be2776   mysql:5.7   &quot;docker-entrypoint.s…&quot;   22 hours ago   Up 22 hours   0.0.0.0:3306-&gt;3306/tcp,&lt;/div&gt;3306-&gt;3306/tcp, 33060/tcp   mysql-test</span><br></pre></td></tr></table></figure>
+
+<p>退出容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">exit 				# 退出容器并停止</span><br><span class="line">ctrl+p+q		# 退出容器但不停止</span><br></pre></td></tr></table></figure>
+
+<p>删除容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker rm 容器id								 # 删除指定容器，不能删除正在运行的</span><br><span class="line">docker rm -f $(docker ps -aq)		 # 强制删除所有容器</span><br><span class="line">docker ps -a -q|xargs docker rm  # 删除所有容器</span><br></pre></td></tr></table></figure>
+
+<p>启动和停止容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker start 容器id</span><br><span class="line">docker restart 容器id</span><br><span class="line">docker stop 容器id</span><br><span class="line">docker kill 容器id		# 强制停止</span><br></pre></td></tr></table></figure>
+
+<h4 id="常用其他命令"><a href="#常用其他命令" class="headerlink" title="常用其他命令"></a>常用其他命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">常见的坑，docker容器使用后台运行，必须有一个前台进程，dockr发现没有应用，会自动停止</span></span><br><span class="line">docker run -d centos</span><br></pre></td></tr></table></figure>
+
+<h4 id="日志命令"><a href="#日志命令" class="headerlink" title="日志命令"></a>日志命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\iHan&gt;docker logs --help</span><br><span class="line"></span><br><span class="line">Usage:  docker logs [OPTIONS] CONTAINER</span><br><span class="line"></span><br><span class="line">Fetch the logs of a container</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">      --details        Show extra details provided to logs</span><br><span class="line">  -f, --follow         Follow log output</span><br><span class="line">      --since string   Show logs since timestamp (e.g.</span><br><span class="line">                       2013-01-02T13:23:37Z) or relative (e.g. 42m for 42</span><br><span class="line">                       minutes)</span><br><span class="line">  -n, --tail string    Number of lines to show from the end of the logs</span><br><span class="line">                       (default &quot;all&quot;)</span><br><span class="line">  -t, --timestamps     Show timestamps</span><br><span class="line">      --until string   Show logs before a timestamp (e.g.</span><br><span class="line">                       2013-01-02T13:23:37Z) or relative (e.g. 42m for 42</span><br><span class="line">                       minutes)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">docker logs -tf --tail id 容器没有日志</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">自己编写一段脚本</span></span><br><span class="line">C:\Users\iHan&gt;docker run -d  centos /bin/sh -c &quot;while true;do echo ihan;sleep 1;done&quot;</span><br><span class="line">4666c2b1c6656a5ec8c8d67cfb98ba98a83de798b61414315ee6470edc2d5667</span><br><span class="line"></span><br><span class="line">C:\Users\iHan&gt;docker ps</span><br><span class="line">CONTAINER ID   IMAGE</span><br><span class="line">4666c2b1c665   centos</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">显示日志</span></span><br><span class="line">-tf							# 显示日志</span><br><span class="line">--tail number 	# 显示日志条数</span><br><span class="line">C:\Users\iHan&gt;docker logs -tf --tail 10 4666c2b1c665</span><br><span class="line">2021-06-28T00:52:29.988294500Z ihan</span><br><span class="line">2021-06-28T00:52:30.988896200Z ihan</span><br><span class="line">2021-06-28T00:52:31.991083000Z ihan</span><br><span class="line">2021-06-28T00:52:32.992641200Z ihan</span><br><span class="line">2021-06-28T00:52:33.994023100Z ihan</span><br><span class="line">2021-06-28T00:52:34.995868800Z ihan</span><br><span class="line">2021-06-28T00:52:35.997390000Z ihan</span><br><span class="line">2021-06-28T00:52:36.998599200Z ihan</span><br><span class="line">2021-06-28T00:52:37.999835400Z ihan</span><br><span class="line">2021-06-28T00:52:39.001415900Z ihan</span><br><span class="line">2021-06-28T00:52:40.002791200Z ihan</span><br><span class="line">2021-06-28T00:52:41.004353000Z ihan</span><br><span class="line">2021-06-28T00:52:42.006254000Z ihan</span><br><span class="line">2021-06-28T00:52:43.008686800Z ihan</span><br></pre></td></tr></table></figure>
+
+<h4 id="查看容器进程"><a href="#查看容器进程" class="headerlink" title="查看容器进程"></a>查看容器进程</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">docker top <span class="built_in">id</span></span></span><br><span class="line">C:\Users\iHan&gt;docker top 4666c2b1c665</span><br><span class="line">UID                 PID                 PPID                C                   STIME</span><br><span class="line">root                1298                1277                0                   00:51</span><br><span class="line">root                1576                1298                0                   00:54</span><br></pre></td></tr></table></figure>
+
+<h4 id="元数据"><a href="#元数据" class="headerlink" title="元数据"></a>元数据</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\iHan&gt;docker inspect --help</span><br><span class="line"></span><br><span class="line">Usage:  docker inspect [OPTIONS] NAME|ID [NAME|ID...]</span><br><span class="line"></span><br><span class="line">Return low-level information on Docker objects</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">  -f, --format string   Format the output using the given Go template</span><br><span class="line">  -s, --size            Display total file sizes if the type is container</span><br><span class="line">      --type string     Return JSON for specified type</span><br></pre></td></tr></table></figure>
+
+<h4 id="进入当前正在运行的容器"><a href="#进入当前正在运行的容器" class="headerlink" title="进入当前正在运行的容器"></a>进入当前正在运行的容器</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">通常使用后台的方式运行，需要进入容器，修改一些配置</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">命令</span></span><br><span class="line">方式一：docker exec -it 容器id bashshell</span><br><span class="line"></span><br><span class="line">C:\Users\iHan&gt;docker exec -it 4666c2b1c665 /bin/bash</span><br><span class="line">[root@4666c2b1c665 /]# ls</span><br><span class="line">bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var</span><br><span class="line">[root@4666c2b1c665 /]# ps -ef</span><br><span class="line">UID        PID  PPID  C STIME TTY          TIME CMD</span><br><span class="line">root         1     0  0 00:51 ?        00:00:00 /bin/sh -c while true;do echo ihan;sleep 1;done</span><br><span class="line">root       612     0  0 01:01 pts/0    00:00:00 /bin/bash</span><br><span class="line">root       655     1  0 01:01 ?        00:00:00 /usr/bin/coreutils --coreutils-prog-shebang=sleep /usr/bin/sleep</span><br><span class="line">root       656   612  0 01:01 pts/0    00:00:00 ps -ef</span><br><span class="line"></span><br><span class="line">方式二：docker attach 容器id</span><br><span class="line">C:\Users\iHan&gt;docker attach 4666c2b1c665</span><br><span class="line">ihan</span><br><span class="line">ihan</span><br><span class="line">ihan</span><br><span class="line"></span><br><span class="line">区别：</span><br><span class="line">docker exec # 进入容器后开启一个新的终端，可以在里面操作（常用）</span><br><span class="line">docker attach # 进入当前容器，不会启动新的进程</span><br></pre></td></tr></table></figure>
+
+<h4 id="从容器拷贝文件到主机上"><a href="#从容器拷贝文件到主机上" class="headerlink" title="从容器拷贝文件到主机上"></a>从容器拷贝文件到主机上</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker cp 容器id</span><br><span class="line"></span><br><span class="line">docker cp 4666c2b1c665 /home/test.java /home</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">拷贝是一个手动过程，未来我们使用-v卷技术，可以实现自动同步</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="常用命令小结"><a href="#常用命令小结" class="headerlink" title="常用命令小结"></a>常用命令小结</h2><p><img src="https://cdn.nlark.com/yuque/0/2021/png/1123881/1624843027318-0b76a050-a1eb-43ca-b475-4be6da741191.png#clientId=u316dc2e9-af88-4&from=paste&height=375&id=u1bd568d7&margin=%5Bobject%20Object%5D&name=image.png&originHeight=559&originWidth=815&originalType=binary%E2%88%B6=2&size=288079&status=done&style=none&taskId=u2280a396-538a-4a25-878a-9a66901944d&width=546.5" alt="image.png"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/24/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/LC101%E3%81%AE3.%20%E4%BA%8C%E5%88%86/" rel="prev" title="LC101の3. 二分">
+      <i class="fa fa-chevron-left"></i> LC101の3. 二分
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/09/01/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/3.%20Spring%E6%A1%86%E6%9E%B6/%E9%BB%91%E9%A9%ACSpringCloud/%E9%BB%91%E9%A9%ACSpringCloud%E3%81%AE01.%20Eukera+Ribbon+Nacos/" rel="next" title="01，Eukera+Ribbon+Nacos">
+      01，Eukera+Ribbon+Nacos <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">Docker 概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">Docker 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%BB%84%E6%88%90"><span class="nav-number">2.0.1.</span> <span class="nav-text">基本组成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">2.0.2.</span> <span class="nav-text">安装</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">底层原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">4.</span> <span class="nav-text">Docker 常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%AE%E5%8A%A9%E5%91%BD%E4%BB%A4"><span class="nav-number">4.0.1.</span> <span class="nav-text">帮助命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%95%9C%E5%83%8F%E5%91%BD%E4%BB%A4"><span class="nav-number">4.0.2.</span> <span class="nav-text">镜像命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">4.0.3.</span> <span class="nav-text">容器命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4"><span class="nav-number">4.0.4.</span> <span class="nav-text">常用其他命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E5%91%BD%E4%BB%A4"><span class="nav-number">4.0.5.</span> <span class="nav-text">日志命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%AE%B9%E5%99%A8%E8%BF%9B%E7%A8%8B"><span class="nav-number">4.0.6.</span> <span class="nav-text">查看容器进程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%83%E6%95%B0%E6%8D%AE"><span class="nav-number">4.0.7.</span> <span class="nav-text">元数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E5%85%A5%E5%BD%93%E5%89%8D%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9A%84%E5%AE%B9%E5%99%A8"><span class="nav-number">4.0.8.</span> <span class="nav-text">进入当前正在运行的容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8E%E5%AE%B9%E5%99%A8%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6%E5%88%B0%E4%B8%BB%E6%9C%BA%E4%B8%8A"><span class="nav-number">4.0.9.</span> <span class="nav-text">从容器拷贝文件到主机上</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%B0%8F%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">常用命令小结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="川行子"
+      src="/images/me.jpg">
+  <p class="site-author-name" itemprop="name">川行子</p>
+  <div class="site-description" itemprop="description">一生想做浪漫极客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">91</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chuanxz" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chuanxz" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">川行子</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
