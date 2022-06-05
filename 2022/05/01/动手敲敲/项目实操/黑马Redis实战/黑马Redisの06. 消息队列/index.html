@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chuanxz.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Q1：JVM 内存限制，超出阻塞队列上限Q2：数据安全，没有持久化，阻塞队列数据丢失A：消息队列 认识消息队列消息队列包含 3 个角色：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="黑马Redisの06. 消息队列">
+<meta property="og:url" content="http://chuanxz.github.io/2022/05/01/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E5%AE%9E%E6%88%98/%E9%BB%91%E9%A9%ACRedis%E3%81%AE06.%20%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/index.html">
+<meta property="og:site_name" content="山止川行">
+<meta property="og:description" content="Q1：JVM 内存限制，超出阻塞队列上限Q2：数据安全，没有持久化，阻塞队列数据丢失A：消息队列 认识消息队列消息队列包含 3 个角色：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651407445102-26ff9149-fe2a-4a0a-8059-2ea20b593140.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=285&id=ue2689a8a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=569&originWidth=1502&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=198101&status=done&style=none&taskId=u504f25d8-f357-441a-a403-09bca223cf9&title=&width=751">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651408485578-6fd87158-00a1-4c1a-bca3-b92758d9e463.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=270&id=u36761b4c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=539&originWidth=1535&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=385833&status=done&style=none&taskId=ufc465623-2f4f-434e-b67e-a8a4832abb4&title=&width=767.5">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651408616238-5753b813-fa44-4c0d-af30-704bd7d030ea.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=182&id=ua10e1181&margin=%5Bobject%20Object%5D&name=image.png&originHeight=361&originWidth=1461&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=341126&status=done&style=none&taskId=uf296d443-e718-4fbb-9784-4d4ea2e1da5&title=&width=738.5">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651408805605-c0d1a604-f2dc-49ae-a151-2ec814bfb095.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=330&id=udfd00a14&margin=%5Bobject%20Object%5D&name=image.png&originHeight=660&originWidth=1488&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=309812&status=done&style=none&taskId=u16a03055-bf8b-4734-9d29-e699d30847e&title=&width=744">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651409081246-241ffd0f-82b2-4ad2-9a89-317ab219a36e.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=210&id=u42808b7e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=468&originWidth=1387&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=230798&status=done&style=none&taskId=u446772ab-aa28-4a0c-ae24-68c3a0ba60f&title=&width=622.5">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651409232208-15431a7f-9192-444b-8e5c-c73c5ae5b2a6.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=343&id=u27327cc8&margin=%5Bobject%20Object%5D&name=image.png&originHeight=685&originWidth=1360&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=297413&status=done&style=none&taskId=uc6b384ca-e1dd-4fa6-9e99-e8be4f2ce3a&title=&width=680">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651409427307-2ddbde13-b973-4154-9366-0d3909ca7619.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=323&id=uddeaace7&margin=%5Bobject%20Object%5D&name=image.png&originHeight=645&originWidth=1524&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=271552&status=done&style=none&taskId=u2f351a72-f7ad-4c43-8a9f-76dfbaaedf1&title=&width=762">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651410101985-9011dfa9-db98-4cc1-8d7d-6977071d2050.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=304&id=u209cea34&margin=%5Bobject%20Object%5D&name=image.png&originHeight=607&originWidth=1392&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=166170&status=done&style=none&taskId=u4044318a-cf8a-47ff-a855-53a011b3104&title=&width=696">
+<meta property="article:published_time" content="2022-05-01T00:58:26.000Z">
+<meta property="article:modified_time" content="2022-06-05T11:15:56.079Z">
+<meta property="article:author" content="川行子">
+<meta property="article:tag" content="黑马">
+<meta property="article:tag" content="Redis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651407445102-26ff9149-fe2a-4a0a-8059-2ea20b593140.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=285&id=ue2689a8a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=569&originWidth=1502&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=198101&status=done&style=none&taskId=u504f25d8-f357-441a-a403-09bca223cf9&title=&width=751">
+
+<link rel="canonical" href="http://chuanxz.github.io/2022/05/01/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E5%AE%9E%E6%88%98/%E9%BB%91%E9%A9%ACRedis%E3%81%AE06.%20%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>黑马Redisの06. 消息队列 | 山止川行</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">山止川行</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">川のBlog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-link">
+
+    <a href="/link/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+	  <a target="_blank" rel="noopener" href="https://github.com/chuanxz" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2022/05/01/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E5%AE%9E%E6%88%98/%E9%BB%91%E9%A9%ACRedis%E3%81%AE06.%20%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpg">
+      <meta itemprop="name" content="川行子">
+      <meta itemprop="description" content="一生想做浪漫极客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="山止川行">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          黑马Redisの06. 消息队列
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-05-01 08:58:26" itemprop="dateCreated datePublished" datetime="2022-05-01T08:58:26+08:00">2022-05-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-06-05 19:15:56" itemprop="dateModified" datetime="2022-06-05T19:15:56+08:00">2022-06-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/" itemprop="url" rel="index"><span itemprop="name">项目实操</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Q1：JVM 内存限制，超出阻塞队列上限<br>Q2：数据安全，没有持久化，阻塞队列数据丢失<br>A：消息队列</p>
+<h2 id="认识消息队列"><a href="#认识消息队列" class="headerlink" title="认识消息队列"></a>认识消息队列</h2><p>消息队列包含 3 个角色：</p>
+<ul>
+<li>消息队列：存储和管理消息，也被称为消息代理</li>
+<li>生产者：发送消息到消息队列</li>
+<li>消费者：从消息队列获取消息并处理消息</li>
+</ul>
+<p>Redis 提供三种各不同方式实现消息队列：</p>
+<ul>
+<li>list 结构：基于 List 结构模拟消息队列</li>
+<li>PubSub：基本的点对点消息模型</li>
+<li>Stream：比较完善的消息队列模型</li>
+</ul>
+<h2 id="基于-List-实现消息队列"><a href="#基于-List-实现消息队列" class="headerlink" title="基于 List 实现消息队列"></a>基于 List 实现消息队列</h2><p>用 Redis 里的 List 模拟 JVM 的 List<br>优点：</p>
+<ul>
+<li>利用 Redis 存储，不受限 JVM 内存上限</li>
+<li>基于 Redis 持久化机制，数据安全性有保证</li>
+<li>可以满足消息有序性</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>无法避免消息丢失</li>
+<li>只支持单消费者</li>
+</ul>
+<h2 id="PubSub-实现消息队列"><a href="#PubSub-实现消息队列" class="headerlink" title="PubSub 实现消息队列"></a>PubSub 实现消息队列</h2><p>PubSub（发布订阅）：消费者可以订阅一个或多个 channel，生产者向对应 channel 发送消息后，所有订阅者都能收到相关消息。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651407445102-26ff9149-fe2a-4a0a-8059-2ea20b593140.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=285&id=ue2689a8a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=569&originWidth=1502&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=198101&status=done&style=none&taskId=u504f25d8-f357-441a-a403-09bca223cf9&title=&width=751" alt="image.png"><br>优点：</p>
+<ul>
+<li>采用发布订阅模型，支持多生产、多消费</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>不支持数据持久化</li>
+<li>无法避免消息丢失</li>
+<li>消息堆积有上限，超出时数据丢失</li>
+</ul>
+<h2 id="基于-Stream-的消息队列"><a href="#基于-Stream-的消息队列" class="headerlink" title="基于 Stream 的消息队列"></a>基于 Stream 的消息队列</h2><p>Stream 是 Redis5.0 引入的一种新的数据类型，可以实现一个功能非常完善的消息队列。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651408485578-6fd87158-00a1-4c1a-bca3-b92758d9e463.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=270&id=u36761b4c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=539&originWidth=1535&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=385833&status=done&style=none&taskId=ufc465623-2f4f-434e-b67e-a8a4832abb4&title=&width=767.5" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651408616238-5753b813-fa44-4c0d-af30-704bd7d030ea.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=182&id=ua10e1181&margin=%5Bobject%20Object%5D&name=image.png&originHeight=361&originWidth=1461&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=341126&status=done&style=none&taskId=uf296d443-e718-4fbb-9784-4d4ea2e1da5&title=&width=738.5" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651408805605-c0d1a604-f2dc-49ae-a151-2ec814bfb095.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=330&id=udfd00a14&margin=%5Bobject%20Object%5D&name=image.png&originHeight=660&originWidth=1488&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=309812&status=done&style=none&taskId=u16a03055-bf8b-4734-9d29-e699d30847e&title=&width=744" alt="image.png"><br>命令特点：</p>
+<ul>
+<li>消息可回溯</li>
+<li>一个消息可以被多个消费者读取</li>
+<li>可以阻塞读取</li>
+<li>有消息漏读风险</li>
+</ul>
+<h2 id="Stream-的消费者组模式"><a href="#Stream-的消费者组模式" class="headerlink" title="Stream 的消费者组模式"></a>Stream 的消费者组模式</h2><p><img src="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651409081246-241ffd0f-82b2-4ad2-9a89-317ab219a36e.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=210&id=u42808b7e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=468&originWidth=1387&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=230798&status=done&style=none&taskId=u446772ab-aa28-4a0c-ae24-68c3a0ba60f&title=&width=622.5" alt="image.png"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651409232208-15431a7f-9192-444b-8e5c-c73c5ae5b2a6.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=343&id=u27327cc8&margin=%5Bobject%20Object%5D&name=image.png&originHeight=685&originWidth=1360&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=297413&status=done&style=none&taskId=uc6b384ca-e1dd-4fa6-9e99-e8be4f2ce3a&title=&width=680" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651409427307-2ddbde13-b973-4154-9366-0d3909ca7619.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=323&id=uddeaace7&margin=%5Bobject%20Object%5D&name=image.png&originHeight=645&originWidth=1524&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=271552&status=done&style=none&taskId=u2f351a72-f7ad-4c43-8a9f-76dfbaaedf1&title=&width=762" alt="image.png"><br>命令特点：</p>
+<ul>
+<li>消息可回溯</li>
+<li>可以多消费者争抢消息，加快消费速度</li>
+<li>可以阻塞读取</li>
+<li>没有消息漏读风险</li>
+<li>有消息确认机制，保证消息至少被消费一次</li>
+</ul>
+<h2 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h2><p><img src="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651410101985-9011dfa9-db98-4cc1-8d7d-6977071d2050.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=304&id=u209cea34&margin=%5Bobject%20Object%5D&name=image.png&originHeight=607&originWidth=1392&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=166170&status=done&style=none&taskId=u4044318a-cf8a-47ff-a855-53a011b3104&title=&width=696" alt="image.png"></p>
+<h2 id="基于-Stream-消息队列实现异步秒杀"><a href="#基于-Stream-消息队列实现异步秒杀" class="headerlink" title="基于 Stream 消息队列实现异步秒杀"></a>基于 Stream 消息队列实现异步秒杀</h2><p>需求：</p>
+<ol>
+<li>创建 Stream 消息队列，名为 stream.orders</li>
+<li>修改之前秒杀下单 Lua 脚本，在认定有抢购资格后，直接向 strem.orders 添加消息，内容包含 voucherId、userId、orderId</li>
+<li>项目启动时，开启一个线程任务，尝试获取 stream.orders 中消息，完成下单</li>
+</ol>
+<blockquote>
+<p>XGROUP CREATE stream.orders g1 0 MKSTREAM</p>
+</blockquote>
+<blockquote>
+<p>– 1.3 订单 id<br>local orderId &#x3D; <em>ARGV</em>[3]<br>…<br>– 3.6.发送消息到队列中，XADD strea.orders _ k1 v1 k2 v2<br><em>redis</em>.<em>call</em>(‘xadd’,’stream.orders’,’_’,’userId’, userId, ‘voucherId’, voucherId, ‘id’, orderId)</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">class</span> <span class="title class_">VoucherOrderHandler</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">queueName</span> <span class="operator">=</span> <span class="string">&quot;stream.orders&quot;</span>;</span><br><span class="line">        <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">//1.获取消息队列中的订单信息 XREAMGROUP GROUP g1 c1 COUNT 1 BLOCK 2000 STREAMS s1 &gt;</span></span><br><span class="line">                List&lt;MapRecord&lt;String, Object, Object&gt;&gt; list = stringRedisTemplate.opsForStream().read(</span><br><span class="line">                    Consumer.from(<span class="string">&quot;g1&quot;</span>, <span class="string">&quot;c1&quot;</span>),</span><br><span class="line">                    StreamReadOptions.empty().count(<span class="number">1</span>).block(Duration.ofSeconds(<span class="number">2</span>)),</span><br><span class="line">                    StreamOffset.create(queueName, ReadOffset.lastConsumed())</span><br><span class="line">                );</span><br><span class="line">                <span class="comment">//2.判断订单信息是否为空</span></span><br><span class="line">                <span class="keyword">if</span>(list == <span class="literal">null</span> || list.isEmpty())&#123;</span><br><span class="line">                    <span class="comment">//如果null，说明没有消息，继续下一次循环</span></span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">//解析消息</span></span><br><span class="line">                MapRecord&lt;String, Object, Object&gt; record = list.get(<span class="number">0</span>);</span><br><span class="line">                Map&lt;Object, Object&gt; value = record.getValue();</span><br><span class="line">                <span class="type">VoucherOrder</span> <span class="variable">voucherOrder</span> <span class="operator">=</span> BeanUtil.fillBeanWithMap(value, <span class="keyword">new</span> <span class="title class_">VoucherOrder</span>(), <span class="literal">true</span>);</span><br><span class="line">                <span class="comment">//3.创建订单</span></span><br><span class="line">                createVoucherOrder(voucherOrder);</span><br><span class="line">                <span class="comment">//4.确认消息 XACK s1 g1 id</span></span><br><span class="line">                stringRedisTemplate.opsForStream().acknowledge(queueName, <span class="string">&quot;g1&quot;</span>, record.getId());</span><br><span class="line">            &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">                log.error(<span class="string">&quot;处理订单异常&quot;</span>, e);</span><br><span class="line">                handlePendingList();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">handlePendingList</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">queueName</span> <span class="operator">=</span> <span class="string">&quot;stream.orders&quot;</span>;</span><br><span class="line">        <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">//1.获取pending-list中的订单信息 XREAMGROUP GROUP g1 c1 COUNT 1 BLOCK 2000 STREAMS s1 0</span></span><br><span class="line">                List&lt;MapRecord&lt;String, Object, Object&gt;&gt; list = stringRedisTemplate.opsForStream().read(</span><br><span class="line">                    Consumer.from(<span class="string">&quot;g1&quot;</span>, <span class="string">&quot;c1&quot;</span>),</span><br><span class="line">                    StreamReadOptions.empty().count(<span class="number">1</span>),</span><br><span class="line">                    StreamOffset.create(queueName, ReadOffset.from(<span class="string">&quot;0&quot;</span>))</span><br><span class="line">                );</span><br><span class="line">                <span class="comment">//2.判断订单信息是否为空</span></span><br><span class="line">                <span class="keyword">if</span>(list == <span class="literal">null</span> || list.isEmpty())&#123;</span><br><span class="line">                    <span class="comment">//如果null，说明pending-list没有异常消息，结束循环</span></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">//解析消息</span></span><br><span class="line">                MapRecord&lt;String, Object, Object&gt; record = list.get(<span class="number">0</span>);</span><br><span class="line">                Map&lt;Object, Object&gt; value = record.getValue();</span><br><span class="line">                <span class="type">VoucherOrder</span> <span class="variable">voucherOrder</span> <span class="operator">=</span> BeanUtil.fillBeanWithMap(value, <span class="keyword">new</span> <span class="title class_">VoucherOrder</span>(), <span class="literal">true</span>);</span><br><span class="line">                <span class="comment">//3.创建订单</span></span><br><span class="line">                createVoucherOrder(voucherOrder);</span><br><span class="line">                <span class="comment">//4.确认消息 XACK s1 g1 id</span></span><br><span class="line">                stringRedisTemplate.opsForStream().acknowledge(queueName, <span class="string">&quot;g1&quot;</span>, record.getId());</span><br><span class="line">            &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">                log.error(<span class="string">&quot;处理订单异常&quot;</span>, e);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">100</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException ex) &#123;</span><br><span class="line">                    ex.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%BB%91%E9%A9%AC/" rel="tag"># 黑马</a>
+              <a href="/tags/Redis/" rel="tag"># Redis</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/27/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E5%AE%9E%E6%88%98/%E9%BB%91%E9%A9%ACRedis%E3%81%AE05.%20%E7%A7%92%E6%9D%80%E4%BC%98%E5%8C%96/" rel="prev" title="黑马Redisの05. 秒杀优化">
+      <i class="fa fa-chevron-left"></i> 黑马Redisの05. 秒杀优化
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/05/02/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E5%AE%9E%E6%88%98/%E9%BB%91%E9%A9%ACRedis%E3%81%AE07.%20%E8%BE%BE%E4%BA%BA%E6%8E%A2%E5%BA%97/" rel="next" title="黑马Redisの07. 达人探店">
+      黑马Redisの07. 达人探店 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A4%E8%AF%86%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="nav-number">1.</span> <span class="nav-text">认识消息队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E-List-%E5%AE%9E%E7%8E%B0%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="nav-number">2.</span> <span class="nav-text">基于 List 实现消息队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PubSub-%E5%AE%9E%E7%8E%B0%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="nav-number">3.</span> <span class="nav-text">PubSub 实现消息队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E-Stream-%E7%9A%84%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="nav-number">4.</span> <span class="nav-text">基于 Stream 的消息队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stream-%E7%9A%84%E6%B6%88%E8%B4%B9%E8%80%85%E7%BB%84%E6%A8%A1%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">Stream 的消费者组模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E6%AF%94"><span class="nav-number">6.</span> <span class="nav-text">对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E-Stream-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0%E5%BC%82%E6%AD%A5%E7%A7%92%E6%9D%80"><span class="nav-number">7.</span> <span class="nav-text">基于 Stream 消息队列实现异步秒杀</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="川行子"
+      src="/images/me.jpg">
+  <p class="site-author-name" itemprop="name">川行子</p>
+  <div class="site-description" itemprop="description">一生想做浪漫极客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">93</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chuanxz" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chuanxz" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">川行子</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
