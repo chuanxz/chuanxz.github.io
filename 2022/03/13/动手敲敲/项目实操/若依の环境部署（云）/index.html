@@ -309,19 +309,19 @@
 <p>#git 安装命令，方便安装最新版本<br>yum -y install git<br>[roothouse@VM-16-11-centos ~]$ git –version<br>git version 2.27.0</p>
 </blockquote>
 <blockquote>
-<p>[root@VM-16-11-centos ~]# git config –global user.name “iHan”<br>[root@VM-16-11-centos ~]# git config –global user.email “<a href="mailto:&#x31;&#48;&#x35;&#x39;&#51;&#57;&#56;&#x32;&#56;&#x30;&#64;&#113;&#113;&#46;&#x63;&#x6f;&#109;">&#x31;&#48;&#x35;&#x39;&#51;&#57;&#56;&#x32;&#56;&#x30;&#64;&#113;&#113;&#46;&#x63;&#x6f;&#109;</a>“<br>[root@VM-16-11-centos ~]# git config –list<br>user.name&#x3D;iHan<br>user.email&#x3D;<a href="mailto:&#49;&#x30;&#x35;&#x39;&#51;&#x39;&#x38;&#x32;&#56;&#48;&#64;&#x71;&#113;&#x2e;&#99;&#x6f;&#109;">&#49;&#x30;&#x35;&#x39;&#51;&#x39;&#x38;&#x32;&#56;&#48;&#64;&#x71;&#113;&#x2e;&#99;&#x6f;&#109;</a></p>
+<p>[root@VM-16-11-centos ~]# git config –global user.name “iHan”<br>[root@VM-16-11-centos ~]# git config –global user.email “<a href="mailto:&#x31;&#48;&#53;&#57;&#x33;&#57;&#56;&#50;&#x38;&#x30;&#64;&#113;&#x71;&#46;&#99;&#111;&#109;">&#x31;&#48;&#53;&#57;&#x33;&#57;&#56;&#50;&#x38;&#x30;&#64;&#113;&#x71;&#46;&#99;&#111;&#109;</a>“<br>[root@VM-16-11-centos ~]# git config –list<br>user.name&#x3D;iHan<br>user.email&#x3D;<a href="mailto:&#49;&#48;&#53;&#57;&#x33;&#x39;&#x38;&#x32;&#56;&#48;&#64;&#x71;&#x71;&#x2e;&#99;&#111;&#109;">&#49;&#48;&#53;&#57;&#x33;&#x39;&#x38;&#x32;&#56;&#48;&#64;&#x71;&#x71;&#x2e;&#99;&#111;&#109;</a></p>
 </blockquote>
 <h4 id="二、添加-ssh-公钥和从-git-仓库克隆源代码"><a href="#二、添加-ssh-公钥和从-git-仓库克隆源代码" class="headerlink" title="二、添加 ssh 公钥和从 git 仓库克隆源代码"></a>二、添加 ssh 公钥和从 git 仓库克隆源代码</h4><blockquote>
-<p>ssh-keygen -t rsa -C “<a href="mailto:&#49;&#x30;&#x35;&#57;&#51;&#57;&#x38;&#50;&#56;&#x30;&#x40;&#x71;&#113;&#x2e;&#x63;&#111;&#109;">&#49;&#x30;&#x35;&#57;&#51;&#57;&#x38;&#50;&#56;&#x30;&#x40;&#x71;&#113;&#x2e;&#x63;&#111;&#109;</a>“ #接下来一直敲回车，生成 ssh key<br>cat ~&#x2F;.ssh&#x2F;id_rsa.pub #获取到公钥，添加到 gitee 中</p>
+<p>ssh-keygen -t rsa -C “<a href="mailto:&#49;&#48;&#53;&#57;&#x33;&#x39;&#56;&#50;&#x38;&#48;&#64;&#x71;&#x71;&#46;&#x63;&#x6f;&#109;">&#49;&#48;&#53;&#57;&#x33;&#x39;&#56;&#50;&#x38;&#48;&#64;&#x71;&#x71;&#46;&#x63;&#x6f;&#109;</a>“ #接下来一直敲回车，生成 ssh key<br>cat ~&#x2F;.ssh&#x2F;id_rsa.pub #获取到公钥，添加到 gitee 中</p>
 </blockquote>
 <img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1647221973735-fe54eb72-50f3-4e7b-813c-2404ec45adac.png" alt="image.png" style="zoom:50%;" />
 
 <blockquote>
-<p>root@VM-16-11-centos .ssh]$ ssh -T <a href="mailto:&#103;&#105;&#x74;&#x40;&#103;&#x69;&#x74;&#101;&#x65;&#x2e;&#x63;&#111;&#x6d;">&#103;&#105;&#x74;&#x40;&#103;&#x69;&#x74;&#101;&#x65;&#x2e;&#x63;&#111;&#x6d;</a><br>Hi iHan! You’ve successfully authenticated, but GITEE.COM does not provide shell access.</p>
+<p>root@VM-16-11-centos .ssh]$ ssh -T <a href="mailto:&#103;&#x69;&#116;&#64;&#103;&#105;&#116;&#x65;&#101;&#46;&#x63;&#111;&#x6d;">&#103;&#x69;&#116;&#64;&#103;&#105;&#116;&#x65;&#101;&#46;&#x63;&#111;&#x6d;</a><br>Hi iHan! You’ve successfully authenticated, but GITEE.COM does not provide shell access.</p>
 </blockquote>
 <p>bug:添加公钥后仍然无法 clone</p>
 <blockquote>
-<p>[root@VM-16-11-centos gitee]$ sudo git clone <a href="mailto:&#x67;&#x69;&#x74;&#64;&#x67;&#x69;&#116;&#x65;&#101;&#46;&#99;&#111;&#109;">&#x67;&#x69;&#x74;&#64;&#x67;&#x69;&#116;&#x65;&#101;&#46;&#99;&#111;&#109;</a>:y_project&#x2F;RuoYi-Cloud.git<br>Cloning into ‘RuoYi-Cloud’…<br><a href="mailto:&#x67;&#105;&#116;&#64;&#x67;&#x69;&#x74;&#101;&#101;&#46;&#99;&#x6f;&#x6d;">&#x67;&#105;&#116;&#64;&#x67;&#x69;&#x74;&#101;&#101;&#46;&#99;&#x6f;&#x6d;</a>: Permission denied (publickey).<br>fatal: Could not read from remote repository.</p>
+<p>[root@VM-16-11-centos gitee]$ sudo git clone <a href="mailto:&#x67;&#105;&#x74;&#64;&#103;&#x69;&#x74;&#x65;&#101;&#x2e;&#x63;&#x6f;&#x6d;">&#x67;&#105;&#x74;&#64;&#103;&#x69;&#x74;&#x65;&#101;&#x2e;&#x63;&#x6f;&#x6d;</a>:y_project&#x2F;RuoYi-Cloud.git<br>Cloning into ‘RuoYi-Cloud’…<br><a href="mailto:&#103;&#105;&#116;&#64;&#x67;&#105;&#116;&#x65;&#101;&#46;&#x63;&#x6f;&#x6d;">&#103;&#105;&#116;&#64;&#x67;&#105;&#116;&#x65;&#101;&#46;&#x63;&#x6f;&#x6d;</a>: Permission denied (publickey).<br>fatal: Could not read from remote repository.</p>
 </blockquote>
 <p>使用 putty 在 root 用户下重新配置后生效…<br><img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1647307176106-c9c8f3d3-8f37-40be-b3f3-1828702a7f08.png" alt="image.png"></p>
 <h4 id="三、linux-下-docker-的安装"><a href="#三、linux-下-docker-的安装" class="headerlink" title="三、linux 下 docker 的安装"></a>三、linux 下 docker 的安装</h4><blockquote>
