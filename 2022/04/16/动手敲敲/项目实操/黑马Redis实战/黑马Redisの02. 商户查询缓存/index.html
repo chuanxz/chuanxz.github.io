@@ -27,24 +27,24 @@
 <meta property="og:site_name" content="山止川行">
 <meta property="og:description" content="目录 什么是缓存 添加 Redis 缓存 缓存更新策略 缓存穿透 缓存雪崩 缓存击穿 缓存工具封装  什么是缓存">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1650097166776-37fb1d82-94e5-4e9a-b910-a71b872555b8.png">
-<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1650099229455-7be98659-17a3-4ec7-b585-35c5a9a88d4e.png">
-<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1650177093287-cb308087-6d04-4bc2-af70-d7d34ed6a4c6.png">
-<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1650177609995-d289952f-97d6-4872-a0a4-65f2f131faac.png">
-<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1650178018022-cdd6c166-9a7c-445f-b0a5-75c213dfcb84.png">
-<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1650183345105-7cf5856f-cba2-4506-a0b5-dda958303532.png">
-<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1650183683535-a84c6bd5-2d07-4423-b3b9-9b609e81a426.png">
-<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1650264482801-a42b2b32-9767-4911-b38a-ecbcc7bbe1ed.png">
-<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1650265662510-2277f262-80c6-40e4-9e77-61f2407b7a3b.png">
-<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1650265677479-5e229764-4932-4b52-92ff-10e83a402a54.png">
-<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1650267388222-e3c3cb2e-725c-4aa8-bc3d-1a9fff2c3255.png">
+<meta property="og:image" content="http://cdn.chuanxz.com/img/1650097166776-37fb1d82-94e5-4e9a-b910-a71b872555b8.png">
+<meta property="og:image" content="http://cdn.chuanxz.com/img/1650099229455-7be98659-17a3-4ec7-b585-35c5a9a88d4e.png">
+<meta property="og:image" content="http://cdn.chuanxz.com/img/1650177093287-cb308087-6d04-4bc2-af70-d7d34ed6a4c6.png">
+<meta property="og:image" content="http://cdn.chuanxz.com/img/1650177609995-d289952f-97d6-4872-a0a4-65f2f131faac.png">
+<meta property="og:image" content="http://cdn.chuanxz.com/img/1650178018022-cdd6c166-9a7c-445f-b0a5-75c213dfcb84.png">
+<meta property="og:image" content="http://cdn.chuanxz.com/img/1650183345105-7cf5856f-cba2-4506-a0b5-dda958303532.png">
+<meta property="og:image" content="http://cdn.chuanxz.com/img/1650183683535-a84c6bd5-2d07-4423-b3b9-9b609e81a426.png">
+<meta property="og:image" content="http://cdn.chuanxz.com/img/1650264482801-a42b2b32-9767-4911-b38a-ecbcc7bbe1ed.png">
+<meta property="og:image" content="http://cdn.chuanxz.com/img/1650265662510-2277f262-80c6-40e4-9e77-61f2407b7a3b.png">
+<meta property="og:image" content="http://cdn.chuanxz.com/img/1650265677479-5e229764-4932-4b52-92ff-10e83a402a54.png">
+<meta property="og:image" content="http://cdn.chuanxz.com/img/1650267388222-e3c3cb2e-725c-4aa8-bc3d-1a9fff2c3255.png">
 <meta property="article:published_time" content="2022-04-16T07:57:38.000Z">
-<meta property="article:modified_time" content="2022-06-06T06:43:32.057Z">
+<meta property="article:modified_time" content="2022-06-07T11:48:12.293Z">
 <meta property="article:author" content="川行子">
 <meta property="article:tag" content="黑马">
 <meta property="article:tag" content="Redis">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1650097166776-37fb1d82-94e5-4e9a-b910-a71b872555b8.png">
+<meta name="twitter:image" content="http://cdn.chuanxz.com/img/1650097166776-37fb1d82-94e5-4e9a-b910-a71b872555b8.png">
 
 <link rel="canonical" href="http://chuanxz.github.io/2022/04/16/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E5%AE%9E%E6%88%98/%E9%BB%91%E9%A9%ACRedis%E3%81%AE02.%20%E5%95%86%E6%88%B7%E6%9F%A5%E8%AF%A2%E7%BC%93%E5%AD%98/">
 
@@ -211,7 +211,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-06 14:43:32" itemprop="dateModified" datetime="2022-06-06T14:43:32+08:00">2022-06-06</time>
+                <time title="修改时间：2022-06-07 19:48:12" itemprop="dateModified" datetime="2022-06-07T19:48:12+08:00">2022-06-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -265,17 +265,17 @@
 <li>代码维护成本</li>
 <li>运维成本</li>
 </ul>
-<h2 id="添加-Redis-缓存"><a href="#添加-Redis-缓存" class="headerlink" title="添加 Redis 缓存"></a>添加 Redis 缓存</h2><img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1650097166776-37fb1d82-94e5-4e9a-b910-a71b872555b8.png" alt="image.png" style="zoom: 80%;" />
+<h2 id="添加-Redis-缓存"><a href="#添加-Redis-缓存" class="headerlink" title="添加 Redis 缓存"></a>添加 Redis 缓存</h2><img src="http://cdn.chuanxz.com/img/1650097166776-37fb1d82-94e5-4e9a-b910-a71b872555b8.png" alt="image.png" style="zoom: 80%;" />
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/&#123;id&#125;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> Result <span class="title function_">queryShopById</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> Long id)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> shopService.queryById(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ShopServiceImpl</span> <span class="keyword">extends</span> <span class="title class_">ServiceImpl</span>&lt;ShopMapper, Shop&gt; <span class="keyword">implements</span> <span class="title class_">IShopService</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> StringRedisTemplate stringRedisTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Result <span class="title function_">queryById</span><span class="params">(Long id)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> CACHE_SHOP_KEY + id;</span><br><span class="line">        <span class="comment">//1.从Redis查询商铺缓存</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">shopJson</span> <span class="operator">=</span> stringRedisTemplate.opsForValue().get(key);</span><br><span class="line">        <span class="comment">//2.判断是否存在</span></span><br><span class="line">        <span class="keyword">if</span>(StrUtil.isNotBlank(shopJson))&#123;</span><br><span class="line">            <span class="comment">//3.存在，直接返回</span></span><br><span class="line">            <span class="type">Shop</span> <span class="variable">shop</span> <span class="operator">=</span> JSONUtil.toBean(shopJson, Shop.class);</span><br><span class="line">            <span class="keyword">return</span> Result.ok(shop);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//4.不存在，根据id查询数据库</span></span><br><span class="line">        <span class="type">Shop</span> <span class="variable">shop</span> <span class="operator">=</span> getById(id);</span><br><span class="line">        <span class="keyword">if</span>(shop == <span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="comment">//5.不存在，返回错误</span></span><br><span class="line">            <span class="keyword">return</span> Result.fail(<span class="string">&quot;店铺不存在！&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//6.存在，写入Redis</span></span><br><span class="line">        stringRedisTemplate.opsForValue().set(key, JSONUtil.toJsonStr(shop));</span><br><span class="line">        <span class="comment">//7.返回</span></span><br><span class="line">        <span class="keyword">return</span> Result.ok(shop);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="缓存练习题分析（TODO）"><a href="#缓存练习题分析（TODO）" class="headerlink" title="缓存练习题分析（TODO）"></a>缓存练习题分析（TODO）</h2><img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1650099229455-7be98659-17a3-4ec7-b585-35c5a9a88d4e.png" alt="image.png" style="zoom: 33%;" />
+<h2 id="缓存练习题分析（TODO）"><a href="#缓存练习题分析（TODO）" class="headerlink" title="缓存练习题分析（TODO）"></a>缓存练习题分析（TODO）</h2><img src="http://cdn.chuanxz.com/img/1650099229455-7be98659-17a3-4ec7-b585-35c5a9a88d4e.png" alt="image.png" style="zoom: 33%;" />
 
-<h2 id="缓存更新策略"><a href="#缓存更新策略" class="headerlink" title="缓存更新策略"></a>缓存更新策略</h2><img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1650177093287-cb308087-6d04-4bc2-af70-d7d34ed6a4c6.png" alt="image.png" style="zoom: 33%;" />
-<img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1650177609995-d289952f-97d6-4872-a0a4-65f2f131faac.png" alt="image.png" style="zoom:50%;" />
-<img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1650178018022-cdd6c166-9a7c-445f-b0a5-75c213dfcb84.png" alt="image.png" style="zoom: 50%;" />
+<h2 id="缓存更新策略"><a href="#缓存更新策略" class="headerlink" title="缓存更新策略"></a>缓存更新策略</h2><img src="http://cdn.chuanxz.com/img/1650177093287-cb308087-6d04-4bc2-af70-d7d34ed6a4c6.png" alt="image.png" style="zoom: 33%;" />
+<img src="http://cdn.chuanxz.com/img/1650177609995-d289952f-97d6-4872-a0a4-65f2f131faac.png" alt="image.png" style="zoom:50%;" />
+<img src="http://cdn.chuanxz.com/img/1650178018022-cdd6c166-9a7c-445f-b0a5-75c213dfcb84.png" alt="image.png" style="zoom: 50%;" />
 
 <h2 id="实现商铺缓存与数据库双写一致"><a href="#实现商铺缓存与数据库双写一致" class="headerlink" title="实现商铺缓存与数据库双写一致"></a>实现商铺缓存与数据库双写一致</h2><p>查询商铺缓存添加超时剔除和主动更新策略</p>
 <ol>
@@ -307,8 +307,8 @@
 </ul>
 </li>
 </ul>
-<p><img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1650183345105-7cf5856f-cba2-4506-a0b5-dda958303532.png" alt="image.png"></p>
-<h2 id="编码解决缓存穿透"><a href="#编码解决缓存穿透" class="headerlink" title="编码解决缓存穿透"></a>编码解决缓存穿透</h2><p><img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1650183683535-a84c6bd5-2d07-4423-b3b9-9b609e81a426.png" alt="image.png"></p>
+<p><img src="http://cdn.chuanxz.com/img/1650183345105-7cf5856f-cba2-4506-a0b5-dda958303532.png" alt="image.png"></p>
+<h2 id="编码解决缓存穿透"><a href="#编码解决缓存穿透" class="headerlink" title="编码解决缓存穿透"></a>编码解决缓存穿透</h2><p><img src="http://cdn.chuanxz.com/img/1650183683535-a84c6bd5-2d07-4423-b3b9-9b609e81a426.png" alt="image.png"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//判断是否命中空值</span></span><br><span class="line"><span class="keyword">if</span>(shopJson != <span class="literal">null</span>)&#123;</span><br><span class="line">    <span class="comment">//返回错误信息</span></span><br><span class="line">    <span class="keyword">return</span> Result.fail(<span class="string">&quot;店铺信息不存在！&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//4.不存在，根据id查询数据库</span></span><br><span class="line"><span class="type">Shop</span> <span class="variable">shop</span> <span class="operator">=</span> getById(id);</span><br><span class="line"><span class="keyword">if</span>(shop == <span class="literal">null</span>)&#123;</span><br><span class="line">    <span class="comment">//5.不存在，返回错误</span></span><br><span class="line">    <span class="comment">//将空值写入redis</span></span><br><span class="line">    stringRedisTemplate.opsForValue().set(key, <span class="string">&quot;&quot;</span>, RedisConstants.CACHE_NULL_TTL, TimeUnit.MINUTES);</span><br><span class="line">    <span class="keyword">return</span> Result.fail(<span class="string">&quot;店铺不存在！&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>缓存穿透原因：</p>
@@ -324,7 +324,7 @@
 <li>加强用户权限校验</li>
 <li>做好热点参数的限流</li>
 </ul>
-<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>同一时段，大量的缓存 key 同时失效或服务器宕机<br><img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1650264482801-a42b2b32-9767-4911-b38a-ecbcc7bbe1ed.png" alt="image.png" style="zoom: 80%;" /><br>解决方案：</p>
+<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>同一时段，大量的缓存 key 同时失效或服务器宕机<br><img src="http://cdn.chuanxz.com/img/1650264482801-a42b2b32-9767-4911-b38a-ecbcc7bbe1ed.png" alt="image.png" style="zoom: 80%;" /><br>解决方案：</p>
 <ul>
 <li>给不同 key 的 TTL 添加随机值</li>
 <li>利用 Redis 集群提高服务可用性</li>
@@ -336,10 +336,10 @@
 <li>互斥锁</li>
 <li>逻辑过期</li>
 </ul>
-<img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1650265662510-2277f262-80c6-40e4-9e77-61f2407b7a3b.png" alt="image.png" style="zoom: 50%;" />
-<img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1650265677479-5e229764-4932-4b52-92ff-10e83a402a54.png" alt="image.png" style="zoom: 80%;" />
+<img src="http://cdn.chuanxz.com/img/1650265662510-2277f262-80c6-40e4-9e77-61f2407b7a3b.png" alt="image.png" style="zoom: 50%;" />
+<img src="http://cdn.chuanxz.com/img/1650265677479-5e229764-4932-4b52-92ff-10e83a402a54.png" alt="image.png" style="zoom: 80%;" />
 
-<h2 id="利用互斥锁解决缓存击穿"><a href="#利用互斥锁解决缓存击穿" class="headerlink" title="利用互斥锁解决缓存击穿"></a>利用互斥锁解决缓存击穿</h2><img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1650267388222-e3c3cb2e-725c-4aa8-bc3d-1a9fff2c3255.png" alt="image.png" style="zoom: 80%;" />
+<h2 id="利用互斥锁解决缓存击穿"><a href="#利用互斥锁解决缓存击穿" class="headerlink" title="利用互斥锁解决缓存击穿"></a>利用互斥锁解决缓存击穿</h2><img src="http://cdn.chuanxz.com/img/1650267388222-e3c3cb2e-725c-4aa8-bc3d-1a9fff2c3255.png" alt="image.png" style="zoom: 80%;" />
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//封装缓存穿透</span></span><br><span class="line"><span class="keyword">public</span> Shop <span class="title function_">queryWithMutex</span><span class="params">(Long id)</span>&#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> CACHE_SHOP_KEY + id;</span><br><span class="line">    <span class="comment">//1.从Redis查询商铺缓存</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">shopJson</span> <span class="operator">=</span> stringRedisTemplate.opsForValue().get(key);</span><br><span class="line">    <span class="comment">//2.判断是否存在，命中</span></span><br><span class="line">    <span class="keyword">if</span>(StrUtil.isNotBlank(shopJson))&#123;</span><br><span class="line">        <span class="comment">//3.存在，直接返回</span></span><br><span class="line">        <span class="keyword">return</span> JSONUtil.toBean(shopJson, Shop.class);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//判断是否命中空值</span></span><br><span class="line">    <span class="keyword">if</span>(shopJson != <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="comment">//穿透</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//4.实现缓存重建</span></span><br><span class="line">    <span class="comment">//4.1获取互斥锁</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">lockKey</span> <span class="operator">=</span> CACHE_SHOP_KEY + id;</span><br><span class="line">    <span class="type">Shop</span> <span class="variable">shop</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">isLock</span> <span class="operator">=</span> tryLock(lockKey);</span><br><span class="line">        <span class="comment">//4.2判断是否获取成功</span></span><br><span class="line">        <span class="keyword">if</span> (!isLock) &#123;</span><br><span class="line">            <span class="comment">//4.3失败，休眠并重试</span></span><br><span class="line">            Thread.sleep(<span class="number">50</span>);</span><br><span class="line">            <span class="keyword">return</span> queryWithMutex(id);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//4.4成功，根据id查询数据库</span></span><br><span class="line">        shop = getById(id);</span><br><span class="line">        <span class="comment">//模拟重建的延时</span></span><br><span class="line">        Thread.sleep(<span class="number">200</span>);</span><br><span class="line">        <span class="keyword">if</span>(shop == <span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="comment">//5.不存在，返回错误</span></span><br><span class="line">            <span class="comment">//将空值写入redis</span></span><br><span class="line">            stringRedisTemplate.opsForValue().set(key, <span class="string">&quot;&quot;</span>, RedisConstants.CACHE_NULL_TTL, TimeUnit.MINUTES);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//6.存在，写入Redis</span></span><br><span class="line">        stringRedisTemplate.opsForValue().set(key, JSONUtil.toJsonStr(shop), RedisConstants.CACHE_SHOP_TTL, TimeUnit.MINUTES);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="comment">//7.释放锁</span></span><br><span class="line">        unlock(lockKey);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//8.返回</span></span><br><span class="line">    <span class="keyword">return</span> shop;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -454,7 +454,7 @@
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">

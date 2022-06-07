@@ -27,21 +27,21 @@
 <meta property="og:site_name" content="山止川行">
 <meta property="og:description" content="Q1：JVM 内存限制，超出阻塞队列上限Q2：数据安全，没有持久化，阻塞队列数据丢失A：消息队列 认识消息队列消息队列包含 3 个角色：">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651407445102-26ff9149-fe2a-4a0a-8059-2ea20b593140.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=285&id=ue2689a8a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=569&originWidth=1502&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=198101&status=done&style=none&taskId=u504f25d8-f357-441a-a403-09bca223cf9&title=&width=751">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651408485578-6fd87158-00a1-4c1a-bca3-b92758d9e463.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=270&id=u36761b4c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=539&originWidth=1535&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=385833&status=done&style=none&taskId=ufc465623-2f4f-434e-b67e-a8a4832abb4&title=&width=767.5">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651408616238-5753b813-fa44-4c0d-af30-704bd7d030ea.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=182&id=ua10e1181&margin=%5Bobject%20Object%5D&name=image.png&originHeight=361&originWidth=1461&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=341126&status=done&style=none&taskId=uf296d443-e718-4fbb-9784-4d4ea2e1da5&title=&width=738.5">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651408805605-c0d1a604-f2dc-49ae-a151-2ec814bfb095.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=330&id=udfd00a14&margin=%5Bobject%20Object%5D&name=image.png&originHeight=660&originWidth=1488&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=309812&status=done&style=none&taskId=u16a03055-bf8b-4734-9d29-e699d30847e&title=&width=744">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651409081246-241ffd0f-82b2-4ad2-9a89-317ab219a36e.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=210&id=u42808b7e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=468&originWidth=1387&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=230798&status=done&style=none&taskId=u446772ab-aa28-4a0c-ae24-68c3a0ba60f&title=&width=622.5">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651409232208-15431a7f-9192-444b-8e5c-c73c5ae5b2a6.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=343&id=u27327cc8&margin=%5Bobject%20Object%5D&name=image.png&originHeight=685&originWidth=1360&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=297413&status=done&style=none&taskId=uc6b384ca-e1dd-4fa6-9e99-e8be4f2ce3a&title=&width=680">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651409427307-2ddbde13-b973-4154-9366-0d3909ca7619.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=323&id=uddeaace7&margin=%5Bobject%20Object%5D&name=image.png&originHeight=645&originWidth=1524&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=271552&status=done&style=none&taskId=u2f351a72-f7ad-4c43-8a9f-76dfbaaedf1&title=&width=762">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651410101985-9011dfa9-db98-4cc1-8d7d-6977071d2050.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=304&id=u209cea34&margin=%5Bobject%20Object%5D&name=image.png&originHeight=607&originWidth=1392&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=166170&status=done&style=none&taskId=u4044318a-cf8a-47ff-a855-53a011b3104&title=&width=696">
+<meta property="og:image" content="http://cdn.chuanxz.com/img/1651407445102-26ff9149-fe2a-4a0a-8059-2ea20b593140.png">
+<meta property="og:image" content="http://cdn.chuanxz.com/img/1651408485578-6fd87158-00a1-4c1a-bca3-b92758d9e463.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651408616238-5753b813-fa44-4c0d-af30-704bd7d030ea.png">
+<meta property="og:image" content="http://cdn.chuanxz.com/img/1651408805605-c0d1a604-f2dc-49ae-a151-2ec814bfb095.png">
+<meta property="og:image" content="http://cdn.chuanxz.com/img/1651409081246-241ffd0f-82b2-4ad2-9a89-317ab219a36e.png">
+<meta property="og:image" content="http://cdn.chuanxz.com/img/1651409232208-15431a7f-9192-444b-8e5c-c73c5ae5b2a6.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651409427307-2ddbde13-b973-4154-9366-0d3909ca7619.png">
+<meta property="og:image" content="http://cdn.chuanxz.com/img/1651410101985-9011dfa9-db98-4cc1-8d7d-6977071d2050.png">
 <meta property="article:published_time" content="2022-05-01T00:58:26.000Z">
-<meta property="article:modified_time" content="2022-06-06T06:43:40.687Z">
+<meta property="article:modified_time" content="2022-06-07T11:48:12.307Z">
 <meta property="article:author" content="川行子">
 <meta property="article:tag" content="黑马">
 <meta property="article:tag" content="Redis">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651407445102-26ff9149-fe2a-4a0a-8059-2ea20b593140.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=285&id=ue2689a8a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=569&originWidth=1502&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=198101&status=done&style=none&taskId=u504f25d8-f357-441a-a403-09bca223cf9&title=&width=751">
+<meta name="twitter:image" content="http://cdn.chuanxz.com/img/1651407445102-26ff9149-fe2a-4a0a-8059-2ea20b593140.png">
 
 <link rel="canonical" href="http://chuanxz.github.io/2022/05/01/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E5%AE%9E%E6%88%98/%E9%BB%91%E9%A9%ACRedis%E3%81%AE06.%20%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">
 
@@ -208,7 +208,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-06 14:43:40" itemprop="dateModified" datetime="2022-06-06T14:43:40+08:00">2022-06-06</time>
+                <time title="修改时间：2022-06-07 19:48:12" itemprop="dateModified" datetime="2022-06-07T19:48:12+08:00">2022-06-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -266,7 +266,7 @@
 <li>无法避免消息丢失</li>
 <li>只支持单消费者</li>
 </ul>
-<h2 id="PubSub-实现消息队列"><a href="#PubSub-实现消息队列" class="headerlink" title="PubSub 实现消息队列"></a>PubSub 实现消息队列</h2><p>PubSub（发布订阅）：消费者可以订阅一个或多个 channel，生产者向对应 channel 发送消息后，所有订阅者都能收到相关消息。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651407445102-26ff9149-fe2a-4a0a-8059-2ea20b593140.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=285&id=ue2689a8a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=569&originWidth=1502&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=198101&status=done&style=none&taskId=u504f25d8-f357-441a-a403-09bca223cf9&title=&width=751" alt="image.png"><br>优点：</p>
+<h2 id="PubSub-实现消息队列"><a href="#PubSub-实现消息队列" class="headerlink" title="PubSub 实现消息队列"></a>PubSub 实现消息队列</h2><p>PubSub（发布订阅）：消费者可以订阅一个或多个 channel，生产者向对应 channel 发送消息后，所有订阅者都能收到相关消息。<br><img src="http://cdn.chuanxz.com/img/1651407445102-26ff9149-fe2a-4a0a-8059-2ea20b593140.png" alt="image.png" style="zoom:50%;" /><br>优点：</p>
 <ul>
 <li>采用发布订阅模型，支持多生产、多消费</li>
 </ul>
@@ -276,15 +276,19 @@
 <li>无法避免消息丢失</li>
 <li>消息堆积有上限，超出时数据丢失</li>
 </ul>
-<h2 id="基于-Stream-的消息队列"><a href="#基于-Stream-的消息队列" class="headerlink" title="基于 Stream 的消息队列"></a>基于 Stream 的消息队列</h2><p>Stream 是 Redis5.0 引入的一种新的数据类型，可以实现一个功能非常完善的消息队列。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651408485578-6fd87158-00a1-4c1a-bca3-b92758d9e463.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=270&id=u36761b4c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=539&originWidth=1535&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=385833&status=done&style=none&taskId=ufc465623-2f4f-434e-b67e-a8a4832abb4&title=&width=767.5" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651408616238-5753b813-fa44-4c0d-af30-704bd7d030ea.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=182&id=ua10e1181&margin=%5Bobject%20Object%5D&name=image.png&originHeight=361&originWidth=1461&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=341126&status=done&style=none&taskId=uf296d443-e718-4fbb-9784-4d4ea2e1da5&title=&width=738.5" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651408805605-c0d1a604-f2dc-49ae-a151-2ec814bfb095.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=330&id=udfd00a14&margin=%5Bobject%20Object%5D&name=image.png&originHeight=660&originWidth=1488&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=309812&status=done&style=none&taskId=u16a03055-bf8b-4734-9d29-e699d30847e&title=&width=744" alt="image.png"><br>命令特点：</p>
+<h2 id="基于-Stream-的消息队列"><a href="#基于-Stream-的消息队列" class="headerlink" title="基于 Stream 的消息队列"></a>基于 Stream 的消息队列</h2><p>Stream 是 Redis5.0 引入的一种新的数据类型，可以实现一个功能非常完善的消息队列。<br><img src="http://cdn.chuanxz.com/img/1651408485578-6fd87158-00a1-4c1a-bca3-b92758d9e463.png" alt="image.png" style="zoom:50%;" /><br><img src="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651408616238-5753b813-fa44-4c0d-af30-704bd7d030ea.png" alt="image.png" style="zoom: 50%;" /><br><img src="http://cdn.chuanxz.com/img/1651408805605-c0d1a604-f2dc-49ae-a151-2ec814bfb095.png" alt="image.png" style="zoom:50%;" /><br>命令特点：</p>
 <ul>
 <li>消息可回溯</li>
 <li>一个消息可以被多个消费者读取</li>
 <li>可以阻塞读取</li>
 <li>有消息漏读风险</li>
 </ul>
-<h2 id="Stream-的消费者组模式"><a href="#Stream-的消费者组模式" class="headerlink" title="Stream 的消费者组模式"></a>Stream 的消费者组模式</h2><p><img src="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651409081246-241ffd0f-82b2-4ad2-9a89-317ab219a36e.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=210&id=u42808b7e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=468&originWidth=1387&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=230798&status=done&style=none&taskId=u446772ab-aa28-4a0c-ae24-68c3a0ba60f&title=&width=622.5" alt="image.png"></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651409232208-15431a7f-9192-444b-8e5c-c73c5ae5b2a6.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=343&id=u27327cc8&margin=%5Bobject%20Object%5D&name=image.png&originHeight=685&originWidth=1360&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=297413&status=done&style=none&taskId=uc6b384ca-e1dd-4fa6-9e99-e8be4f2ce3a&title=&width=680" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651409427307-2ddbde13-b973-4154-9366-0d3909ca7619.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=323&id=uddeaace7&margin=%5Bobject%20Object%5D&name=image.png&originHeight=645&originWidth=1524&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=271552&status=done&style=none&taskId=u2f351a72-f7ad-4c43-8a9f-76dfbaaedf1&title=&width=762" alt="image.png"><br>命令特点：</p>
+<h2 id="Stream-的消费者组模式"><a href="#Stream-的消费者组模式" class="headerlink" title="Stream 的消费者组模式"></a>Stream 的消费者组模式</h2><img src="http://cdn.chuanxz.com/img/1651409081246-241ffd0f-82b2-4ad2-9a89-317ab219a36e.png" alt="image.png" style="zoom:50%;" />
+
+<img src="http://cdn.chuanxz.com/img/1651409232208-15431a7f-9192-444b-8e5c-c73c5ae5b2a6.png" alt="image.png" style="zoom:50%;" />
+<img src="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651409427307-2ddbde13-b973-4154-9366-0d3909ca7619.png" alt="image.png" style="zoom:50%;" />
+命令特点：
+
 <ul>
 <li>消息可回溯</li>
 <li>可以多消费者争抢消息，加快消费速度</li>
@@ -292,7 +296,8 @@
 <li>没有消息漏读风险</li>
 <li>有消息确认机制，保证消息至少被消费一次</li>
 </ul>
-<h2 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h2><p><img src="https://cdn.nlark.com/yuque/0/2022/png/1123881/1651410101985-9011dfa9-db98-4cc1-8d7d-6977071d2050.png#clientId=u6bc5f936-7654-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=304&id=u209cea34&margin=%5Bobject%20Object%5D&name=image.png&originHeight=607&originWidth=1392&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=166170&status=done&style=none&taskId=u4044318a-cf8a-47ff-a855-53a011b3104&title=&width=696" alt="image.png"></p>
+<h2 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h2><img src="http://cdn.chuanxz.com/img/1651410101985-9011dfa9-db98-4cc1-8d7d-6977071d2050.png" alt="image.png" style="zoom:50%;" />
+
 <h2 id="基于-Stream-消息队列实现异步秒杀"><a href="#基于-Stream-消息队列实现异步秒杀" class="headerlink" title="基于 Stream 消息队列实现异步秒杀"></a>基于 Stream 消息队列实现异步秒杀</h2><p>需求：</p>
 <ol>
 <li>创建 Stream 消息队列，名为 stream.orders</li>
@@ -411,7 +416,7 @@
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">

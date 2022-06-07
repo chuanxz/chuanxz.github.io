@@ -27,15 +27,15 @@
 <meta property="og:site_name" content="山止川行">
 <meta property="og:description" content="MySQLSQL 优化转：https:&#x2F;&#x2F;juejin.cn&#x2F;post&#x2F;6844903779284975630https:&#x2F;&#x2F;juejin.cn&#x2F;post&#x2F;7071918280889335815">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1648479857894-4c81430d-db17-492b-9c60-141a0d684bce.jpeg">
-<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1647392122683-67ad80cd-d815-4fc8-89d0-9ce022063682.png">
-<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1647392077431-06ded9b8-a812-4a46-8774-43878f24fac5.png">
-<meta property="og:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1647395330586-830d02b4-0cf8-4eca-a382-ce112e63f2f4.png">
+<meta property="og:image" content="http://cdn.chuanxz.com/img/1648479857894-4c81430d-db17-492b-9c60-141a0d684bce.jpeg">
+<meta property="og:image" content="http://cdn.chuanxz.com/img/1647392122683-67ad80cd-d815-4fc8-89d0-9ce022063682.png">
+<meta property="og:image" content="http://cdn.chuanxz.com/img/1647392077431-06ded9b8-a812-4a46-8774-43878f24fac5.png">
+<meta property="og:image" content="http://cdn.chuanxz.com/img/1647395330586-830d02b4-0cf8-4eca-a382-ce112e63f2f4.png">
 <meta property="article:published_time" content="2021-11-18T01:45:49.000Z">
-<meta property="article:modified_time" content="2022-06-05T07:20:41.214Z">
+<meta property="article:modified_time" content="2022-06-07T11:57:03.232Z">
 <meta property="article:author" content="川行子">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://rcsvx8te8.hn-bkt.clouddn.com/img/1648479857894-4c81430d-db17-492b-9c60-141a0d684bce.jpeg">
+<meta name="twitter:image" content="http://cdn.chuanxz.com/img/1648479857894-4c81430d-db17-492b-9c60-141a0d684bce.jpeg">
 
 <link rel="canonical" href="http://chuanxz.github.io/2021/11/18/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/4.%20%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL%E9%9D%A2%E8%AF%95%E9%A2%98/">
 
@@ -202,7 +202,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-05 15:20:41" itemprop="dateModified" datetime="2022-06-05T15:20:41+08:00">2022-06-05</time>
+                <time title="修改时间：2022-06-07 19:57:03" itemprop="dateModified" datetime="2022-06-07T19:57:03+08:00">2022-06-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -241,7 +241,7 @@
 <h3 id="事务、锁和-MVCC"><a href="#事务、锁和-MVCC" class="headerlink" title="事务、锁和 MVCC"></a>事务、锁和 MVCC</h3><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/K3GVxpK_RZ80IcBNpoJdQw">对线面试官</a>の笔记<br>何为事务？<br>：事务是为了保证数据的最终一致性，通俗的说是使一组操作要么全部成功，要么全部失败。</p>
 <h4 id="事物的特性？"><a href="#事物的特性？" class="headerlink" title="事物的特性？"></a>事物的特性？</h4><p>：ACID<br><strong>原子性</strong>——底层是<strong>undo log</strong>日志，该日志<strong>记载数据修改前的信息</strong>。<br>比如 insert 一条数据，undo log 记录一条 delete 日志。update 一条记录，undo log 记录旧值的 update 记录。<br>当出现异常需要回滚时，InnoDB 引擎利用 undo log 的记录，将数据回复到事务开始前。<br><strong>隔离性</strong>——事务并发执行时，内部操作不能相互干扰。多个事务同时操作一个数据会产生脏读、重复读、幻读的问题。InnoDB 引擎有<strong>四种隔离级别</strong>：read uncommit（读未提交）、read commit（读已提交）、repeatable read（可重复复读）、serializable（串行）。级别越高隔离性越好，同时性能越低，隔离性由 MySQL 各种锁实现，只是屏蔽加锁的细节。<br><strong>持久性</strong>——事务一旦提交，数据持久化到硬盘。持久性由<strong>redo log</strong>日志保证，修改数据时，MySQL 先把该记录所在页加载到内存，并对应记录进行修改。内存写完后写 redo log，记载这次在某个页上做了什么修改。MySQL 挂了可以根据 redo log 对数据进行恢复。<br>redo log 是顺序写的，写入速度很快。文件体积小，恢复速度也很快。<br><strong>一致性</strong>——可以看作为目的，原子性、隔离性、持久性都是为了保障一致性的手段。</p>
 <h4 id="锁-amp-隔离级别"><a href="#锁-amp-隔离级别" class="headerlink" title="锁&amp;隔离级别"></a>锁&amp;隔离级别</h4><p>按粒度简单分为行锁和表锁。行锁实际作用在索引上，当 SQL 命中索引，就是锁住了命中条件内的索引节点，反之则是锁住整个索引树。<br>行锁简单分为读锁（共享锁）和写锁（排它锁）。读锁共享，多个事务可同时读取一个资源，但不允许其他事务修改。写锁排他，阻塞其他的读锁和写锁。</p>
-<img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1648479857894-4c81430d-db17-492b-9c60-141a0d684bce.jpeg" style="zoom: 50%;" />
+<img src="http://cdn.chuanxz.com/img/1648479857894-4c81430d-db17-492b-9c60-141a0d684bce.jpeg" style="zoom: 50%;" />
 **read uncommit（读未提交）**
 场景：A 给 B 转钱，执行转账语句但没有提交事务。B 读取数据，发现钱多了，和 A 说我收到钱了。A 回滚事务，B 再查看账户，钱没了！
 定义：事务 B 读取到事务 A 未提交的数据，专业术语为脏读。从锁的维度来说，就是在 read uncommit 隔离级别下，读不会加锁，而写会加排他锁。
@@ -257,7 +257,7 @@
 <li>b+tree</li>
 </ul>
 <p>索引：<br>减少磁盘 IO 次数</p>
-<p>数据量更大-&gt;为索引添加索引<br>（内存的多级页表）<br><strong>m-way-tree</strong><br>m-1 key， m children， m way search tree<br><img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1647392122683-67ad80cd-d815-4fc8-89d0-9ce022063682.png" alt="20210516160614480.png" style="zoom:50%;" /><br>为防止 m-way-search-tree 退化为链表（下图）&#x3D;&gt;B tree<br><img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1647392077431-06ded9b8-a812-4a46-8774-43878f24fac5.png" alt="image.png" style="zoom:50%;" /><br><strong>B 树</strong></p>
+<p>数据量更大-&gt;为索引添加索引<br>（内存的多级页表）<br><strong>m-way-tree</strong><br>m-1 key， m children， m way search tree<br><img src="http://cdn.chuanxz.com/img/1647392122683-67ad80cd-d815-4fc8-89d0-9ce022063682.png" alt="20210516160614480.png" style="zoom:50%;" /><br>为防止 m-way-search-tree 退化为链表（下图）&#x3D;&gt;B tree<br><img src="http://cdn.chuanxz.com/img/1647392077431-06ded9b8-a812-4a46-8774-43878f24fac5.png" alt="image.png" style="zoom:50%;" /><br><strong>B 树</strong></p>
 <p><strong>B+树</strong><br>叶子结点有指向数据的指针</p>
 <h3 id="Mysql-锁"><a href="#Mysql-锁" class="headerlink" title="Mysql 锁"></a>Mysql 锁</h3><p>按锁粒度：</p>
 <ol>
@@ -287,7 +287,7 @@
 <blockquote>
 <p>模拟优化器执行 SQL 查询语句</p>
 </blockquote>
-<img src="http://rcsvx8te8.hn-bkt.clouddn.com/img/1647395330586-830d02b4-0cf8-4eca-a382-ce112e63f2f4.png" style="zoom:50%;" />
+<img src="http://cdn.chuanxz.com/img/1647395330586-830d02b4-0cf8-4eca-a382-ce112e63f2f4.png" style="zoom:50%;" />
 
 <h3 id="索引覆盖是什么"><a href="#索引覆盖是什么" class="headerlink" title="索引覆盖是什么"></a>索引覆盖是什么</h3><p>SQL 要查询的字段在当前索引对应字段中都包含了，此 SQL 走完索引不需要回表。</p>
 <h3 id="最左前缀原则"><a href="#最左前缀原则" class="headerlink" title="最左前缀原则"></a>最左前缀原则</h3><p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zzx125/article/details/79678770">https://blog.csdn.net/zzx125/article/details/79678770</a><br>最左前缀原则指，如果查询的时候查询条件精确匹配索引的左边连续一列或几列，则此列就可以被用到</p>
@@ -396,7 +396,7 @@
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
