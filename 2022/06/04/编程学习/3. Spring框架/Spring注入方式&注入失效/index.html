@@ -28,7 +28,7 @@
 <meta property="og:description" content="写在前面在Spring框架之前，某个类需要调用其他类的方法，需要new一个对象后调用，耦合度较高。 Spring以IoC和DI的思想将实例化对象注入容器中，大大简化了这一操作。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-06-04T07:28:51.000Z">
-<meta property="article:modified_time" content="2022-06-09T04:53:37.567Z">
+<meta property="article:modified_time" content="2022-06-09T12:03:45.364Z">
 <meta property="article:author" content="川行子">
 <meta name="twitter:card" content="summary">
 
@@ -197,7 +197,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-09 12:53:37" itemprop="dateModified" datetime="2022-06-09T12:53:37+08:00">2022-06-09</time>
+                <time title="修改时间：2022-06-09 20:03:45" itemprop="dateModified" datetime="2022-06-09T20:03:45+08:00">2022-06-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -274,7 +274,7 @@
 <h4 id="使用-Configurable"><a href="#使用-Configurable" class="headerlink" title="使用@Configurable"></a>使用@Configurable</h4><p>这种方法将代码插入到对象的构造函数中，提醒Spring这个对象正在被创建，这样Spring就能够配置新实例了。</p>
 <p>这需要你添加一些配置信息。并打开Spring的运行时配置处理器。Roo Active Record系统使用这种方法来允许实体的new实例获取注入的必要持久性信息。</p>
 <h4 id="手动获取Bean方式（不推荐）"><a href="#手动获取Bean方式（不推荐）" class="headerlink" title="手动获取Bean方式（不推荐）"></a>手动获取Bean方式（不推荐）</h4><p>这种方法只适用于特殊情况下与遗留代码对接，可以通过<code>ApplicationContext</code>对象手动获取<code>Bean</code>，</p>
-<p>也可也i创建一个Spring可以注入且遗留代码也能调用过的单例适配器。</p>
+<p>也可以创建一个Spring可以注入且遗留代码也能调用过的单例适配器。</p>
 <ul>
 <li>直接注入</li>
 </ul>
@@ -403,7 +403,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -443,6 +443,8 @@
         
 
         
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">浙ICP备2022016849号-1 </a>
+  </div>
 
 <div class="copyright">
   
