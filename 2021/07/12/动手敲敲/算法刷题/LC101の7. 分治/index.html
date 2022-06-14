@@ -28,8 +28,9 @@
 <meta property="og:description" content="算法解释将原问题分为子问题，再将子问题处理合并，从而实现对原问题的求解。 表达式问题">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-07-12T01:50:06.000Z">
-<meta property="article:modified_time" content="2022-06-08T01:02:26.607Z">
+<meta property="article:modified_time" content="2022-06-11T01:44:32.822Z">
 <meta property="article:author" content="川行子">
+<meta property="article:tag" content="分治">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://chuanxz.github.io/2021/07/12/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/LC101%E3%81%AE7.%20%E5%88%86%E6%B2%BB/">
@@ -197,7 +198,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-08 09:02:26" itemprop="dateModified" datetime="2022-06-08T09:02:26+08:00">2022-06-08</time>
+                <time title="修改时间：2022-06-11 09:44:32" itemprop="dateModified" datetime="2022-06-11T09:44:32+08:00">2022-06-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -232,7 +233,21 @@
 
       
         <h2 id="算法解释"><a href="#算法解释" class="headerlink" title="算法解释"></a>算法解释</h2><p>将原问题分为子问题，再将子问题处理合并，从而实现对原问题的求解。</p>
-<h2 id="表达式问题"><a href="#表达式问题" class="headerlink" title="表达式问题"></a>表达式问题</h2>
+<h2 id="表达式问题"><a href="#表达式问题" class="headerlink" title="表达式问题"></a>表达式问题</h2><h4 id="241-为运算表达式设计优先级"><a href="#241-为运算表达式设计优先级" class="headerlink" title="241. 为运算表达式设计优先级"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/different-ways-to-add-parentheses/">241. 为运算表达式设计优先级</a></h4><p><strong>题目大意：</strong>给定一个数学表达式，求由加括号排列得到的不同结果数</p>
+<p><strong>思路：</strong></p>
+<ol>
+<li>按运算符分为左右两部分求解</li>
+<li>实现递归函数，输入算式，返回算式解</li>
+<li>根据运算符合并左右两部分，返回最终结果</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">diffWaysToCompute</span><span class="params">(string expression)</span> </span>&#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; ans;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; expression.<span class="built_in">length</span>(); i++)&#123;</span><br><span class="line">        <span class="type">char</span> c = expression[i];</span><br><span class="line">        <span class="keyword">if</span>(c == <span class="string">&#x27;+&#x27;</span> || c == <span class="string">&#x27;-&#x27;</span> || c == <span class="string">&#x27;*&#x27;</span>)&#123;</span><br><span class="line">            vector&lt;<span class="type">int</span>&gt; left = <span class="built_in">diffWaysToCompute</span>(expression.<span class="built_in">substr</span>(<span class="number">0</span>, i));</span><br><span class="line">            vector&lt;<span class="type">int</span>&gt; right = <span class="built_in">diffWaysToCompute</span>(expression.<span class="built_in">substr</span>(i + <span class="number">1</span>));</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> l : left)</span><br><span class="line">                <span class="keyword">for</span>(<span class="type">int</span> r : right)</span><br><span class="line">                    <span class="keyword">switch</span>(c) &#123;</span><br><span class="line">                        <span class="keyword">case</span> <span class="string">&#x27;+&#x27;</span>: ans.<span class="built_in">push_back</span>(l + r); <span class="keyword">break</span>;</span><br><span class="line">                        <span class="keyword">case</span> <span class="string">&#x27;-&#x27;</span>: ans.<span class="built_in">push_back</span>(l - r); <span class="keyword">break</span>;</span><br><span class="line">                        <span class="keyword">case</span> <span class="string">&#x27;*&#x27;</span>: ans.<span class="built_in">push_back</span>(l * r); <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(ans.<span class="built_in">empty</span>()) ans.<span class="built_in">push_back</span>(<span class="built_in">stoi</span>(expression));</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="932-漂亮数组"><a href="#932-漂亮数组" class="headerlink" title="932. 漂亮数组"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/beautiful-array/">932. 漂亮数组</a></h4><p><strong>题目大意：</strong>对于数组中每个 i &lt; j，都不存在 k 满足 i &lt; k &lt; j 使得 A[k] * 2 &#x3D; A[i] + A[j]。那么数组 A 是漂亮数组。</p>
+<p>给定 N，表示数组1…N，返回任意漂亮数组 A（保证存在一个）。</p>
+<p><strong>思路：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/beautiful-array/solution/c-fen-zhi-fa-dai-tu-pian-jie-shi-by-avphn4vwuo/">【分治】通俗的官解分析 - 漂亮数组 - 力扣（LeetCode）</a></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    unordered_map&lt;int,vector&lt;int&gt; &gt; mp;</span><br><span class="line">    vector&lt;int&gt; beautifulArray(int N) &#123;</span><br><span class="line">        return f(N);</span><br><span class="line">    &#125;</span><br><span class="line">    vector&lt;int&gt; f(int N) &#123;</span><br><span class="line">        vector&lt;int&gt; ans(N, 0);</span><br><span class="line">        int t = 0;</span><br><span class="line">        if (mp.find(N) != mp.end()) &#123;</span><br><span class="line">            return mp[N];</span><br><span class="line">        &#125;</span><br><span class="line">        if (N != 1) &#123;</span><br><span class="line">            for (auto x : f((N+1)/2))&#123;</span><br><span class="line">                ans[t++]= 2 * x - 1;</span><br><span class="line">            &#125; </span><br><span class="line">            for (auto x : f(N/2))&#123;</span><br><span class="line">                ans[t++] =  2 * x;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;else &#123;</span><br><span class="line">            ans[0] = 1;</span><br><span class="line">        &#125;</span><br><span class="line">        mp[N] = ans;</span><br><span class="line">        return ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
     </div>
 
     
@@ -240,6 +255,9 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%88%86%E6%B2%BB/" rel="tag"># 分治</a>
+          </div>
 
         
 
@@ -251,8 +269,8 @@
       <i class="fa fa-chevron-left"></i> 狂神Docker-听课笔记
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/09/01/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/3.%20Spring%E6%A1%86%E6%9E%B6/%E9%BB%91%E9%A9%ACSpringCloud/%E9%BB%91%E9%A9%ACSpringCloud%E3%81%AE01.%20Eukera+Ribbon+Nacos/" rel="next" title="01，Eukera+Ribbon+Nacos">
-      01，Eukera+Ribbon+Nacos <i class="fa fa-chevron-right"></i>
+    <a href="/2021/07/20/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/LC101%E3%81%AE8.%20%E6%95%B0%E5%AD%A6/" rel="next" title="LC101の8. 数学">
+      LC101の8. 数学 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -312,7 +330,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E8%A7%A3%E9%87%8A"><span class="nav-number">1.</span> <span class="nav-text">算法解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">表达式问题</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E8%A7%A3%E9%87%8A"><span class="nav-number">1.</span> <span class="nav-text">算法解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">表达式问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#241-%E4%B8%BA%E8%BF%90%E7%AE%97%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AE%BE%E8%AE%A1%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">2.0.1.</span> <span class="nav-text">241. 为运算表达式设计优先级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#932-%E6%BC%82%E4%BA%AE%E6%95%B0%E7%BB%84"><span class="nav-number">2.0.2.</span> <span class="nav-text">932. 漂亮数组</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -327,7 +345,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">100</span>
+          <span class="site-state-item-count">101</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -338,7 +356,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
