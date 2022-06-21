@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://cdn.chuanxz.com/img/1647392077431-06ded9b8-a812-4a46-8774-43878f24fac5.png">
 <meta property="og:image" content="http://cdn.chuanxz.com/img/1647395330586-830d02b4-0cf8-4eca-a382-ce112e63f2f4.png">
 <meta property="article:published_time" content="2021-11-18T01:45:49.000Z">
-<meta property="article:modified_time" content="2022-06-14T06:58:17.695Z">
+<meta property="article:modified_time" content="2022-06-21T02:02:04.220Z">
 <meta property="article:author" content="川行子">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://cdn.chuanxz.com/img/1648479857894-4c81430d-db17-492b-9c60-141a0d684bce.jpeg">
@@ -202,7 +202,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-14 14:58:17" itemprop="dateModified" datetime="2022-06-14T14:58:17+08:00">2022-06-14</time>
+                <time title="修改时间：2022-06-21 10:02:04" itemprop="dateModified" datetime="2022-06-21T10:02:04+08:00">2022-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -277,12 +277,13 @@
 </ol>
 <p>事务的隔离级别实现中，需要利用锁解决幻读。</p>
 <h3 id="Mysql-慢查询优化"><a href="#Mysql-慢查询优化" class="headerlink" title="Mysql 慢查询优化"></a>Mysql 慢查询优化</h3><ol>
-<li>检查是否用了索引</li>
+<li>检查是否用了索引，索引没有起作用</li>
 <li>检查是否最优索引</li>
 <li>检查查询的字段是否必须，有无冗余数据</li>
 <li>检查数据是否过多，是否需要分库分表</li>
 <li>检查数据库实例所在机器性能，是否增加资源</li>
 </ol>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/jj89929665/article/details/125199904">慢查询如何优化？（实战慢查询）_一只小小狗的博客-CSDN博客</a></p>
 <h3 id="Explain-语句结果各字段"><a href="#Explain-语句结果各字段" class="headerlink" title="Explain 语句结果各字段"></a>Explain 语句结果各字段</h3><p>友情链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/eagle89/article/details/89516496">MySQL explain 执行计划详解</a></p>
 <blockquote>
 <p>模拟优化器执行 SQL 查询语句</p>
@@ -290,6 +291,10 @@
 <img src="http://cdn.chuanxz.com/img/1647395330586-830d02b4-0cf8-4eca-a382-ce112e63f2f4.png" style="zoom:50%;" />
 
 <h3 id="索引覆盖是什么"><a href="#索引覆盖是什么" class="headerlink" title="索引覆盖是什么"></a>索引覆盖是什么</h3><p>SQL 要查询的字段在当前索引对应字段中都包含了，此 SQL 走完索引不需要回表。</p>
+<h3 id="使用索引查询一定能提高查询的性能吗？"><a href="#使用索引查询一定能提高查询的性能吗？" class="headerlink" title="使用索引查询一定能提高查询的性能吗？"></a>使用索引查询一定能提高查询的性能吗？</h3><p>索引需要额外的存储和处理，不必要的索引反而会使查询变慢</p>
+<p><strong>参考：</strong></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/ag1412/article/details/123485817">使用索引查询一定能提高查询的性能吗？_拭去心尘的博客-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33253054/article/details/120694875">使用索引查询一定能提高查询的性能吗？为什么？ mysql问题(二)_歌布衣的博客-CSDN博客</a></p>
 <h3 id="最左前缀原则"><a href="#最左前缀原则" class="headerlink" title="最左前缀原则"></a>最左前缀原则</h3><p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zzx125/article/details/79678770">https://blog.csdn.net/zzx125/article/details/79678770</a><br>最左前缀原则指，如果查询的时候查询条件精确匹配索引的左边连续一列或几列，则此列就可以被用到</p>
 <h3 id="Innodb-如何实现事务"><a href="#Innodb-如何实现事务" class="headerlink" title="Innodb 如何实现事务"></a>Innodb 如何实现事务</h3><p>通过 Buffer Pool，LogBuffer，Redo Log 实现事务</p>
 <h3 id="Redis-和-Mysql-如何保证数据一致"><a href="#Redis-和-Mysql-如何保证数据一致" class="headerlink" title="Redis 和 Mysql 如何保证数据一致"></a>Redis 和 Mysql 如何保证数据一致</h3><p>延时双删：先删除 Redis 缓存数据，再更新 Mysql，延迟几百毫秒再删除 redis<br>缓存数据。这样就算在更新 Msql 前其他程序读了老数据到 redis，也会被删除。</p>
@@ -375,7 +380,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL"><span class="nav-number">1.</span> <span class="nav-text">MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL-%E4%BC%98%E5%8C%96"><span class="nav-number">1.1.</span> <span class="nav-text">SQL 优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E3%80%81%E9%94%81%E5%92%8C-MVCC"><span class="nav-number">1.2.</span> <span class="nav-text">事务、锁和 MVCC</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8B%E7%89%A9%E7%9A%84%E7%89%B9%E6%80%A7%EF%BC%9F"><span class="nav-number">1.2.1.</span> <span class="nav-text">事物的特性？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%94%81-amp-%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="nav-number">1.2.2.</span> <span class="nav-text">锁&amp;隔离级别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MVCC"><span class="nav-number">1.2.3.</span> <span class="nav-text">MVCC</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%A6%E8%A7%A3-B-%E6%A0%91%E5%92%8C-B-%E6%A0%91"><span class="nav-number">1.3.</span> <span class="nav-text">详解 B 树和 B+树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mysql-%E9%94%81"><span class="nav-number">1.4.</span> <span class="nav-text">Mysql 锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mysql-%E6%85%A2%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96"><span class="nav-number">1.5.</span> <span class="nav-text">Mysql 慢查询优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Explain-%E8%AF%AD%E5%8F%A5%E7%BB%93%E6%9E%9C%E5%90%84%E5%AD%97%E6%AE%B5"><span class="nav-number">1.6.</span> <span class="nav-text">Explain 语句结果各字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E8%A6%86%E7%9B%96%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.7.</span> <span class="nav-text">索引覆盖是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%B7%A6%E5%89%8D%E7%BC%80%E5%8E%9F%E5%88%99"><span class="nav-number">1.8.</span> <span class="nav-text">最左前缀原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Innodb-%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%BA%8B%E5%8A%A1"><span class="nav-number">1.9.</span> <span class="nav-text">Innodb 如何实现事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E5%92%8C-Mysql-%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4"><span class="nav-number">1.10.</span> <span class="nav-text">Redis 和 Mysql 如何保证数据一致</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95"><span class="nav-number">1.11.</span> <span class="nav-text">聚簇索引和非聚簇索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-%E7%B4%A2%E5%BC%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.12.</span> <span class="nav-text">mysql 索引的数据结构</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL"><span class="nav-number">1.</span> <span class="nav-text">MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL-%E4%BC%98%E5%8C%96"><span class="nav-number">1.1.</span> <span class="nav-text">SQL 优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E3%80%81%E9%94%81%E5%92%8C-MVCC"><span class="nav-number">1.2.</span> <span class="nav-text">事务、锁和 MVCC</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8B%E7%89%A9%E7%9A%84%E7%89%B9%E6%80%A7%EF%BC%9F"><span class="nav-number">1.2.1.</span> <span class="nav-text">事物的特性？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%94%81-amp-%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="nav-number">1.2.2.</span> <span class="nav-text">锁&amp;隔离级别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MVCC"><span class="nav-number">1.2.3.</span> <span class="nav-text">MVCC</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%A6%E8%A7%A3-B-%E6%A0%91%E5%92%8C-B-%E6%A0%91"><span class="nav-number">1.3.</span> <span class="nav-text">详解 B 树和 B+树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mysql-%E9%94%81"><span class="nav-number">1.4.</span> <span class="nav-text">Mysql 锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mysql-%E6%85%A2%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96"><span class="nav-number">1.5.</span> <span class="nav-text">Mysql 慢查询优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Explain-%E8%AF%AD%E5%8F%A5%E7%BB%93%E6%9E%9C%E5%90%84%E5%AD%97%E6%AE%B5"><span class="nav-number">1.6.</span> <span class="nav-text">Explain 语句结果各字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E8%A6%86%E7%9B%96%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.7.</span> <span class="nav-text">索引覆盖是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%B4%A2%E5%BC%95%E6%9F%A5%E8%AF%A2%E4%B8%80%E5%AE%9A%E8%83%BD%E6%8F%90%E9%AB%98%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%80%A7%E8%83%BD%E5%90%97%EF%BC%9F"><span class="nav-number">1.8.</span> <span class="nav-text">使用索引查询一定能提高查询的性能吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%B7%A6%E5%89%8D%E7%BC%80%E5%8E%9F%E5%88%99"><span class="nav-number">1.9.</span> <span class="nav-text">最左前缀原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Innodb-%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%BA%8B%E5%8A%A1"><span class="nav-number">1.10.</span> <span class="nav-text">Innodb 如何实现事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E5%92%8C-Mysql-%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4"><span class="nav-number">1.11.</span> <span class="nav-text">Redis 和 Mysql 如何保证数据一致</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95"><span class="nav-number">1.12.</span> <span class="nav-text">聚簇索引和非聚簇索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-%E7%B4%A2%E5%BC%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.13.</span> <span class="nav-text">mysql 索引的数据结构</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -390,7 +395,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">101</span>
+          <span class="site-state-item-count">102</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -401,7 +406,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
