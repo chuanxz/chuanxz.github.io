@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chuanxz.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="GEO 数据结构 geoadd：添加地理位置的坐标。 geopos：获取地理位置的坐标。 geodist：计算两个位置之间的距离。 georadius：根据用户给定的经纬度坐标来获取指定范围内的地理位置集合。 georadiusbymember：根据储存在位置集合里面的某个地点获取指定范围内的地理位置集合。 geohash：返回一个或多个位置对象的 geohash 值。  需求：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="09 附近商户">
+<meta property="og:url" content="http://chuanxz.github.io/2022/05/06/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E5%AE%9E%E6%88%98/%E9%BB%91%E9%A9%ACRedis%E3%81%AE09.%20%E9%99%84%E8%BF%91%E5%95%86%E6%88%B7/index.html">
+<meta property="og:site_name" content="山止川行">
+<meta property="og:description" content="GEO 数据结构 geoadd：添加地理位置的坐标。 geopos：获取地理位置的坐标。 geodist：计算两个位置之间的距离。 georadius：根据用户给定的经纬度坐标来获取指定范围内的地理位置集合。 georadiusbymember：根据储存在位置集合里面的某个地点获取指定范围内的地理位置集合。 geohash：返回一个或多个位置对象的 geohash 值。  需求：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://cdn.chuanxz.com/img/1651819423254-3edb270c-8931-42a8-b1e4-0d76bd57b16c.png">
+<meta property="og:image" content="http://cdn.chuanxz.com/img/1651820152617-3a46f46c-c3a2-44a7-bc3b-043e2bd480e0.png">
+<meta property="og:image" content="http://cdn.chuanxz.com/img/1651820882692-c6f73140-001c-41fa-bfcb-4f09c9a4a7cd.png">
+<meta property="og:image" content="http://cdn.chuanxz.com/img/1651821848130-7e4da40b-0b5c-4f32-81b7-365d93789474.png">
+<meta property="og:image" content="http://cdn.chuanxz.com/img/1651833981597-e8802e7b-44cf-4811-80a3-20d72d6a4cc6.png">
+<meta property="article:published_time" content="2022-05-06T06:26:53.000Z">
+<meta property="article:modified_time" content="2022-06-07T11:48:12.309Z">
+<meta property="article:author" content="川行子">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cdn.chuanxz.com/img/1651819423254-3edb270c-8931-42a8-b1e4-0d76bd57b16c.png">
+
+<link rel="canonical" href="http://chuanxz.github.io/2022/05/06/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E5%AE%9E%E6%88%98/%E9%BB%91%E9%A9%ACRedis%E3%81%AE09.%20%E9%99%84%E8%BF%91%E5%95%86%E6%88%B7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>09 附近商户 | 山止川行</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">山止川行</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">川の知识仓库</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-标签">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-时间线">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间线</a>
+
+  </li>
+        <li class="menu-item menu-item-关于">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/link/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+	  <a target="_blank" rel="noopener" href="https://github.com/chuanxz" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2022/05/06/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E5%AE%9E%E6%88%98/%E9%BB%91%E9%A9%ACRedis%E3%81%AE09.%20%E9%99%84%E8%BF%91%E5%95%86%E6%88%B7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpg">
+      <meta itemprop="name" content="川行子">
+      <meta itemprop="description" content="一生想做浪漫极客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="山止川行">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          09 附近商户
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-05-06 14:26:53" itemprop="dateCreated datePublished" datetime="2022-05-06T14:26:53+08:00">2022-05-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-06-07 19:48:12" itemprop="dateModified" datetime="2022-06-07T19:48:12+08:00">2022-06-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/" itemprop="url" rel="index"><span itemprop="name">动手敲敲</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/" itemprop="url" rel="index"><span itemprop="name">项目实操</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="GEO-数据结构"><a href="#GEO-数据结构" class="headerlink" title="GEO 数据结构"></a>GEO 数据结构</h2><ul>
+<li>geoadd：添加地理位置的坐标。</li>
+<li>geopos：获取地理位置的坐标。</li>
+<li>geodist：计算两个位置之间的距离。</li>
+<li>georadius：根据用户给定的经纬度坐标来获取指定范围内的地理位置集合。</li>
+<li>georadiusbymember：根据储存在位置集合里面的某个地点获取指定范围内的地理位置集合。</li>
+<li>geohash：返回一个或多个位置对象的 geohash 值。</li>
+</ul>
+<p><strong>需求：</strong><br><img src="http://cdn.chuanxz.com/img/1651819423254-3edb270c-8931-42a8-b1e4-0d76bd57b16c.png" alt="image.png" style="zoom:50%;" /></p>
+<blockquote>
+<p>GEOADD g1 116.378248 39.865275 bjn 116.42803 39.903738 bjz 116.322287 39.893729 bjx<br>GEODIST g1 bjz bjx<br>GEODIST g1 bjz bjx km<br>GEOSEARCH g1 FROMLONLAT 116.39704 39.909005 BYRADIUS 10 km WITHDIST<br>GEOPOS g1 bjz<br>GEOHASH g1 bjz</p>
+</blockquote>
+<h2 id="导入店铺数据到-GEO"><a href="#导入店铺数据到-GEO" class="headerlink" title="导入店铺数据到 GEO"></a>导入店铺数据到 GEO</h2><p>在首页点击某个频道，即可看到频道下的商户：<br><img src="http://cdn.chuanxz.com/img/1651820152617-3a46f46c-c3a2-44a7-bc3b-043e2bd480e0.png" alt="image.png" style="zoom:50%;" /><br>按照商户类型做分组，类型相同的商户作为同一组，以 typeId 为 key 存入同一个 GEO 集合中<br><img src="http://cdn.chuanxz.com/img/1651820882692-c6f73140-001c-41fa-bfcb-4f09c9a4a7cd.png" alt="image.png" style="zoom:50%;" />图片是指存店铺 id</p>
+<p>在 Test 中导入商铺信息：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">loadShopData</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="comment">//1.查询店铺信息</span></span><br><span class="line">    List&lt;Shop&gt; list = shopService.list();</span><br><span class="line">    <span class="comment">//2.按typeId分组存入Redis集合</span></span><br><span class="line">    Map&lt;Long, List&lt;Shop&gt;&gt; map = list.stream().collect(Collectors.groupingBy(Shop::getTypeId));</span><br><span class="line">    <span class="comment">//3.分批完成写入Redis</span></span><br><span class="line">    <span class="keyword">for</span> (Map.Entry&lt;Long, List&lt;Shop&gt;&gt; entry : map.entrySet()) &#123;</span><br><span class="line">        <span class="comment">//获取类型id和同类型集合</span></span><br><span class="line">        <span class="type">Long</span> <span class="variable">typeId</span> <span class="operator">=</span> entry.getKey();</span><br><span class="line">        <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> <span class="string">&quot;shop:geo:&quot;</span> + typeId;</span><br><span class="line">        List&lt;Shop&gt; value = entry.getValue();</span><br><span class="line">        List&lt;RedisGeoCommands.GeoLocation&lt;String&gt;&gt; locations = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(value.size());</span><br><span class="line">        <span class="comment">// 3.3.写入redis GEOADD key 经度 纬度 member</span></span><br><span class="line">        <span class="keyword">for</span> (Shop shop : value) &#123;</span><br><span class="line">            <span class="comment">// stringRedisTemplate.opsForGeo().add(key, new Point(shop.getX(), shop.getY()), shop.getId().toString());</span></span><br><span class="line">            locations.add(<span class="keyword">new</span> <span class="title class_">RedisGeoCommands</span>.GeoLocation&lt;&gt;(</span><br><span class="line">                shop.getId().toString(),</span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">Point</span>(shop.getX(), shop.getY())</span><br><span class="line">            ));</span><br><span class="line">        &#125;</span><br><span class="line">        stringRedisTemplate.opsForGeo().add(key, locations);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>查看 Redis：<br><img src="http://cdn.chuanxz.com/img/1651821848130-7e4da40b-0b5c-4f32-81b7-365d93789474.png" alt="image.png" style="zoom:50%;" /></p>
+<h2 id="实现附近商户功能"><a href="#实现附近商户功能" class="headerlink" title="实现附近商户功能"></a>实现附近商户功能</h2><p>SpringDataRedis 的 2.3.9 版本不支持 Redis6.2 提供的 GEOSEARCH 功能，因此需要提示其版本，修改 pom.xml<br><strong>添加 Maven Helper 插件</strong><br><img src="http://cdn.chuanxz.com/img/1651833981597-e8802e7b-44cf-4811-80a3-20d72d6a4cc6.png" alt="image.png" style="zoom: 67%;" /></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-data-redis&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-data-redis&lt;/artifactId&gt;</span><br><span class="line">    &lt;exclusions&gt;</span><br><span class="line">        &lt;exclusion&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-data-redis&lt;/artifactId&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.data&lt;/groupId&gt;</span><br><span class="line">        &lt;/exclusion&gt;</span><br><span class="line">        &lt;exclusion&gt;</span><br><span class="line">            &lt;artifactId&gt;lettuce-core&lt;/artifactId&gt;</span><br><span class="line">            &lt;groupId&gt;io.lettuce&lt;/groupId&gt;</span><br><span class="line">        &lt;/exclusion&gt;</span><br><span class="line">    &lt;/exclusions&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.data&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-data-redis&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;<span class="number">2.6</span><span class="number">.2</span>&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;io.lettuce&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;lettuce-core&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;<span class="number">6.1</span><span class="number">.6</span>.RELEASE&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>修改 ShopController：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/of/name&quot;)</span></span><br><span class="line"><span class="keyword">public</span> Result <span class="title function_">queryShopByName</span><span class="params">(</span></span><br><span class="line"><span class="params">    <span class="meta">@RequestParam(value = &quot;name&quot;, required = false)</span> String name,</span></span><br><span class="line"><span class="params">    <span class="meta">@RequestParam(value = &quot;current&quot;, defaultValue = &quot;1&quot;)</span> Integer current</span></span><br><span class="line"><span class="params">    )</span> &#123;</span><br><span class="line">        <span class="comment">// 根据类型分页查询</span></span><br><span class="line">        Page&lt;Shop&gt; page = shopService.query()</span><br><span class="line">                .like(StrUtil.isNotBlank(name), <span class="string">&quot;name&quot;</span>, name)</span><br><span class="line">                .page(<span class="keyword">new</span> <span class="title class_">Page</span>&lt;&gt;(current, SystemConstants.MAX_PAGE_SIZE));</span><br><span class="line">        <span class="comment">// 返回数据</span></span><br><span class="line">        <span class="keyword">return</span> Result.ok(page.getRecords());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> Result <span class="title function_">queryShopByType</span><span class="params">(Integer typeId, Integer current, Double x, Double y)</span> &#123;</span><br><span class="line">    <span class="comment">//1.判断是否需要根据坐标查询</span></span><br><span class="line">    <span class="keyword">if</span>(x == <span class="literal">null</span> || y == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="comment">// 根据类型分页查询</span></span><br><span class="line">        Page&lt;Shop&gt; page = query()</span><br><span class="line">            .eq(<span class="string">&quot;type_id&quot;</span>, typeId)</span><br><span class="line">            .page(<span class="keyword">new</span> <span class="title class_">Page</span>&lt;&gt;(current, SystemConstants.DEFAULT_PAGE_SIZE));</span><br><span class="line">        <span class="keyword">return</span> Result.ok(page.getRecords());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//2.计算分页参数</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">from</span> <span class="operator">=</span> (current - <span class="number">1</span>) * SystemConstants.DEFAULT_PAGE_SIZE;</span><br><span class="line">    <span class="type">int</span> <span class="variable">end</span> <span class="operator">=</span> current * SystemConstants.DEFAULT_PAGE_SIZE;</span><br><span class="line">    <span class="comment">//3.查询Redis、按照距离排序、分页，结果：shopId、distance</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> SHOP_GEO_KEY + typeId;</span><br><span class="line">    GeoResults&lt;RedisGeoCommands.GeoLocation&lt;String&gt;&gt; results = stringRedisTemplate.opsForGeo() <span class="comment">//GEOSEARCH key BYLONLAT x y BYRADIUS 10 WITHSTANCE</span></span><br><span class="line">        .search(</span><br><span class="line">        key,</span><br><span class="line">        GeoReference.fromCoordinate(x, y),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Distance</span>(<span class="number">5000</span>),</span><br><span class="line">        RedisGeoCommands.GeoSearchCommandArgs.newGeoSearchArgs().includeDistance().limit(end)</span><br><span class="line">    );</span><br><span class="line">    <span class="comment">//4.解析出id</span></span><br><span class="line">    <span class="keyword">if</span>(results == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> Result.ok(Collections.emptyList());</span><br><span class="line">    &#125;</span><br><span class="line">    List&lt;GeoResult&lt;RedisGeoCommands.GeoLocation&lt;String&gt;&gt;&gt; list = results.getContent();</span><br><span class="line">    <span class="keyword">if</span>(list.size() &lt;= from)&#123;</span><br><span class="line">        <span class="comment">//没有下一页了</span></span><br><span class="line">        <span class="keyword">return</span> Result.ok(Collections.emptyList());</span><br><span class="line">    &#125;</span><br><span class="line">    Map&lt;String, Distance&gt; distanceMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;(list.size());</span><br><span class="line">    <span class="comment">//4.1 截取 from ~ end部分</span></span><br><span class="line">    List&lt;Long&gt; ids = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(list.size());</span><br><span class="line">    list.stream().skip(from).forEach(result -&gt; &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">shopIdStr</span> <span class="operator">=</span> result.getContent().getName();</span><br><span class="line">        ids.add(Long.valueOf(shopIdStr));</span><br><span class="line">        <span class="type">Distance</span> <span class="variable">distance</span> <span class="operator">=</span> result.getDistance();</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">//5.根据id查询店铺Shop</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">idStr</span> <span class="operator">=</span> StrUtil.join(<span class="string">&quot;,&quot;</span>, ids);</span><br><span class="line">    List&lt;Shop&gt; shops = query().in(<span class="string">&quot;ids&quot;</span>, ids).last(<span class="string">&quot;ORDER BY FIELD(id,&quot;</span> + idStr + <span class="string">&quot;)&quot;</span>).list();</span><br><span class="line">    <span class="keyword">for</span> (Shop shop : shops) &#123;</span><br><span class="line">        shop.setDistance(distanceMap.get(shop.getId().toString()).getValue());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Result.ok(shops);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Bug： ERR unknown command <code>GEOSEARCH</code>, with args beginning with</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/04/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E5%AE%9E%E6%88%98/%E9%BB%91%E9%A9%ACRedis%E3%81%AE08.%20%E5%A5%BD%E5%8F%8B%E5%85%B3%E6%B3%A8/" rel="prev" title="黑马Redisの08. 好友关注">
+      <i class="fa fa-chevron-left"></i> 黑马Redisの08. 好友关注
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/05/07/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/3.%20Spring%E6%A1%86%E6%9E%B6/%E6%B3%A8%E8%A7%A3%E5%A4%8D%E4%B9%A0/" rel="next" title="注解复习">
+      注解复习 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#GEO-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">GEO 数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E5%BA%97%E9%93%BA%E6%95%B0%E6%8D%AE%E5%88%B0-GEO"><span class="nav-number">2.</span> <span class="nav-text">导入店铺数据到 GEO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E9%99%84%E8%BF%91%E5%95%86%E6%88%B7%E5%8A%9F%E8%83%BD"><span class="nav-number">3.</span> <span class="nav-text">实现附近商户功能</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="川行子"
+      src="/images/me.jpg">
+  <p class="site-author-name" itemprop="name">川行子</p>
+  <div class="site-description" itemprop="description">一生想做浪漫极客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">103</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0" title="编程学习 → &#x2F;categories&#x2F;编程学习"><i class=" fa-fw"></i>编程学习</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/categories/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2" title="动手敲敲 → &#x2F;categories&#x2F;动手敲敲"><i class=" fa-fw"></i>动手敲敲</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/categories/%E8%AE%A4%E7%9F%A5%E9%9D%A9%E5%91%BD" title="认知革命 → &#x2F;categories&#x2F;认知革命"><i class=" fa-fw"></i>认知革命</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/categories/%E5%8D%8A%E6%97%A5%E9%97%B2" title="半日闲 → &#x2F;categories&#x2F;半日闲"><i class=" fa-fw"></i>半日闲</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://chuanxz.com/" title="「山止川行」 → http:&#x2F;&#x2F;chuanxz.com&#x2F;" rel="noopener" target="_blank"><i class="custom gift fa-fw"></i>「山止川行」</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">浙ICP备2022016849号-1 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2022 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">川行子</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
