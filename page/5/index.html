@@ -164,100 +164,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2022/04/20/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E5%AE%9E%E6%88%98/%E9%BB%91%E9%A9%ACRedis%E3%81%AE03.%20%E4%BC%98%E6%83%A0%E5%88%B8%E7%A7%92%E6%9D%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/me.jpg">
-      <meta itemprop="name" content="川行子">
-      <meta itemprop="description" content="一生想做浪漫极客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="山止川行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/20/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E5%AE%9E%E6%88%98/%E9%BB%91%E9%A9%ACRedis%E3%81%AE03.%20%E4%BC%98%E6%83%A0%E5%88%B8%E7%A7%92%E6%9D%80/" class="post-title-link" itemprop="url">黑马Redisの03. 优惠券秒杀</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-04-20 12:34:51" itemprop="dateCreated datePublished" datetime="2022-04-20T12:34:51+08:00">2022-04-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-07 19:48:12" itemprop="dateModified" datetime="2022-06-07T19:48:12+08:00">2022-06-07</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/" itemprop="url" rel="index"><span itemprop="name">动手敲敲</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/" itemprop="url" rel="index"><span itemprop="name">项目实操</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
-<li>全局唯一 ID</li>
-<li>实现优惠券秒杀下单</li>
-<li>超卖问题</li>
-<li>一人一单</li>
-<li>分布式锁</li>
-<li>Redis 优化秒杀</li>
-<li>Redis 消息队列实现异步秒杀</li>
-</ul>
-<h2 id="全局唯一-ID"><a href="#全局唯一-ID" class="headerlink" title="全局唯一 ID"></a>全局唯一 ID</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/04/20/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E5%AE%9E%E6%88%98/%E9%BB%91%E9%A9%ACRedis%E3%81%AE03.%20%E4%BC%98%E6%83%A0%E5%88%B8%E7%A7%92%E6%9D%80/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2022/04/16/%E5%8A%A8%E6%89%8B%E6%95%B2%E6%95%B2/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%93%8D/%E9%BB%91%E9%A9%ACRedis%E5%AE%9E%E6%88%98/%E9%BB%91%E9%A9%ACRedis%E3%81%AE02.%20%E5%95%86%E6%88%B7%E6%9F%A5%E8%AF%A2%E7%BC%93%E5%AD%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1093,6 +999,98 @@ BeanDefinition：描述对象的信息
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://chuanxz.github.io/2022/03/18/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/1.%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpg">
+      <meta itemprop="name" content="川行子">
+      <meta itemprop="description" content="一生想做浪漫极客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="山止川行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/18/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/1.%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="post-title-link" itemprop="url">操作系统</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-03-18 08:26:06" itemprop="dateCreated datePublished" datetime="2022-03-18T08:26:06+08:00">2022-03-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-06-07 15:30:42" itemprop="dateModified" datetime="2022-06-07T15:30:42+08:00">2022-06-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">编程学习</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">计算机基础</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h2><p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/25532384/answer/720946992">超链接</a><br>进程是资源分配的基本单位，线程是资源调度的基本单位</p>
+<ul>
+<li>为什么使用多线程？CPU 多核，单线程只用到一个核心，为提高系统的资源利用率…</li>
+<li>例子？数据库连接池，Tomcat 处理每一个请求从连接池里取一个线程处理。</li>
+<li>实际开发使用：跑一个定时任务，用线程池处理请求，可以及时返回结果，提高系统吞吐。</li>
+<li>线程安全</li>
+<li>死锁</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/18/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/1.%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -1163,7 +1161,7 @@ BeanDefinition：描述对象的信息
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-count">105</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
